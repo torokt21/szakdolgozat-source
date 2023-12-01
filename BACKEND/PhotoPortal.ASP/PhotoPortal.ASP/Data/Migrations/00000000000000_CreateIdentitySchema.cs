@@ -4,6 +4,7 @@ using System;
 
 namespace PhotoPortal.ASP.Data.Migrations
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public partial class CreateIdentitySchema : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

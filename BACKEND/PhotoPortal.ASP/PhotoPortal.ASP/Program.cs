@@ -6,9 +6,18 @@ namespace PhotoPortal.ASP
 {
     public class Program
     {
+        /// <summary>
+        /// The entry poing of the application.
+        /// </summary>
+        /// <param name="args">The process' starting arguments.</param>
+        /// <exception cref="InvalidOperationException"></exception>
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            // Add swagger
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
 
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -18,7 +27,6 @@ namespace PhotoPortal.ASP
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
 
@@ -26,6 +34,12 @@ namespace PhotoPortal.ASP
             if (app.Environment.IsDevelopment())
             {
                 app.UseMigrationsEndPoint();
+                app.UseSwagger();
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                    options.RoutePrefix = string.Empty;
+                });
             }
             else
             {
@@ -35,7 +49,6 @@ namespace PhotoPortal.ASP
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
 
             app.UseRouting();
 
@@ -45,7 +58,6 @@ namespace PhotoPortal.ASP
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
-            app.MapRazorPages();
 
             app.Run();
         }
