@@ -1,13 +1,17 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PhotoPortal.ASP.Data;
+using PhotoPortal.ASP.Models;
 
 namespace PhotoPortal.ASP
 {
+    /// <summary>
+    /// The entry point of the application.
+    /// </summary>
     public class Program
     {
         /// <summary>
-        /// The entry poing of the application.
+        /// The entry point of the application.
         /// </summary>
         /// <param name="args">The process' starting arguments.</param>
         /// <exception cref="InvalidOperationException"></exception>
@@ -25,7 +29,7 @@ namespace PhotoPortal.ASP
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            builder.Services.AddDefaultIdentity<Photographer>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             var app = builder.Build();

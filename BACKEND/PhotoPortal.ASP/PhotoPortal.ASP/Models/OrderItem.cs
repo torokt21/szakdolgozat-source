@@ -1,0 +1,53 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PhotoPortal.ASP.Models
+{
+    /// <summary>
+    /// A class representing an item in an order.
+    /// </summary>
+    public class OrderItem
+    {
+        /// <summary>
+        /// The primary id of this order item.
+        /// </summary>
+        [Key]
+        public int Id { get; set; }
+
+        /// <summary>
+        /// The product describing this order item.
+        /// </summary>
+        public int ProductId { get; set; }
+
+        /// <summary>
+        /// The product describing this order item.
+        /// </summary>
+        public Product Product { get; set; }
+
+        /// <summary>
+        /// The id of the order this item belongs to.
+        /// </summary>
+        public int OrderId { get; set; }
+
+        /// <summary>
+        /// The order this item belongs to.
+        /// </summary>
+        public Order Order { get; set; }
+
+        /// <summary>
+        /// The id of the picture this item is associated with.
+        /// </summary>
+        public int PictureId { get; set; }
+
+        /// <summary>
+        /// The picture this item is associated with.
+        /// </summary>
+        public Picture Picture { get; set; }
+
+        /// <summary>
+        /// The quantity of the ordered item.
+        /// </summary>
+        [Required]
+        [Range(0, 100)]
+        public int Quantity { get; set; }
+    }
+}
