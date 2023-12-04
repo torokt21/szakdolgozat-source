@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PhotoPortal.ASP")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+232ac41a0a1c63961e604ebf37412a80ccb5b43f")]
 [assembly: System.Reflection.AssemblyProductAttribute("PhotoPortal.ASP")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PhotoPortal.ASP")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -8,10 +8,29 @@ namespace PhotoPortal.ASP.Models
     public class Photographer : IdentityUser
     {
         /// <summary>
+        /// The name displayed.
+        /// </summary>
+        public string DisplayName { get; set; }
+
+
+        /// <summary>
         /// The institutions that belong the this photographer.
         /// </summary>
-        public IEnumerable<Institution> Institutions { get; set; }
+        public List<Institution> Institutions { get; }
 
-        public IEnumerable<Order> Orders { get; set; }
+        /// <summary>
+        /// The orders submitted to the photographer.
+        /// </summary>
+        public List<Order> Orders { get; }
+
+        /// <summary>
+        /// The products offered by the photographer.
+        /// </summary>
+        public List<Product> Products { get; }
+
+        /// <summary>
+        /// The packages offered by the photographer.
+        /// </summary>
+        public List<PackageInformation> PackageInformations { get; }
     }
 }

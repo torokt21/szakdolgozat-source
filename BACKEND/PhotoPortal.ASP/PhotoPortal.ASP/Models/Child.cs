@@ -26,6 +26,6 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The pictures taken of the child.
         /// </summary>
-        public IEnumerable<Picture> Pictures { get; set; }
+        public List<Picture> Pictures { get; }
     }
 }

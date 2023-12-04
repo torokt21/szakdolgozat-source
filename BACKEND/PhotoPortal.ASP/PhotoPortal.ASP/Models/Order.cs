@@ -1,11 +1,22 @@
-﻿namespace PhotoPortal.ASP.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PhotoPortal.ASP.Models
 {
+    /// <summary>
+    /// A submitted order.
+    /// </summary>
     public class Order
     {
         /// <summary>
+        /// The id of the order.
+        /// </summary>
+        [Key]
+        public int Id { get; set; }
+
+        /// <summary>
         /// The items in this order.
         /// </summary>
-        public IEnumerable<OrderItem> Items { get; set; }
+        public List<OrderItem> Items { get; }
 
         /// <summary>
         /// The id of the photographer this order belongs to.

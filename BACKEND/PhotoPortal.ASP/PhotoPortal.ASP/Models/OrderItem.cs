@@ -49,5 +49,15 @@ namespace PhotoPortal.ASP.Models
         [Required]
         [Range(0, 100)]
         public int Quantity { get; set; }
+
+        /// <summary>
+        /// The id of the package this item is in. Null, if the item is not in a package.
+        /// </summary>
+        public int? PackageId { get; set; }
+
+        /// <summary>
+        /// The package this item is in. Null, if the item is not in a package.
+        /// </summary>
+        public PackageOrder? OrderedPackage { get; set; }
     }
 }

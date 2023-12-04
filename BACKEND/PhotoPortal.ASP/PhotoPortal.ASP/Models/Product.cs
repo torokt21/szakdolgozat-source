@@ -3,6 +3,22 @@
 namespace PhotoPortal.ASP.Models
 {
     /// <summary>
+    /// The possible types of a product.
+    /// </summary>
+    public enum ProductTypes
+    {
+        /// <summary>
+        /// A printed product such as a 10x15 cm printed picture.
+        /// </summary>
+        Printed,
+
+        /// <summary>
+        /// A gift such as a snowglobe with a picture inside.
+        /// </summary>
+        Gift
+    }
+
+    /// <summary>
     /// A class represetning a product that can be ordered.
     /// </summary>
     public class Product
@@ -35,5 +51,15 @@ namespace PhotoPortal.ASP.Models
         /// The photographer offering this product.
         /// </summary>
         public Photographer Photographer { get; set; }
+
+        /// <summary>
+        /// The price of the product.
+        /// </summary>
+        public int Price { get; set; }
+
+        /// <summary>
+        /// The list of institution this product is available for.
+        /// </summary>
+        public List<Institution> AvailableIn { get; }
     }
 }
