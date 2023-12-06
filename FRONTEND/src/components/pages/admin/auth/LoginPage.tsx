@@ -8,9 +8,7 @@ import React from "react";
 import { TextField } from "mui-rff";
 import { green } from "@mui/material/colors";
 
-type LoginPageProps = {};
-
-export default function LoginPage(props: LoginPageProps) {
+export default function LoginPage() {
 	function handleSubmit() {}
 
 	return (
@@ -28,7 +26,7 @@ export default function LoginPage(props: LoginPageProps) {
 						</Typography>
 						<Form
 							onSubmit={() => handleSubmit()}
-							render={({ handleSubmit, values }) => (
+							render={({ handleSubmit }) => (
 								<>
 									<Box my={2}>
 										<TextField
