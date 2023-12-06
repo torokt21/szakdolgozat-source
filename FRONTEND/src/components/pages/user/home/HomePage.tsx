@@ -27,7 +27,7 @@ export default function HomePage() {
 		setValid(valid);
 
 		if (valid) setShownError(undefined);
-		else setShownError((e) => (code.length > 7 ? "Nem megfelelő formátum" : e));
+		else setShownError((e) => (code.length > 10 ? "Nem megfelelő formátum" : e));
 	}, [code]);
 
 	function handleSubmit() {
