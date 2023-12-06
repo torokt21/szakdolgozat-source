@@ -14,11 +14,11 @@ function App() {
 		<ThemeProvider theme={Theme}>
 			<CssBaseline />
 			<Routes>
-				<Route>
+				<Route index element={<HomePage />} />
+				<Route path="admin">
 					<Route path="login" element={<LoginPage />} />
 				</Route>
 				<Route element={<DefaultLayout />}>
-					<Route index element={<HomePage />} />
 					<Route path="*" element={<NotFoundPage />} />
 				</Route>
 			</Routes>

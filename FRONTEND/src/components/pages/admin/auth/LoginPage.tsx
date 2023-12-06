@@ -63,6 +63,7 @@ export default function LoginPage(props: LoginPageProps) {
 										fullWidth={true}
 										variant="contained"
 										color="primary"
+										type="submit"
 										onClick={handleSubmit}>
 										Bejelentkezés
 									</Button>
