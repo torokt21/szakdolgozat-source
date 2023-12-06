@@ -113,6 +113,18 @@ namespace PhotoPortal.ASP.Data
                 .HasMany(a => a.OrderablePackages)
                 .WithMany(b => b.AvaliableIn);
 
+            // shipping method - order
+            builder.Entity<Order>()
+                .HasOne(a => a.ShippingMethod)
+                .WithMany()
+                .HasForeignKey(a => a.ShippingMethodId);
+
+            // payment method - order
+            builder.Entity<Order>()
+                .HasOne(a => a.PaymentMethod)
+                .WithMany()
+                .HasForeignKey(a => a.PaymentMethodId);
+
 
             builder.Entity<IdentityRole>().HasData(new { Id = "1", Name = "Admin", NormalizedName = "ADMIN" });
 

@@ -27,5 +27,25 @@ namespace PhotoPortal.ASP.Models
         /// The photographer this order belongs to.
         /// </summary>
         public Photographer Photographer { get; set; }
+
+        /// <summary>
+        /// The id of the shipping method selected by the customer.
+        /// </summary>
+        public int ShippingMethodId { get; set; }
+
+        /// <summary>
+        /// The shipping method selected by the customer.
+        /// </summary>
+        public ShippingMethod ShippingMethod { get; set; }
+
+        /// <summary>
+        /// The id of the payment method selected by the customer.
+        /// </summary>
+        public int PaymentMethodId { get; set; }
+
+        /// <summary>
+        /// The shipping method selected by the customer.
+        /// </summary>
+        public PaymentMethod PaymentMethod { get; set; }
     }
 }

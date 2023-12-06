@@ -2,6 +2,9 @@
 
 namespace PhotoPortal.ASP.Models
 {
+    /// <summary>
+    /// A possible payment method.
+    /// </summary>
     public class PaymentMethod
     {
         /// <summary>
