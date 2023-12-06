@@ -11,8 +11,12 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import { useBoundStore } from "../../stores/useBoundStore";
 
 function ResponsiveAppBar() {
+	const cartCount = useBoundStore((state) => state.count);
+	console.log(cartCount);
+
 	return (
 		<AppBar position="static">
 			<Container>
@@ -38,8 +42,8 @@ function ResponsiveAppBar() {
 					</Typography>
 					<Box sx={{ flexGrow: 0 }}>
 						<Tooltip title="Kosár">
-							<IconButton size="large" aria-label="show 4 new mails" color="inherit">
-								<Badge badgeContent={4} color="secondary">
+							<IconButton size="large" color="inherit">
+								<Badge badgeContent={cartCount} color="secondary">
 									<ShoppingCartIcon />
 								</Badge>
 							</IconButton>
