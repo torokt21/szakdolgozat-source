@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { Avatar, Menu, MenuItem } from "@mui/material";
 import { CSSObject, Theme, styled, useTheme } from "@mui/material/styles";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import { Outlet, useNavigate } from "react-router-dom";
@@ -97,8 +98,19 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" 
 export default function AdminLayout() {
 	const navigate = useNavigate();
 	const isLoggedIn = useBoundStore((s) => s.isLoggedIn());
+	const logout = useBoundStore((s) => s.logout);
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(false);
+
+	const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+
+	const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+		setAnchorElUser(event.currentTarget);
+	};
+
+	const handleCloseUserMenu = () => {
+		setAnchorElUser(null);
+	};
 
 	if (!isLoggedIn) navigate("/admin/login");
 
@@ -129,6 +141,31 @@ export default function AdminLayout() {
 					<Typography variant="h6" noWrap component="div">
 						Dashboard
 					</Typography>
+
+					<Box sx={{ flexGrow: 1, textAlign: "right" }}>
+						<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+							<Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+						</IconButton>
+						<Menu
+							sx={{ mt: "45px" }}
+							id="menu-appbar"
+							anchorEl={anchorElUser}
+							anchorOrigin={{
+								vertical: "top",
+								horizontal: "right",
+							}}
+							keepMounted
+							transformOrigin={{
+								vertical: "top",
+								horizontal: "right",
+							}}
+							open={Boolean(anchorElUser)}
+							onClose={handleCloseUserMenu}>
+							<MenuItem onClick={logout}>
+								<Typography textAlign="center">Kijelentkezés</Typography>
+							</MenuItem>
+						</Menu>
+					</Box>
 				</Toolbar>
 			</AppBar>
 			<Drawer variant="permanent" open={open}>

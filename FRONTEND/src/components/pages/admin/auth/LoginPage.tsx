@@ -1,5 +1,8 @@
+import * as Yup from "yup";
+
 import { Avatar, Box, Button, Card, Container, InputAdornment, Typography } from "@mui/material";
 import React, { useState } from "react";
+import { TextField, makeValidate } from "mui-rff";
 import axios, { AxiosError } from "axios";
 
 import { AccountCircle } from "@mui/icons-material";
@@ -7,14 +10,20 @@ import { Form } from "react-final-form";
 import KeyIcon from "@mui/icons-material/Key";
 import LockIcon from "@mui/icons-material/Lock";
 import { LoginRequestDto } from "../../../../utils/Dtos/LoginDto";
-import { TextField } from "mui-rff";
 import { green } from "@mui/material/colors";
 import { useBoundStore } from "../../../../stores/useBoundStore";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
 	const [errorMessage, setErrorMessage] = useState("");
+	const [loading, setLoading] = useState(false);
 	const login = useBoundStore((s) => s.login);
+
+	const schema: Yup.ObjectSchema<LoginRequestDto> = Yup.object().shape({
+		Password: Yup.string().required(),
+		Username: Yup.string().required(),
+	});
+	const validate = makeValidate(schema);
 
 	const navigate = useNavigate();
 	const isLoggedIn = useBoundStore((s) => s.isLoggedIn());
@@ -22,6 +31,7 @@ export default function LoginPage() {
 	if (isLoggedIn) navigate("/admin");
 
 	function handleLogin(values: LoginRequestDto) {
+		setLoading(true);
 		axios
 			.post("https://localhost:44370/api/Auth", values)
 			.then((result) => {
@@ -31,7 +41,8 @@ export default function LoginPage() {
 				if (axios.isAxiosError(error) && error.response?.status === 401)
 					setErrorMessage("Hibás felhasználónév vagy jelszó!");
 				else setErrorMessage("Váratlan hiba. Próbálkozz újra később!");
-			});
+			})
+			.finally(() => setLoading(false));
 	}
 
 	return (
@@ -49,6 +60,7 @@ export default function LoginPage() {
 						</Typography>
 						{errorMessage && <Typography color="red">{errorMessage}</Typography>}
 						<Form
+							validate={validate}
 							onSubmit={handleLogin}
 							render={({ handleSubmit }) => (
 								<>
@@ -86,6 +98,7 @@ export default function LoginPage() {
 										variant="contained"
 										color="primary"
 										type="submit"
+										disabled={loading}
 										onClick={handleSubmit}>
 										Bejelentkezés
 									</Button>

@@ -13,6 +13,7 @@ export interface AuthSlice {
 		expires: number;
 	};
 	login: (loginResponse: LoginResponseDto) => void;
+	logout: () => void;
 	isLoggedIn: () => boolean;
 }
 
@@ -35,4 +36,5 @@ export const createAuthSlice: StateCreator<AppState, [], [], AuthSlice> = (set, 
 		});
 	},
 	isLoggedIn: () => !!get().user,
+	logout: () => set(() => ({ user: undefined })),
 });

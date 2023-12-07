@@ -10,8 +10,11 @@ import NotFoundPage from "./components/pages/error/NotFoundPage";
 import React from "react";
 import Theme from "./Theme";
 import { ThemeProvider } from "@mui/material/styles";
+import { setLocale } from "yup";
+import translations from "./utils/yup-locale";
 
 function App() {
+	setLocale(translations);
 	return (
 		<ThemeProvider theme={Theme}>
 			<CssBaseline />
