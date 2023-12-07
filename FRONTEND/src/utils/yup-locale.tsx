@@ -1,4 +1,4 @@
-import { LocaleObject, ValidationError, mixed, printValue } from "yup";
+import { LocaleObject, printValue } from "yup";
 
 const translations: Required<LocaleObject> = {
 	mixed: {

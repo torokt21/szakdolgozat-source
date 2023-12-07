@@ -10,9 +10,9 @@ import { Form } from "react-final-form";
 import KeyIcon from "@mui/icons-material/Key";
 import LockIcon from "@mui/icons-material/Lock";
 import { LoginRequestDto } from "../../../../utils/Dtos/LoginDto";
+import { Navigate } from "react-router-dom";
 import { green } from "@mui/material/colors";
 import { useBoundStore } from "../../../../stores/useBoundStore";
-import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
 	const [errorMessage, setErrorMessage] = useState("");
@@ -25,15 +25,12 @@ export default function LoginPage() {
 	});
 	const validate = makeValidate(schema);
 
-	const navigate = useNavigate();
 	const isLoggedIn = useBoundStore((s) => s.isLoggedIn());
-
-	if (isLoggedIn) navigate("/admin");
 
 	function handleLogin(values: LoginRequestDto) {
 		setLoading(true);
 		axios
-			.post("https://localhost:44370/api/Auth", values)
+			.post("https://localhost:44370/api/Auth", values) // TODO move api url to env
 			.then((result) => {
 				login(result.data);
 			})
@@ -44,6 +41,8 @@ export default function LoginPage() {
 			})
 			.finally(() => setLoading(false));
 	}
+
+	if (isLoggedIn) return <Navigate to="/admin" />;
 
 	return (
 		<Container maxWidth="xs">

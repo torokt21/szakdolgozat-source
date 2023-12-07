@@ -152,6 +152,7 @@ namespace PhotoPortal.ASP.Data
 
 
             builder.Entity<IdentityRole>().HasData(new { Id = "1", Name = "Admin", NormalizedName = "ADMIN" });
+            builder.Entity<IdentityRole>().HasData(new { Id = "2", Name = "Helper", NormalizedName = "HELPER" });
 
             PasswordHasher<Photographer> ph = new PasswordHasher<Photographer>();
             Photographer seed = new Photographer
@@ -169,6 +170,13 @@ namespace PhotoPortal.ASP.Data
             builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
             {
                 RoleId = "1",
+                UserId = seed.Id,
+            });
+
+
+            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = "2",
                 UserId = seed.Id,
             });
 

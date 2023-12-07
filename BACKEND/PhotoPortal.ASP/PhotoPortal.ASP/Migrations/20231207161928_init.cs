@@ -476,14 +476,19 @@ namespace PhotoPortal.ASP.Migrations
                 values: new object[] { "1", null, "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "2", null, "Helper", "HELPER" });
+
+            migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "DisplayName", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "beb16b19-0a2e-49e2-a8cf-db0a995bb2c2", 0, "aaef1b0d-e805-4ef9-9335-2974ca69fbfc", "Photographer", "Az iskola fotósa", "torokt21@gmail.com", true, false, null, null, "TOROKT21", "AQAAAAEAACcQAAAAENewzqexUMw/Hoe607qPYO7369bo/cl0U+dVgBnFJkUKIR0/HhmAxajX6OZtO0TOpg==", null, false, "1cbb06ff-0581-428d-8dc4-bbddbae7e4a4", false, "torokt21" });
+                values: new object[] { "c153ea9f-63a4-4f63-8c18-878344141e39", 0, "6045b647-39f1-43f0-b73d-622a0843386f", "Photographer", "Az iskola fotósa", "torokt21@gmail.com", true, false, null, null, "TOROKT21", "AQAAAAEAACcQAAAAEBjZV0sD3fS1Y4n/74nLqtvjVxkW6MDFnYqbi+hj00oAtTsyIKTTaiWRUQvRXDju7A==", null, false, "bc6ad8c4-532f-4870-be47-06bcb939ca62", false, "torokt21" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "1", "beb16b19-0a2e-49e2-a8cf-db0a995bb2c2" });
+                values: new object[] { "1", "c153ea9f-63a4-4f63-8c18-878344141e39" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

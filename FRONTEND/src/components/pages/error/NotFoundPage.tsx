@@ -1,7 +1,6 @@
 import { Box, Button, Typography } from "@mui/material";
 
 import React from "react";
-import { useBoundStore } from "../../../stores/useBoundStore";
 import { useNavigate } from "react-router-dom";
 
 export default function NotFoundPage() {

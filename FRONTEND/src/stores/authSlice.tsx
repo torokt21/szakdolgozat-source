@@ -11,6 +11,7 @@ export interface AuthSlice {
 		id: string;
 		displayname: string;
 		expires: number;
+		roles: string[];
 	};
 	login: (loginResponse: LoginResponseDto) => void;
 	logout: () => void;
@@ -23,7 +24,9 @@ export const createAuthSlice: StateCreator<AppState, [], [], AuthSlice> = (set, 
 	login: (loginResponse: LoginResponseDto) => {
 		set(() => {
 			const decodedJwt = jwtDecode(loginResponse.token) as JwtPayload &
-				Record<string, string | number>;
+				Record<string, string | number | string[]>;
+			console.log("decoded:", decodedJwt);
+
 			return {
 				user: {
 					authToken: loginResponse.token as string,
@@ -31,6 +34,10 @@ export const createAuthSlice: StateCreator<AppState, [], [], AuthSlice> = (set, 
 					id: decodedJwt.sub as string,
 					displayname: decodedJwt.displayname as string,
 					expires: decodedJwt.exp as number,
+					roles:
+						typeof decodedJwt.role === "string"
+							? [decodedJwt.role]
+							: (decodedJwt.role as string[]),
 				},
 			};
 		});

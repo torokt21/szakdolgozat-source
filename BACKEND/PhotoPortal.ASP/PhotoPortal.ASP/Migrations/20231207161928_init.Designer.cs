@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PhotoPortal.ASP.Data;
 
@@ -11,9 +12,10 @@ using PhotoPortal.ASP.Data;
 namespace PhotoPortal.ASP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231207161928_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -255,13 +257,8 @@ namespace PhotoPortal.ASP.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "579494b8-3fa7-4bed-8234-f0a6b1899063",
+                            UserId = "c153ea9f-63a4-4f63-8c18-878344141e39",
                             RoleId = "1"
-                        },
-                        new
-                        {
-                            UserId = "579494b8-3fa7-4bed-8234-f0a6b1899063",
-                            RoleId = "2"
                         });
                 });
 
@@ -625,16 +622,16 @@ namespace PhotoPortal.ASP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "579494b8-3fa7-4bed-8234-f0a6b1899063",
+                            Id = "c153ea9f-63a4-4f63-8c18-878344141e39",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6cec5d54-9334-4128-ba8b-b2e5ca9b355f",
+                            ConcurrencyStamp = "6045b647-39f1-43f0-b73d-622a0843386f",
                             Email = "torokt21@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "TOROKT21",
-                            PasswordHash = "AQAAAAEAACcQAAAAEM0wXvZHVnuVEdUJgwIslgnb30QljOejrv8dlZTR9waVRVfYBPEkxJ0F2xVNNwznJQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBjZV0sD3fS1Y4n/74nLqtvjVxkW6MDFnYqbi+hj00oAtTsyIKTTaiWRUQvRXDju7A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d7ac51e2-4dd2-4b6c-8ee5-a285aaac355b",
+                            SecurityStamp = "bc6ad8c4-532f-4870-be47-06bcb939ca62",
                             TwoFactorEnabled = false,
                             UserName = "torokt21",
                             DisplayName = "Az iskola fotósa"

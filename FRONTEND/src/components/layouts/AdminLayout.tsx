@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import { Avatar, Menu, MenuItem } from "@mui/material";
 import { CSSObject, Theme, styled, useTheme } from "@mui/material/styles";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import { Outlet, useNavigate } from "react-router-dom";
@@ -17,11 +16,14 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import LogoutIcon from "@mui/icons-material/Logout";
 import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
 import MuiDrawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
+import { Tooltip } from "@mui/material";
 import Typography from "@mui/material/Typography";
+import { grey } from "@mui/material/colors";
 import { useBoundStore } from "../../stores/useBoundStore";
 
 const drawerWidth = 240;
@@ -98,19 +100,10 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" 
 export default function AdminLayout() {
 	const navigate = useNavigate();
 	const isLoggedIn = useBoundStore((s) => s.isLoggedIn());
+	const user = useBoundStore((s) => s.user);
 	const logout = useBoundStore((s) => s.logout);
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(false);
-
-	const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-
-	const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-		setAnchorElUser(event.currentTarget);
-	};
-
-	const handleCloseUserMenu = () => {
-		setAnchorElUser(null);
-	};
 
 	if (!isLoggedIn) navigate("/admin/login");
 
@@ -143,28 +136,17 @@ export default function AdminLayout() {
 					</Typography>
 
 					<Box sx={{ flexGrow: 1, textAlign: "right" }}>
-						<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-							<Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-						</IconButton>
-						<Menu
-							sx={{ mt: "45px" }}
-							id="menu-appbar"
-							anchorEl={anchorElUser}
-							anchorOrigin={{
-								vertical: "top",
-								horizontal: "right",
-							}}
-							keepMounted
-							transformOrigin={{
-								vertical: "top",
-								horizontal: "right",
-							}}
-							open={Boolean(anchorElUser)}
-							onClose={handleCloseUserMenu}>
-							<MenuItem onClick={logout}>
-								<Typography textAlign="center">Kijelentkezés</Typography>
-							</MenuItem>
-						</Menu>
+						<Typography display="inline-block" mr={1}>
+							Üdv, {user?.username}
+						</Typography>
+						<Typography color={grey[400]} display="inline-block" mr={1}>
+							({user?.roles.join(", ")})
+						</Typography>
+						<Tooltip title="Kijelentkezés">
+							<IconButton color="inherit" onClick={logout}>
+								<LogoutIcon />
+							</IconButton>
+						</Tooltip>
 					</Box>
 				</Toolbar>
 			</AppBar>
