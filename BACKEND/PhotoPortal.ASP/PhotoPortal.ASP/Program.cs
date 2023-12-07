@@ -30,9 +30,23 @@ namespace PhotoPortal.ASP
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<Photographer>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    policy =>
+                    {
+                        policy.WithHeaders("*");
+                        policy.WithOrigins("*");
+                        policy.WithMethods("*");
+                    });
+            });
+
             var app = builder.Build();
+
+            app.UseCors();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -55,6 +69,7 @@ namespace PhotoPortal.ASP
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
 
             app.UseAuthentication();
             app.UseAuthorization();

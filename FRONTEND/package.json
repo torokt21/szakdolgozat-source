@@ -20,6 +20,8 @@
 		"axios": "^1.6.2",
 		"date-fns": "^2.30.0",
 		"final-form": "^4.20.10",
+		"immer": "^10.0.3",
+		"jwt-decode": "^4.0.0",
 		"mui-rff": "^7.3.0",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
@@ -33,6 +35,7 @@
 		"@typescript-eslint/parser": "^6.13.2",
 		"eslint": "^8.55.0",
 		"react-router-dom": "^6.20.1",
+		"simple-zustand-devtools": "^1.1.0",
 		"typescript": "^5.3.3"
 	},
 	"scripts": {

@@ -1,15 +1,38 @@
 import { Avatar, Box, Button, Card, Container, InputAdornment, Typography } from "@mui/material";
+import React, { useState } from "react";
+import axios, { AxiosError } from "axios";
 
 import { AccountCircle } from "@mui/icons-material";
 import { Form } from "react-final-form";
 import KeyIcon from "@mui/icons-material/Key";
 import LockIcon from "@mui/icons-material/Lock";
-import React from "react";
+import { LoginRequestDto } from "../../../../utils/Dtos/LoginDto";
 import { TextField } from "mui-rff";
 import { green } from "@mui/material/colors";
+import { useBoundStore } from "../../../../stores/useBoundStore";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
-	function handleSubmit() {}
+	const [errorMessage, setErrorMessage] = useState("");
+	const login = useBoundStore((s) => s.login);
+
+	const navigate = useNavigate();
+	const isLoggedIn = useBoundStore((s) => s.isLoggedIn());
+
+	if (isLoggedIn) navigate("/admin");
+
+	function handleLogin(values: LoginRequestDto) {
+		axios
+			.post("https://localhost:44370/api/Auth", values)
+			.then((result) => {
+				login(result.data);
+			})
+			.catch((error: Error | AxiosError) => {
+				if (axios.isAxiosError(error) && error.response?.status === 401)
+					setErrorMessage("Hibás felhasználónév vagy jelszó!");
+				else setErrorMessage("Váratlan hiba. Próbálkozz újra később!");
+			});
+	}
 
 	return (
 		<Container maxWidth="xs">
@@ -24,13 +47,14 @@ export default function LoginPage() {
 						<Typography variant="h3" component="h1" mb={5}>
 							Bejelentkezés
 						</Typography>
+						{errorMessage && <Typography color="red">{errorMessage}</Typography>}
 						<Form
-							onSubmit={() => handleSubmit()}
+							onSubmit={handleLogin}
 							render={({ handleSubmit }) => (
 								<>
 									<Box my={2}>
 										<TextField
-											name="username"
+											name="Username"
 											label="Felhasználónév"
 											InputProps={{
 												startAdornment: (
@@ -44,7 +68,7 @@ export default function LoginPage() {
 
 									<Box my={2}>
 										<TextField
-											name="password"
+											name="Password"
 											label="Jelszó"
 											type="password"
 											InputProps={{

@@ -14,8 +14,7 @@ import Typography from "@mui/material/Typography";
 import { useBoundStore } from "../../stores/useBoundStore";
 
 function ResponsiveAppBar() {
-	const cartCount = useBoundStore((state) => state.count);
-	console.log(cartCount);
+	const cartCount = useBoundStore((state) => state.cartCount);
 
 	return (
 		<AppBar position="static">

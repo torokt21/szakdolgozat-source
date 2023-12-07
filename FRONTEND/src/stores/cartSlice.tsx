@@ -2,13 +2,13 @@ import { AppState } from "./useBoundStore";
 import { StateCreator } from "zustand";
 
 export interface CartSlice {
-	count: number;
+	cartCount: number;
 	addToCart: () => void;
 }
 
 export const createCartSlice: StateCreator<AppState, [], [], CartSlice> = (set) => ({
-	count: 1,
+	cartCount: 1,
 	addToCart: () => {
-		set((state) => ({ count: state.count + 1 }));
+		set((state) => ({ cartCount: state.cartCount + 1 }));
 	},
 });

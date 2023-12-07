@@ -1,6 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 
+import AdminLayout from "./components/layouts/AdminLayout";
 import { CssBaseline } from "@mui/material";
+import DashboardPage from "./components/pages/admin/DashboardPage";
 import DefaultLayout from "./components/layouts/DefaultLayout";
 import HomePage from "./components/pages/user/home/HomePage";
 import LoginPage from "./components/pages/admin/auth/LoginPage";
@@ -17,6 +19,9 @@ function App() {
 				<Route index element={<HomePage />} />
 				<Route path="admin">
 					<Route path="login" element={<LoginPage />} />
+					<Route element={<AdminLayout />}>
+						<Route index element={<DashboardPage />} />
+					</Route>
 				</Route>
 				<Route element={<DefaultLayout />}>
 					<Route path="*" element={<NotFoundPage />} />

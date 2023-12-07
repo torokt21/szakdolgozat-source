@@ -32,12 +32,12 @@ namespace PhotoPortal.ASP.Controllers
                 var claim = new List<Claim>
                 {
                     new Claim(JwtRegisteredClaimNames.Sub, user.Id),
-                    new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
-                    new Claim(JwtRegisteredClaimNames.NameId, user.Id),
+                    new Claim(JwtRegisteredClaimNames.NameId, user.UserName),
+                    new Claim("displayname", user.DisplayName),
                 };
                 foreach (var role in await _userManager.GetRolesAsync(user))
                 {
-                    claim.Add(new Claim(ClaimTypes.Role, role));
+                    claim.Add(new Claim("role", role));
                 }
                 var signinKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("PhotoPortalSecurityKey"));
                 var token = new JwtSecurityToken(
