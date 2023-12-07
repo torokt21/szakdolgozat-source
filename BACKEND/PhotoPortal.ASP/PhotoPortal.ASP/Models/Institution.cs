@@ -35,12 +35,12 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The id of the fotographer who this institution belongs to.
         /// </summary>
-        public string PhotographerId { get; set; }
+        public string? PhotographerId { get; set; }
 
         /// <summary>
         /// The photographer that this institution belongs to.
         /// </summary>
-        public Photographer Photographer { get; }
+        public Photographer? Photographer { get; }
 
         /// <summary>
         /// The children in this institution.

@@ -21,31 +21,31 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The id of the photographer this order belongs to.
         /// </summary>
-        public string PhotographerId { get; set; }
+        public string? PhotographerId { get; set; }
 
         /// <summary>
         /// The photographer this order belongs to.
         /// </summary>
-        public Photographer Photographer { get; set; }
+        public Photographer? Photographer { get; set; }
 
         /// <summary>
         /// The id of the shipping method selected by the customer.
         /// </summary>
-        public int ShippingMethodId { get; set; }
+        public int? ShippingMethodId { get; set; }
 
         /// <summary>
         /// The shipping method selected by the customer.
         /// </summary>
-        public ShippingMethod ShippingMethod { get; set; }
+        public ShippingMethod? ShippingMethod { get; set; }
 
         /// <summary>
         /// The id of the payment method selected by the customer.
         /// </summary>
-        public int PaymentMethodId { get; set; }
+        public int? PaymentMethodId { get; set; }
 
         /// <summary>
         /// The shipping method selected by the customer.
         /// </summary>
-        public PaymentMethod PaymentMethod { get; set; }
+        public PaymentMethod? PaymentMethod { get; set; }
     }
 }
