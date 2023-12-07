@@ -32,12 +32,12 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The id of the photographer selling this package.
         /// </summary>
-        public string PhotographerId { get; set; }
+        public string? PhotographerId { get; set; }
 
         /// <summary>
         /// The photographer selling this package.
         /// </summary>
-        public Photographer Photographer { get; set; }
+        public Photographer? Photographer { get; set; }
 
         /// <summary>
         /// The list of institutions this package is available for.

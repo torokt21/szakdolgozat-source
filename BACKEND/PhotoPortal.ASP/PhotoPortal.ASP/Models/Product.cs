@@ -44,13 +44,12 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The id of the photographer offering this product.
         /// </summary>
-        [Required]
-        public string PhotographerId { get; set; }
+        public string? PhotographerId { get; set; }
 
         /// <summary>
         /// The photographer offering this product.
         /// </summary>
-        public Photographer Photographer { get; set; }
+        public Photographer? Photographer { get; set; }
 
         /// <summary>
         /// The price of the product.

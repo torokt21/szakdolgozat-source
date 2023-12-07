@@ -16,12 +16,12 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The package that contains this order.
         /// </summary>
-        public PackageInformation PackageInformation { get; set; }
+        public PackageInformation? PackageInformation { get; set; }
 
         /// <summary>
         /// The id of the package that contains this order.
         /// </summary>
-        public int PackageInformationId { get; set; }
+        public int? PackageInformationId { get; set; }
 
         /// <summary>
         /// The items in the ordered package.

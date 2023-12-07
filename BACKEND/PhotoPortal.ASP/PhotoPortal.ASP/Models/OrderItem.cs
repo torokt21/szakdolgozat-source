@@ -36,12 +36,12 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The id of the picture this item is associated with.
         /// </summary>
-        public int PictureId { get; set; }
+        public int? PictureId { get; set; }
 
         /// <summary>
         /// The picture this item is associated with.
         /// </summary>
-        public Picture Picture { get; set; }
+        public Picture? Picture { get; set; }
 
         /// <summary>
         /// The quantity of the ordered item.

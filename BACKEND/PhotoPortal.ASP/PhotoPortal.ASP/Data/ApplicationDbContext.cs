@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using PhotoPortal.ASP.Models;
+using System.Numerics;
 using System.Reflection.Emit;
 
 namespace PhotoPortal.ASP.Data
@@ -41,31 +43,37 @@ namespace PhotoPortal.ASP.Data
             builder.Entity<Institution>()
                 .HasOne(a => a.Photographer)
                 .WithMany(b => b.Institutions)
-                .HasForeignKey(a => a.PhotographerId);
+                .HasForeignKey(a => a.PhotographerId)
+                .OnDelete(DeleteBehavior.SetNull);
+            
 
             // institution - child
             builder.Entity<Child>()
                 .HasOne(a => a.Institution)
                 .WithMany(b => b.Children)
-                .HasForeignKey(a => a.InstitutionId);
+                .HasForeignKey(a => a.InstitutionId)
+                .OnDelete(DeleteBehavior.Cascade); ;
 
             // picture - child
             builder.Entity<Picture>()
                 .HasOne(a => a.Child)
                 .WithMany(b => b.Pictures)
-                .HasForeignKey(a => a.ChildId);
+                .HasForeignKey(a => a.ChildId)
+                .OnDelete(DeleteBehavior.Cascade); ;
 
             // order - photographer
             builder.Entity<Order>()
                 .HasOne(a => a.Photographer)
                 .WithMany(b => b.Orders)
-                .HasForeignKey(a => a.PhotographerId);
+                .HasForeignKey(a => a.PhotographerId)
+                .OnDelete(DeleteBehavior.SetNull); ;
 
             // order - order item
             builder.Entity<OrderItem>()
                 .HasOne(a => a.Order)
                 .WithMany(b => b.Items)
-                .HasForeignKey(a => a.OrderId);
+                .HasForeignKey(a => a.OrderId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             // product - order item
             builder.Entity<OrderItem>()
@@ -77,31 +85,44 @@ namespace PhotoPortal.ASP.Data
             builder.Entity<Product>()
                 .HasOne(a => a.Photographer)
                 .WithMany(b => b.Products)
-                .HasForeignKey(a => a.PhotographerId);
+                .HasForeignKey(a => a.PhotographerId)
+                .OnDelete(DeleteBehavior.SetNull);
 
             // package information - photographer
             builder.Entity<PackageInformation>()
                 .HasOne(a => a.Photographer)
                 .WithMany(b => b.PackageInformations)
-                .HasForeignKey(a => a.PhotographerId);
+                .HasForeignKey(a => a.PhotographerId)
+                .OnDelete(DeleteBehavior.SetNull);
 
             // picture - order item
             builder.Entity<OrderItem>()
                 .HasOne(a => a.Picture)
                 .WithMany()
-                .HasForeignKey(a => a.PictureId);
+                .HasForeignKey(a => a.PictureId)
+                .OnDelete(DeleteBehavior.SetNull);
+
 
             // package requirement - package information
             builder.Entity<PackageRequirement>()
                 .HasOne(a => a.PackageInformation)
                 .WithMany(b => b.Requirements)
-                .HasForeignKey(a => a.PackageInformationId);
+                .HasForeignKey(a => a.PackageInformationId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // package requirement - product
+            builder.Entity<PackageRequirement>()
+                .HasOne(a => a.Product)
+                .WithMany()
+                .HasForeignKey(a => a.ProductId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             // package order - package information
             builder.Entity<PackageOrder>()
                 .HasOne(a => a.PackageInformation)
                 .WithMany()
-                .HasForeignKey(a => a.PackageInformationId);
+                .HasForeignKey(a => a.PackageInformationId)
+                .OnDelete(DeleteBehavior.SetNull);
 
             // institution - products
             builder.Entity<Institution>()
@@ -109,24 +130,47 @@ namespace PhotoPortal.ASP.Data
                 .WithMany(b => b.AvailableIn);
 
             // institution - package infos
+            
             builder.Entity<Institution>()
                 .HasMany(a => a.OrderablePackages)
                 .WithMany(b => b.AvaliableIn);
+
 
             // shipping method - order
             builder.Entity<Order>()
                 .HasOne(a => a.ShippingMethod)
                 .WithMany()
-                .HasForeignKey(a => a.ShippingMethodId);
+                .HasForeignKey(a => a.ShippingMethodId)
+                .OnDelete(DeleteBehavior.SetNull);
 
             // payment method - order
             builder.Entity<Order>()
                 .HasOne(a => a.PaymentMethod)
                 .WithMany()
-                .HasForeignKey(a => a.PaymentMethodId);
+                .HasForeignKey(a => a.PaymentMethodId)
+                .OnDelete(DeleteBehavior.SetNull);
 
 
             builder.Entity<IdentityRole>().HasData(new { Id = "1", Name = "Admin", NormalizedName = "ADMIN" });
+
+            PasswordHasher<Photographer> ph = new PasswordHasher<Photographer>();
+            Photographer seed = new Photographer
+            {
+                Id = Guid.NewGuid().ToString(),
+                Email = "torokt21@gmail.com",
+                EmailConfirmed = true,
+                UserName = "torokt21",
+                DisplayName = "Az iskola fotósa",
+                NormalizedUserName = "TOROKT21"
+            };
+            seed.PasswordHash = ph.HashPassword(seed, "Almafa123!!!");
+            builder.Entity<Photographer>().HasData(seed);
+
+            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = "1",
+                UserId = seed.Id,
+            });
 
             base.OnModelCreating(builder);
         }
