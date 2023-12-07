@@ -3,6 +3,7 @@ import { JwtPayload, jwtDecode } from "jwt-decode";
 import { AppState } from "./useBoundStore";
 import { LoginResponseDto } from "../utils/Dtos/LoginDto";
 import { StateCreator } from "zustand";
+import axios from "axios";
 
 export interface AuthSlice {
 	user?: {
@@ -13,7 +14,11 @@ export interface AuthSlice {
 		expires: number;
 		roles: string[];
 	};
+
+	/** Logs in the user */
 	login: (loginResponse: LoginResponseDto) => void;
+
+	/** Logs out the user */
 	logout: () => void;
 	isLoggedIn: () => boolean;
 }
@@ -25,7 +30,6 @@ export const createAuthSlice: StateCreator<AppState, [], [], AuthSlice> = (set, 
 		set(() => {
 			const decodedJwt = jwtDecode(loginResponse.token) as JwtPayload &
 				Record<string, string | number | string[]>;
-			console.log("decoded:", decodedJwt);
 
 			return {
 				user: {
@@ -43,5 +47,9 @@ export const createAuthSlice: StateCreator<AppState, [], [], AuthSlice> = (set, 
 		});
 	},
 	isLoggedIn: () => !!get().user,
-	logout: () => set(() => ({ user: undefined })),
+	logout: () =>
+		set(() => {
+			axios.post("https://localhost:44370/api/Auth/logout");
+			return { user: undefined };
+		}),
 });

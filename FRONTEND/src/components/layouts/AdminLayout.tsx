@@ -1,28 +1,33 @@
 import * as React from "react";
 
 import { CSSObject, Theme, styled, useTheme } from "@mui/material/styles";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
-import { Outlet, useNavigate } from "react-router-dom";
 
+import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import Box from "@mui/material/Box";
+import CameraIndoorIcon from "@mui/icons-material/CameraIndoor";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
+import FreeBreakfastIcon from "@mui/icons-material/FreeBreakfast";
 import IconButton from "@mui/material/IconButton";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import LogoutIcon from "@mui/icons-material/Logout";
-import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
 import MuiDrawer from "@mui/material/Drawer";
+import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
+import RedeemIcon from "@mui/icons-material/Redeem";
+import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
+import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
+import { SupervisedUserCircle } from "@mui/icons-material";
 import Toolbar from "@mui/material/Toolbar";
 import { Tooltip } from "@mui/material";
 import Typography from "@mui/material/Typography";
+import ViewListIcon from "@mui/icons-material/ViewList";
 import { grey } from "@mui/material/colors";
 import { useBoundStore } from "../../stores/useBoundStore";
 
@@ -117,7 +122,6 @@ export default function AdminLayout() {
 
 	return (
 		<Box sx={{ display: "flex" }}>
-			<CssBaseline />
 			<AppBar position="fixed" open={open}>
 				<Toolbar>
 					<IconButton
@@ -131,8 +135,9 @@ export default function AdminLayout() {
 						}}>
 						<MenuIcon />
 					</IconButton>
-					<Typography variant="h6" noWrap component="div">
-						Dashboard
+					<PhotoCameraIcon />
+					<Typography ml={2} variant="h6" noWrap component="div">
+						Photo Portal
 					</Typography>
 
 					<Box sx={{ flexGrow: 1, textAlign: "right" }}>
@@ -158,49 +163,81 @@ export default function AdminLayout() {
 				</DrawerHeader>
 				<Divider />
 				<List>
-					{["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-						<ListItem key={text} disablePadding sx={{ display: "block" }}>
-							<ListItemButton
-								sx={{
-									minHeight: 48,
-									justifyContent: open ? "initial" : "center",
-									px: 2.5,
-								}}>
-								<ListItemIcon
-									sx={{
-										minWidth: 0,
-										mr: open ? 3 : "auto",
-										justifyContent: "center",
-									}}>
-									{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-								</ListItemIcon>
-								<ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-							</ListItemButton>
-						</ListItem>
-					))}
+					<ListItem disablePadding sx={{ display: "block" }}>
+						<ListItemLink
+							to="/admin"
+							primary="Irányítópult"
+							open={open}
+							icon={<SpaceDashboardIcon />}
+						/>
+					</ListItem>
+					<ListItem disablePadding sx={{ display: "block" }}>
+						<ListItemLink
+							to="/admin/order"
+							primary="Rendelések"
+							open={open}
+							icon={<ViewListIcon />}
+						/>
+					</ListItem>
+					<ListItem disablePadding sx={{ display: "block" }}>
+						<ListItemLink
+							to="/admin/upload"
+							primary="Feltöltés"
+							open={open}
+							icon={<AddAPhotoIcon />}
+						/>
+					</ListItem>
 				</List>
 				<Divider />
 				<List>
-					{["All mail", "Trash", "Spam"].map((text, index) => (
-						<ListItem key={text} disablePadding sx={{ display: "block" }}>
-							<ListItemButton
-								sx={{
-									minHeight: 48,
-									justifyContent: open ? "initial" : "center",
-									px: 2.5,
-								}}>
-								<ListItemIcon
-									sx={{
-										minWidth: 0,
-										mr: open ? 3 : "auto",
-										justifyContent: "center",
-									}}>
-									{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-								</ListItemIcon>
-								<ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-							</ListItemButton>
-						</ListItem>
-					))}
+					<ListItem disablePadding sx={{ display: "block" }}>
+						<ListItemLink
+							to="/admin/institutions"
+							primary="Intézmények"
+							open={open}
+							icon={<CameraIndoorIcon />}
+						/>
+					</ListItem>
+
+					<ListItem disablePadding sx={{ display: "block" }}>
+						<ListItemLink
+							to="/admin/product"
+							primary="Szolgáltatások"
+							open={open}
+							icon={<FreeBreakfastIcon />}
+						/>
+					</ListItem>
+
+					<ListItem disablePadding sx={{ display: "block" }}>
+						<ListItemLink
+							to="/admin/packages"
+							primary="Csomagok"
+							open={open}
+							icon={<RedeemIcon />}
+						/>
+					</ListItem>
+				</List>
+
+				{/* ADMIN MENÜ */}
+				<Divider />
+				<List>
+					<ListItem disablePadding sx={{ display: "block" }}>
+						<ListItemLink
+							to="/admin/users"
+							primary="Felhasználók"
+							open={open}
+							icon={<SupervisedUserCircle />}
+						/>
+					</ListItem>
+
+					<ListItem disablePadding sx={{ display: "block" }}>
+						<ListItemLink
+							to="/admin/settings"
+							primary="Beállítások"
+							open={open}
+							icon={<SettingsApplicationsIcon />}
+						/>
+					</ListItem>
 				</List>
 			</Drawer>
 			<Box component="main" sx={{ flexGrow: 1, p: 3 }}>
@@ -208,5 +245,40 @@ export default function AdminLayout() {
 				<Outlet />
 			</Box>
 		</Box>
+	);
+}
+
+interface ListItemLinkProps {
+	icon?: React.ReactElement;
+	primary: string;
+	to: string;
+	open: boolean;
+}
+
+function ListItemLink(props: ListItemLinkProps) {
+	const { icon, primary, to } = props;
+
+	return (
+		<ListItem
+			button
+			component={Link}
+			to={to}
+			sx={{
+				minHeight: 48,
+				justifyContent: props.open ? "initial" : "center",
+				px: 2.5,
+			}}>
+			{icon ? (
+				<ListItemIcon
+					sx={{
+						minWidth: 0,
+						mr: props.open ? 3 : "auto",
+						justifyContent: "center",
+					}}>
+					{icon}
+				</ListItemIcon>
+			) : null}
+			<ListItemText primary={primary} sx={{ opacity: props.open ? 1 : 0 }} />
+		</ListItem>
 	);
 }
