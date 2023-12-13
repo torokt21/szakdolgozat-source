@@ -19,6 +19,11 @@ namespace PhotoPortal.ASP.Models
         public string Name { get; set; }
 
         /// <summary>
+        /// The description of the package.
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
         /// The price of the package.
         /// </summary>
         [Range(0, int.MaxValue)]
