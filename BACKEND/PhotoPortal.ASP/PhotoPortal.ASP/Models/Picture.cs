@@ -29,10 +29,5 @@ namespace PhotoPortal.ASP.Models
         /// </summary>
         [StringLength(50)]
         public string Filename { get; set; }
-
-        /// <summary>
-        /// The id of the institution this picture belongs to.
-        /// </summary>
-        public int InstitutionId { get; set; }
     }
 }
