@@ -19,6 +19,11 @@ namespace PhotoPortal.ASP.Models
         public int InstitutionId { get; set; }
 
         /// <summary>
+        /// The passcode belinging to the child.
+        /// </summary>
+        public string Passcode { get; set; }
+
+        /// <summary>
         /// The institution the child belongs to.
         /// </summary>
         public Institution Institution { get; set; }
