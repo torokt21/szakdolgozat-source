@@ -64,11 +64,6 @@ namespace PhotoPortal.ASP.Models
         public DateTime ExpectedShippingStart { get; set; }
 
         /// <summary>
-        /// The deadline which determines if the "Shipping to institution" can be selected.
-        /// </summary>
-        public DateTime ShippingToInstitutionDeadline { get; set; }
-
-        /// <summary>
         /// The final date of the expected shipping.
         /// </summary>
         public DateTime ExpectedShippingEnd { get; set; }
@@ -77,11 +72,6 @@ namespace PhotoPortal.ASP.Models
         /// The display message shown when listing all pictures.
         /// </summary>
         public string DisplayMessage { get; set; }
-
-        /// <summary>
-        /// Determines whether customers can order digital images. Usually disabled for class pictures.
-        /// </summary>
-        public bool CanOrderDigital {  get; set; }
 
         /// <summary>
         /// Products that can be ordered by this institution.
