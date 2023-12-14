@@ -19,7 +19,7 @@ export default function DashboardPage() {
 								xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
 								series={[
 									{
-										label: "Rendelések",
+										label: "Rendelések száma",
 										data: [12, 30, 25, 22, 41, 52],
 									},
 								]}

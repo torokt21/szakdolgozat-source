@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace PhotoPortal.ASP.Models
 {
@@ -35,16 +38,22 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The id of the fotographer who this institution belongs to.
         /// </summary>
+        [ForeignKey(nameof(Photographer))]
+        [ValidateNever]
         public string? PhotographerId { get; set; }
 
         /// <summary>
         /// The photographer that this institution belongs to.
         /// </summary>
+        [ValidateNever]
+        [JsonIgnore]
         public Photographer? Photographer { get; }
 
         /// <summary>
         /// The children in this institution.
         /// </summary>
+        [ValidateNever]
+        [JsonIgnore]
         public List<Child> Children { get; }
 
         /// <summary>
@@ -76,11 +85,15 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// Products that can be ordered by this institution.
         /// </summary>
+        [ValidateNever]
+        [JsonIgnore]
         public List<Product> OrderableProducts { get; }
 
         /// <summary>
         /// Packages that can be ordered by this institution.
         /// </summary>
+        [ValidateNever]
+        [JsonIgnore]
         public List<PackageInformation> OrderablePackages { get; }
         
     }

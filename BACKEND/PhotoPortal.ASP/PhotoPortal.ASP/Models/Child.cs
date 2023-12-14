@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PhotoPortal.ASP.Models
 {
@@ -16,6 +17,7 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The id of the institution the child belongs to.
         /// </summary>
+        [ForeignKey(nameof(Models.Institution))]
         public int InstitutionId { get; set; }
 
         /// <summary>
@@ -26,11 +28,13 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The institution the child belongs to.
         /// </summary>
+        [NotMapped]
         public Institution Institution { get; set; }
 
         /// <summary>
         /// The pictures taken of the child.
         /// </summary>
+        [NotMapped]
         public List<Picture> Pictures { get; }
     }
 }

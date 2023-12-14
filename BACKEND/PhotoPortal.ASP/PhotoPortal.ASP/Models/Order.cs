@@ -47,5 +47,15 @@ namespace PhotoPortal.ASP.Models
         /// The shipping method selected by the customer.
         /// </summary>
         public PaymentMethod? PaymentMethod { get; set; }
+
+        /// <summary>
+        /// The first name of the customer.
+        /// </summary>
+        public string Firstname { get; set; }
+
+        /// <summary>
+        /// The last name of the customer
+        /// </summary>
+        public string Lastname { get; set; }
     }
 }

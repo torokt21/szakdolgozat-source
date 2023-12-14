@@ -39,6 +39,6 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// Determines whether customers can select this payment method.
         /// </summary>
-        public bool Avaliable { get; set; }
+        public bool Available { get; set; }
     }
 }

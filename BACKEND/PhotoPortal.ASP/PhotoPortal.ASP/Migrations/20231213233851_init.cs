@@ -60,7 +60,7 @@ namespace PhotoPortal.ASP.Migrations
                     Shortname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Icon = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Fee = table.Column<int>(type: "int", nullable: false),
-                    Avaliable = table.Column<bool>(type: "bit", nullable: false)
+                    Available = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -203,10 +203,8 @@ namespace PhotoPortal.ASP.Migrations
                     SoftDeadline = table.Column<DateTime>(type: "datetime2", nullable: false),
                     HardDeadline = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ExpectedShippingStart = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ShippingToInstitutionDeadline = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ExpectedShippingEnd = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DisplayMessage = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CanOrderDigital = table.Column<bool>(type: "bit", nullable: false)
+                    DisplayMessage = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -226,6 +224,7 @@ namespace PhotoPortal.ASP.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
                     PhotographerId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
@@ -270,7 +269,9 @@ namespace PhotoPortal.ASP.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PhotographerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     ShippingMethodId = table.Column<int>(type: "int", nullable: true),
-                    PaymentMethodId = table.Column<int>(type: "int", nullable: true)
+                    PaymentMethodId = table.Column<int>(type: "int", nullable: true),
+                    Firstname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Lastname = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -301,7 +302,8 @@ namespace PhotoPortal.ASP.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    InstitutionId = table.Column<int>(type: "int", nullable: false)
+                    InstitutionId = table.Column<int>(type: "int", nullable: false),
+                    Passcode = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -415,8 +417,7 @@ namespace PhotoPortal.ASP.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ChildId = table.Column<int>(type: "int", nullable: false),
-                    Filename = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    InstitutionId = table.Column<int>(type: "int", nullable: false)
+                    Filename = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -483,12 +484,17 @@ namespace PhotoPortal.ASP.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "DisplayName", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "c153ea9f-63a4-4f63-8c18-878344141e39", 0, "6045b647-39f1-43f0-b73d-622a0843386f", "Photographer", "Az iskola fotósa", "torokt21@gmail.com", true, false, null, null, "TOROKT21", "AQAAAAEAACcQAAAAEBjZV0sD3fS1Y4n/74nLqtvjVxkW6MDFnYqbi+hj00oAtTsyIKTTaiWRUQvRXDju7A==", null, false, "bc6ad8c4-532f-4870-be47-06bcb939ca62", false, "torokt21" });
+                values: new object[] { "fa5b3691-42a3-4142-b61d-e545ee2dfcff", 0, "e20210a4-ccfa-4445-8736-5bbf67c8ecac", "Photographer", "Az iskola fotósa", "torokt21@gmail.com", true, false, null, null, "TOROKT21", "AQAAAAEAACcQAAAAEIOka8M+KMyHjPsOc22tIjytuHUyLSDic1uKHY2WK+vDGcMJc8bG8FikeNaqcsYpTQ==", null, false, "4e5d075d-d876-4683-8d67-00151dbcfbc6", false, "torokt21" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "1", "c153ea9f-63a4-4f63-8c18-878344141e39" });
+                values: new object[] { "1", "fa5b3691-42a3-4142-b61d-e545ee2dfcff" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "2", "fa5b3691-42a3-4142-b61d-e545ee2dfcff" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

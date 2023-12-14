@@ -17,7 +17,7 @@ namespace PhotoPortal.ASP.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.14")
+                .HasAnnotation("ProductVersion", "6.0.23")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -255,12 +255,12 @@ namespace PhotoPortal.ASP.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "579494b8-3fa7-4bed-8234-f0a6b1899063",
+                            UserId = "fa5b3691-42a3-4142-b61d-e545ee2dfcff",
                             RoleId = "1"
                         },
                         new
                         {
-                            UserId = "579494b8-3fa7-4bed-8234-f0a6b1899063",
+                            UserId = "fa5b3691-42a3-4142-b61d-e545ee2dfcff",
                             RoleId = "2"
                         });
                 });
@@ -297,6 +297,10 @@ namespace PhotoPortal.ASP.Migrations
                     b.Property<int>("InstitutionId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Passcode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("InstitutionId");
@@ -311,9 +315,6 @@ namespace PhotoPortal.ASP.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<bool>("CanOrderDigital")
-                        .HasColumnType("bit");
 
                     b.Property<string>("ContactInfo")
                         .IsRequired()
@@ -340,9 +341,6 @@ namespace PhotoPortal.ASP.Migrations
                     b.Property<string>("PhotographerId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("ShippingToInstitutionDeadline")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Shortcode")
                         .IsRequired()
                         .HasMaxLength(3)
@@ -365,6 +363,14 @@ namespace PhotoPortal.ASP.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Firstname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Lastname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("PaymentMethodId")
                         .HasColumnType("int");
@@ -432,6 +438,10 @@ namespace PhotoPortal.ASP.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -502,7 +512,7 @@ namespace PhotoPortal.ASP.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<bool>("Avaliable")
+                    b.Property<bool>("Available")
                         .HasColumnType("bit");
 
                     b.Property<int>("Fee")
@@ -540,9 +550,6 @@ namespace PhotoPortal.ASP.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("InstitutionId")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -625,16 +632,16 @@ namespace PhotoPortal.ASP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "579494b8-3fa7-4bed-8234-f0a6b1899063",
+                            Id = "fa5b3691-42a3-4142-b61d-e545ee2dfcff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6cec5d54-9334-4128-ba8b-b2e5ca9b355f",
+                            ConcurrencyStamp = "e20210a4-ccfa-4445-8736-5bbf67c8ecac",
                             Email = "torokt21@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "TOROKT21",
-                            PasswordHash = "AQAAAAEAACcQAAAAEM0wXvZHVnuVEdUJgwIslgnb30QljOejrv8dlZTR9waVRVfYBPEkxJ0F2xVNNwznJQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIOka8M+KMyHjPsOc22tIjytuHUyLSDic1uKHY2WK+vDGcMJc8bG8FikeNaqcsYpTQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d7ac51e2-4dd2-4b6c-8ee5-a285aaac355b",
+                            SecurityStamp = "4e5d075d-d876-4683-8d67-00151dbcfbc6",
                             TwoFactorEnabled = false,
                             UserName = "torokt21",
                             DisplayName = "Az iskola fotósa"
