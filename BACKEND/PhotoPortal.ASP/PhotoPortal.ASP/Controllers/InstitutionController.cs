@@ -27,6 +27,7 @@ namespace PhotoPortal.ASP.Controllers
 
         // GET: api/Institution
         [HttpGet]
+        [Authorize]
         public ActionResult<IEnumerable<Institution>> GetInstitutions()
         {
             return institutionRepository.GetAll().ToList();

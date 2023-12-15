@@ -46,7 +46,7 @@ export default function DashboardPage() {
 
 					<Grid item xs={12} md={4}>
 						<Paper sx={{ padding: 3 }}>
-							<Typography variant="h5">Valami más</Typography>
+							<Typography variant="h5">Figyelmeztetések</Typography>
 						</Paper>
 					</Grid>
 				</Grid>

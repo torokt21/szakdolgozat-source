@@ -32,7 +32,7 @@ namespace PhotoPortal.ASP.Controllers
                 var claim = new List<Claim>
                 {
                     new Claim(JwtRegisteredClaimNames.Sub, user.Id),
-                    new Claim(JwtRegisteredClaimNames.NameId, user.Id),
+                    new Claim(JwtRegisteredClaimNames.NameId, user.UserName),
                     new Claim("displayname", user.DisplayName),
                 };
                 foreach (var role in await _userManager.GetRolesAsync(user))

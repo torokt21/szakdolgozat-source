@@ -192,7 +192,7 @@ export default function AdminLayout() {
 				<List>
 					<ListItem disablePadding sx={{ display: "block" }}>
 						<ListItemLink
-							to="/admin/institutions"
+							to="/admin/institution"
 							primary="Intézmények"
 							open={open}
 							icon={<CameraIndoorIcon />}

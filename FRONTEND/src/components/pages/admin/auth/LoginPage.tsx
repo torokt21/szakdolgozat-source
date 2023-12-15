@@ -9,7 +9,7 @@ import { AccountCircle } from "@mui/icons-material";
 import { Form } from "react-final-form";
 import KeyIcon from "@mui/icons-material/Key";
 import LockIcon from "@mui/icons-material/Lock";
-import { LoginRequestDto } from "../../../../utils/Dtos/LoginDto";
+import { LoginRequestDto } from "../../../../utils/dtos/LoginDto";
 import { Navigate } from "react-router-dom";
 import { green } from "@mui/material/colors";
 import { useBoundStore } from "../../../../stores/useBoundStore";
@@ -30,7 +30,7 @@ export default function LoginPage() {
 	function handleLogin(values: LoginRequestDto) {
 		setLoading(true);
 		axios
-			.post("https://localhost:44370/api/Auth", values) // TODO move api url to env
+			.post(process.env.REACT_APP_API_URL + "Auth", values) // TODO move api url to env
 			.then((result) => {
 				login(result.data);
 			})

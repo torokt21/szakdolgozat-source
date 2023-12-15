@@ -1,7 +1,7 @@
 import { JwtPayload, jwtDecode } from "jwt-decode";
 
 import { AppState } from "./useBoundStore";
-import { LoginResponseDto } from "../utils/Dtos/LoginDto";
+import { LoginResponseDto } from "../utils/dtos/LoginDto";
 import { StateCreator } from "zustand";
 import axios from "axios";
 

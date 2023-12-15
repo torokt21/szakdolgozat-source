@@ -5,6 +5,7 @@ import { CssBaseline } from "@mui/material";
 import DashboardPage from "./components/pages/admin/DashboardPage";
 import DefaultLayout from "./components/layouts/DefaultLayout";
 import HomePage from "./components/pages/user/home/HomePage";
+import ListInstitutions from "./components/pages/admin/institution/ListInstitutionsPage";
 import LoginPage from "./components/pages/admin/auth/LoginPage";
 import NotFoundPage from "./components/pages/error/NotFoundPage";
 import React from "react";
@@ -24,6 +25,7 @@ function App() {
 					<Route path="login" element={<LoginPage />} />
 					<Route element={<AdminLayout />}>
 						<Route index element={<DashboardPage />} />
+						<Route path="institution" element={<ListInstitutions />} />
 					</Route>
 				</Route>
 				<Route element={<DefaultLayout />}>
