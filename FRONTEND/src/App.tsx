@@ -26,6 +26,7 @@ function App() {
 					<Route element={<AdminLayout />}>
 						<Route index element={<DashboardPage />} />
 						<Route path="institution" element={<ListInstitutions />} />
+						<Route path="*" element={<NotFoundPage />} />
 					</Route>
 				</Route>
 				<Route element={<DefaultLayout />}>
