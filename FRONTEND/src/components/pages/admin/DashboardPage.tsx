@@ -27,7 +27,7 @@ export default function DashboardPage() {
 							/>
 						</Paper>
 					</Grid>
-					<Grid item xs={12} md={4} spacing={4}>
+					<Grid item xs={12} md={4}>
 						<Paper sx={{ padding: 3 }}>
 							<Typography variant="h5">Rendelések</Typography>
 						</Paper>
