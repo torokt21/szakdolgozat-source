@@ -54,7 +54,11 @@ export const createAuthSlice: StateCreator<AppState, [], [], AdminSlice> = (set,
 			};
 		});
 	},
-	isLoggedIn: () => !!get().user,
+	isLoggedIn: () => {
+		console.log(get().user);
+
+		return !!get().user;
+	},
 	logout: () =>
 		set(() => {
 			axios.post("https://localhost:44370/api/Auth/logout");

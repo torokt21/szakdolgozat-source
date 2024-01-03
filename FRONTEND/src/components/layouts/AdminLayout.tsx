@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { CSSObject, Theme, styled, useTheme } from "@mui/material/styles";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Navigate, Outlet } from "react-router-dom";
 import { ListItemButton, Tooltip } from "@mui/material";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 
@@ -103,7 +103,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" 
 );
 
 export default function AdminLayout() {
-	const navigate = useNavigate();
 	const isLoggedIn = useBoundStore((s) => s.isLoggedIn());
 	const user = useBoundStore((s) => s.user);
 	const logout = useBoundStore((s) => s.logout);
@@ -112,7 +111,7 @@ export default function AdminLayout() {
 	const open = useBoundStore().sidebarOpen;
 	const toggleSidebarOpen = useBoundStore().toggleSidebar;
 
-	if (!isLoggedIn) navigate("/admin/login");
+	if (!isLoggedIn) return <Navigate to="/admin/login" />;
 
 	return (
 		<Box sx={{ display: "flex" }}>
