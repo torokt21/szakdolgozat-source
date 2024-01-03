@@ -25,6 +25,8 @@ export interface AdminSlice {
 	/** Logs out the user */
 	logout: () => void;
 	isLoggedIn: () => boolean;
+
+	hasRole: (role: string) => boolean;
 }
 
 export const createAuthSlice: StateCreator<AppState, [], [], AdminSlice> = (set, get) => ({
@@ -55,10 +57,9 @@ export const createAuthSlice: StateCreator<AppState, [], [], AdminSlice> = (set,
 		});
 	},
 	isLoggedIn: () => {
-		console.log(get().user);
-
 		return !!get().user;
 	},
+	hasRole: (role: string) => get().isLoggedIn() && get().user!.roles.some((r) => r === role),
 	logout: () =>
 		set(() => {
 			axios.post("https://localhost:44370/api/Auth/logout");

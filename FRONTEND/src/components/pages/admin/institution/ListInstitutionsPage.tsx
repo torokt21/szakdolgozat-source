@@ -1,7 +1,7 @@
 import { Box, CircularProgress, Container, Typography } from "@mui/material";
+import { Link, Navigate } from "react-router-dom";
 
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import React from "react";
 import Table from "@mui/material/Table";
@@ -10,10 +10,14 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import { useBoundStore } from "../../../../stores/useBoundStore";
 import useInstitutions from "../../../../utils/hooks/useInstitutions";
 
 export default function ListInstitutions() {
 	const [institutions, loading, error] = useInstitutions();
+	const hasRole = useBoundStore().hasRole("Admin");
+
+	if (!hasRole) return <Navigate to="/admin" />;
 
 	if (error)
 		return (
