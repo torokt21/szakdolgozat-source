@@ -27,10 +27,13 @@ namespace PhotoPortal.ASP.Controllers
 
         // GET: api/Institution
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin,Photographer")]
         public ActionResult<IEnumerable<Institution>> GetInstitutions()
         {
-            return institutionRepository.GetAll().ToList();
+            return institutionRepository.GetAll()
+                .Where(i => i.PhotographerId == userManager.GetUserId(User))
+                .OrderBy(i => i.Name)
+                .ToList();
         }
 
         // GET: api/Institution/5

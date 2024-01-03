@@ -1,7 +1,12 @@
-import { Box, CircularProgress, Container, Typography } from "@mui/material";
+import { Box, CircularProgress, Container, IconButton, Tooltip, Typography } from "@mui/material";
 import { Link, Navigate } from "react-router-dom";
 
+import AddIcon from "@mui/icons-material/Add";
 import Button from "@mui/material/Button";
+import ClassIcon from "@mui/icons-material/Class";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import FreeBreakfastIcon from "@mui/icons-material/FreeBreakfast";
 import Paper from "@mui/material/Paper";
 import React from "react";
 import Table from "@mui/material/Table";
@@ -36,7 +41,12 @@ export default function ListInstitutions() {
 	return (
 		<Container>
 			<Box textAlign="center" pb={5}>
-				<Button component={Link} to="new" variant="contained" color="primary">
+				<Button
+					component={Link}
+					to="new"
+					variant="contained"
+					color="primary"
+					startIcon={<AddIcon />}>
 					Új intézmény
 				</Button>
 			</Box>
@@ -44,8 +54,15 @@ export default function ListInstitutions() {
 				<Table sx={{ minWidth: 650 }} aria-label="Intézmények listája">
 					<TableHead>
 						<TableRow>
-							<TableCell>Kód</TableCell>
-							<TableCell>Név</TableCell>
+							<TableCell component="th" sx={{ fontWeight: "bold" }}>
+								Kód
+							</TableCell>
+							<TableCell component="th" sx={{ fontWeight: "bold" }}>
+								Név
+							</TableCell>
+							<TableCell component="th" align="right" sx={{ fontWeight: "bold" }}>
+								Műveletek
+							</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -53,9 +70,31 @@ export default function ListInstitutions() {
 							<TableRow
 								key={inst.id}
 								sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-								<TableCell component="th">{inst.shortcode}</TableCell>
-								<TableCell component="th" scope="row">
-									{inst.name}
+								<TableCell width="50px" sx={{ fontFamily: "Monospace" }}>
+									{inst.shortcode}
+								</TableCell>
+								<TableCell scope="row">{inst.name}</TableCell>
+								<TableCell align="right" width="200px">
+									<Tooltip title="Szerkesztés">
+										<IconButton>
+											<EditIcon />
+										</IconButton>
+									</Tooltip>
+									<Tooltip title="Szolgáltatások">
+										<IconButton>
+											<FreeBreakfastIcon />
+										</IconButton>
+									</Tooltip>
+									<Tooltip title="Osztályok">
+										<IconButton>
+											<ClassIcon />
+										</IconButton>
+									</Tooltip>
+									<Tooltip title="Törlés">
+										<IconButton>
+											<DeleteIcon />
+										</IconButton>
+									</Tooltip>
 								</TableCell>
 							</TableRow>
 						))}
