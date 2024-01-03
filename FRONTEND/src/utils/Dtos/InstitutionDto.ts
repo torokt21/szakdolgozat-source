@@ -1,4 +1,4 @@
-type InstitutionDto = {
+export type InstitutionDto = {
 	id: number;
 	name: string;
 	shortcode: string;

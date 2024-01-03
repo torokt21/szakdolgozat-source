@@ -33,7 +33,7 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The contact info of the insitution.
         /// </summary>
-        public string ContactInfo { get; set; }
+        public string? ContactInfo { get; set; }
 
         /// <summary>
         /// The id of the fotographer who this institution belongs to.
@@ -80,7 +80,7 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The display message shown when listing all pictures.
         /// </summary>
-        public string DisplayMessage { get; set; }
+        public string? DisplayMessage { get; set; }
 
         /// <summary>
         /// Products that can be ordered by this institution.

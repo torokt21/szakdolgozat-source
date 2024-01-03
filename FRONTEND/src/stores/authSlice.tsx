@@ -5,7 +5,7 @@ import { LoginResponseDto } from "../utils/dtos/LoginDto";
 import { StateCreator } from "zustand";
 import axios from "axios";
 
-export interface AuthSlice {
+export interface AdminSlice {
 	user?: {
 		authToken: string;
 		username: string;
@@ -15,6 +15,10 @@ export interface AuthSlice {
 		roles: string[];
 	};
 
+	sidebarOpen: boolean;
+
+	toggleSidebar: () => void;
+
 	/** Logs in the user */
 	login: (loginResponse: LoginResponseDto) => void;
 
@@ -23,8 +27,12 @@ export interface AuthSlice {
 	isLoggedIn: () => boolean;
 }
 
-export const createAuthSlice: StateCreator<AppState, [], [], AuthSlice> = (set, get) => ({
+export const createAuthSlice: StateCreator<AppState, [], [], AdminSlice> = (set, get) => ({
 	user: undefined,
+
+	sidebarOpen: true,
+
+	toggleSidebar: () => set((state) => ({ sidebarOpen: !state.sidebarOpen })),
 
 	login: (loginResponse: LoginResponseDto) => {
 		set(() => {

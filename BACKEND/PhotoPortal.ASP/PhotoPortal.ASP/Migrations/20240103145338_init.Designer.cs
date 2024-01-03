@@ -12,7 +12,7 @@ using PhotoPortal.ASP.Data;
 namespace PhotoPortal.ASP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231213233851_init")]
+    [Migration("20240103145338_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -257,12 +257,12 @@ namespace PhotoPortal.ASP.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "fa5b3691-42a3-4142-b61d-e545ee2dfcff",
+                            UserId = "000b8915-97b7-4461-9570-e6ca7538ada8",
                             RoleId = "1"
                         },
                         new
                         {
-                            UserId = "fa5b3691-42a3-4142-b61d-e545ee2dfcff",
+                            UserId = "000b8915-97b7-4461-9570-e6ca7538ada8",
                             RoleId = "2"
                         });
                 });
@@ -319,11 +319,9 @@ namespace PhotoPortal.ASP.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ContactInfo")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DisplayMessage")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ExpectedShippingEnd")
@@ -634,16 +632,16 @@ namespace PhotoPortal.ASP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "fa5b3691-42a3-4142-b61d-e545ee2dfcff",
+                            Id = "000b8915-97b7-4461-9570-e6ca7538ada8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e20210a4-ccfa-4445-8736-5bbf67c8ecac",
+                            ConcurrencyStamp = "df5ebc3c-ad28-482c-ac0b-66eab477138b",
                             Email = "torokt21@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "TOROKT21",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIOka8M+KMyHjPsOc22tIjytuHUyLSDic1uKHY2WK+vDGcMJc8bG8FikeNaqcsYpTQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHlOuik5bTBW7RrfElDotuEqWsN7XaFF/B+JGAHWHl6YvdFxKUNje8a6u9BncYbV6Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4e5d075d-d876-4683-8d67-00151dbcfbc6",
+                            SecurityStamp = "4113f5fe-b8f6-4b64-b609-09fc98fe8cf2",
                             TwoFactorEnabled = false,
                             UserName = "torokt21",
                             DisplayName = "Az iskola fotósa"

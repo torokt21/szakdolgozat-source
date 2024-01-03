@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import { InstitutionDto } from "../dtos/InstitutionDto";
 import dayjs from "dayjs";
 import { useAxiosClient } from "./useAxiosClient";
 

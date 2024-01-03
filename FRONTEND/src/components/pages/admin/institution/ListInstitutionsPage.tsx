@@ -1,5 +1,7 @@
-import { Box, Container, Typography } from "@mui/material";
+import { Box, CircularProgress, Container, Typography } from "@mui/material";
 
+import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import React from "react";
 import Table from "@mui/material/Table";
@@ -20,10 +22,22 @@ export default function ListInstitutions() {
 			</Box>
 		);
 
+	if (loading)
+		return (
+			<Box m={5} textAlign="center">
+				<CircularProgress />
+			</Box>
+		);
+
 	return (
 		<Container>
+			<Box textAlign="center" pb={5}>
+				<Button component={Link} to="new" variant="contained" color="primary">
+					Új intézmény
+				</Button>
+			</Box>
 			<TableContainer component={Paper}>
-				<Table sx={{ minWidth: 650 }} aria-label="simple table">
+				<Table sx={{ minWidth: 650 }} aria-label="Intézmények listája">
 					<TableHead>
 						<TableRow>
 							<TableCell>Kód</TableCell>
@@ -35,9 +49,7 @@ export default function ListInstitutions() {
 							<TableRow
 								key={inst.id}
 								sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-								<TableCell component="th" scope="row">
-									{inst.name}
-								</TableCell>
+								<TableCell component="th">{inst.shortcode}</TableCell>
 								<TableCell component="th" scope="row">
 									{inst.name}
 								</TableCell>

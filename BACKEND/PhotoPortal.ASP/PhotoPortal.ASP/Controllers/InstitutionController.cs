@@ -68,7 +68,14 @@ namespace PhotoPortal.ASP.Controllers
         [Authorize]
         public ActionResult<Institution> PostInstitution(Institution institution)
         {
-            institution.PhotographerId = userManager.GetUserId(User);
+            Photographer? user = userManager.Users.FirstOrDefault(u => u.Id == userManager.GetUserId(User));
+
+            if (user == null)
+                return Unauthorized();
+
+            if (this.institutionRepository.GetAll().Any(i => i.Shortcode == institution.Shortcode && i.PhotographerId == user.Id))
+                return BadRequest("A megadott aztonosító kódot már egy intézmény használja.");
+
             this.institutionRepository.Insert(institution);
 
             return CreatedAtAction("GetInstitution", new { id = institution.Id }, institution);
