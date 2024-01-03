@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { CSSObject, Theme, styled, useTheme } from "@mui/material/styles";
 import { Link, Outlet, useNavigate } from "react-router-dom";
+import { ListItemButton, Tooltip } from "@mui/material";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
@@ -25,7 +26,6 @@ import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import { SupervisedUserCircle } from "@mui/icons-material";
 import Toolbar from "@mui/material/Toolbar";
-import { Tooltip } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import { grey } from "@mui/material/colors";
@@ -108,17 +108,11 @@ export default function AdminLayout() {
 	const user = useBoundStore((s) => s.user);
 	const logout = useBoundStore((s) => s.logout);
 	const theme = useTheme();
-	const [open, setOpen] = React.useState(false);
+
+	const open = useBoundStore().sidebarOpen;
+	const toggleSidebarOpen = useBoundStore().toggleSidebar;
 
 	if (!isLoggedIn) navigate("/admin/login");
-
-	const handleDrawerOpen = () => {
-		setOpen(true);
-	};
-
-	const handleDrawerClose = () => {
-		setOpen(false);
-	};
 
 	return (
 		<Box sx={{ display: "flex" }}>
@@ -127,7 +121,7 @@ export default function AdminLayout() {
 					<IconButton
 						color="inherit"
 						aria-label="open drawer"
-						onClick={handleDrawerOpen}
+						onClick={toggleSidebarOpen}
 						edge="start"
 						sx={{
 							marginRight: 5,
@@ -157,7 +151,7 @@ export default function AdminLayout() {
 			</AppBar>
 			<Drawer variant="permanent" open={open}>
 				<DrawerHeader>
-					<IconButton onClick={handleDrawerClose}>
+					<IconButton onClick={toggleSidebarOpen}>
 						{theme.direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}
 					</IconButton>
 				</DrawerHeader>
@@ -259,8 +253,7 @@ function ListItemLink(props: ListItemLinkProps) {
 	const { icon, primary, to } = props;
 
 	return (
-		<ListItem
-			button
+		<ListItemButton
 			component={Link}
 			to={to}
 			sx={{
@@ -279,6 +272,6 @@ function ListItemLink(props: ListItemLinkProps) {
 				</ListItemIcon>
 			) : null}
 			<ListItemText primary={primary} sx={{ opacity: props.open ? 1 : 0 }} />
-		</ListItem>
+		</ListItemButton>
 	);
 }

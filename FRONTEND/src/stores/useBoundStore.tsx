@@ -1,4 +1,4 @@
-import { AuthSlice, createAuthSlice } from "./authSlice";
+import { AdminSlice, createAuthSlice } from "./authSlice";
 import { CartSlice, createCartSlice } from "./cartSlice";
 import { devtools, persist } from "zustand/middleware";
 
@@ -7,7 +7,7 @@ import { mountStoreDevtool } from "simple-zustand-devtools";
 
 //import zukeeper from "zukeeper";
 
-export type AppState = AuthSlice & CartSlice;
+export type AppState = AdminSlice & CartSlice;
 
 export const useBoundStore = create<AppState>()(
 	devtools(
