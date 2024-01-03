@@ -94,7 +94,7 @@ namespace PhotoPortal.ASP.Controllers
                 return NotFound();
             }
 
-            this.institutionRepository.Delete(institution);
+            this.institutionRepository.Delete(institution.Id);
 
             return NoContent();
         }

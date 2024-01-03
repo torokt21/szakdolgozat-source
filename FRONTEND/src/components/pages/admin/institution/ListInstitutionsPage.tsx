@@ -1,5 +1,7 @@
 import { Box, CircularProgress, Container, IconButton, Tooltip, Typography } from "@mui/material";
 import { Link, Navigate } from "react-router-dom";
+import React, { useState } from "react";
+import useInstitutions, { Institution } from "../../../../utils/hooks/useInstitutions";
 
 import AddIcon from "@mui/icons-material/Add";
 import Button from "@mui/material/Button";
@@ -8,19 +10,27 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import FreeBreakfastIcon from "@mui/icons-material/FreeBreakfast";
 import Paper from "@mui/material/Paper";
-import React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import { useAxiosClient } from "../../../../utils/hooks/useAxiosClient";
 import { useBoundStore } from "../../../../stores/useBoundStore";
-import useInstitutions from "../../../../utils/hooks/useInstitutions";
 
 export default function ListInstitutions() {
-	const [institutions, loading, error] = useInstitutions();
+	const [reloader, setReloader] = useState(0);
+	const [institutions, loading, error] = useInstitutions(reloader);
 	const hasRole = useBoundStore().hasRole("Admin");
+
+	function handleDelete(institution: Institution) {
+		if (confirm(`Biztosan törölni akarod a(z) ${institution.name} nevű intézményt?`)) {
+			useAxiosClient()
+				.delete(process.env.REACT_APP_API_URL + "Institution/" + institution.id)
+				.then(() => setReloader((r) => r + 1));
+		}
+	}
 
 	if (!hasRole) return <Navigate to="/admin" />;
 
@@ -91,7 +101,7 @@ export default function ListInstitutions() {
 										</IconButton>
 									</Tooltip>
 									<Tooltip title="Törlés">
-										<IconButton>
+										<IconButton onClick={() => handleDelete(inst)}>
 											<DeleteIcon />
 										</IconButton>
 									</Tooltip>

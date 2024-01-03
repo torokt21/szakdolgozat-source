@@ -4,7 +4,7 @@ import { InstitutionDto } from "../dtos/InstitutionDto";
 import dayjs from "dayjs";
 import { useAxiosClient } from "./useAxiosClient";
 
-type Institution = {
+export type Institution = {
 	id: number;
 	name: string;
 	shortcode: string;
@@ -17,12 +17,14 @@ type Institution = {
 	displayMessage: string;
 };
 
-const useInstitutions = () => {
+const useInstitutions = (reloader: number = 0) => {
 	const [institutions, setInstitutions] = useState<Institution[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
 
 	useEffect(() => {
+		setLoading(true);
+		setError(false);
 		useAxiosClient()
 			.get(process.env.REACT_APP_API_URL + "Institution")
 			.then((result) => {
@@ -45,12 +47,10 @@ const useInstitutions = () => {
 				);
 			})
 			.catch(() => {
-				console.log("Error!!");
-
 				setError(true);
 			})
 			.finally(() => setLoading(false));
-	}, []);
+	}, [reloader]);
 
 	return [institutions, loading, error] as const;
 };
