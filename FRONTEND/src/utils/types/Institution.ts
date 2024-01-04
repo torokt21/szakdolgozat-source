@@ -4,13 +4,13 @@ type Institution = {
 	id: number;
 	name: string;
 	shortcode: string;
-	contactInfo: string;
-	photographerId: string;
+	contactInfo: string | null;
+	photographerId: string | null;
 	softDeadline: dayjs.Dayjs;
 	hardDeadline: dayjs.Dayjs;
 	expectedShippingStart: dayjs.Dayjs;
 	expectedShippingEnd: dayjs.Dayjs;
-	displayMessage: string;
+	displayMessage: string | null;
 };
 
 export default Institution;
