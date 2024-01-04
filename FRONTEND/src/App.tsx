@@ -1,4 +1,5 @@
 import "dayjs/locale/hu";
+import "./utils/types/yup-extended";
 
 import { Route, Routes } from "react-router-dom";
 

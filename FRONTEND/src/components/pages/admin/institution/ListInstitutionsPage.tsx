@@ -1,6 +1,5 @@
 import { Box, CircularProgress, Container, IconButton, Tooltip, Typography } from "@mui/material";
 import { Link, Navigate } from "react-router-dom";
-import useInstitutions, { Institution } from "../../../../utils/hooks/useInstitutions";
 
 import AddIcon from "@mui/icons-material/Add";
 import Button from "@mui/material/Button";
@@ -8,6 +7,7 @@ import ClassIcon from "@mui/icons-material/Class";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import FreeBreakfastIcon from "@mui/icons-material/FreeBreakfast";
+import Institution from "../../../../utils/types/Institution";
 import Paper from "@mui/material/Paper";
 import React from "react";
 import Table from "@mui/material/Table";
@@ -18,6 +18,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { useAxiosClient } from "../../../../utils/hooks/useAxiosClient";
 import { useBoundStore } from "../../../../stores/useBoundStore";
+import useInstitutions from "../../../../utils/hooks/useInstitutions";
 
 export default function ListInstitutions() {
 	const {
