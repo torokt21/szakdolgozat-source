@@ -30,16 +30,20 @@ const createInstitutionDtoSchema = object<Institution>().shape({
 
 type CreateEditInstitutionFormProps = {
 	editing: boolean;
+	editingInstitution?: Institution;
 	onSubmit: (institution: Institution) => void;
 };
 
 export default function CreateEditInstitutionForm(props: CreateEditInstitutionFormProps) {
 	const validate = makeValidate(createInstitutionDtoSchema);
 
+	console.log(props.editingInstitution);
+
 	return (
 		<Form
 			onSubmit={props.onSubmit}
 			validate={validate}
+			initialValues={props.editingInstitution}
 			render={({ handleSubmit, values }) => (
 				<form onSubmit={handleSubmit} noValidate>
 					<Grid container spacing={2}>
