@@ -79,6 +79,7 @@ namespace PhotoPortal.ASP.Controllers
             if (this.institutionRepository.GetAll().Any(i => i.Shortcode == institution.Shortcode && i.PhotographerId == user.Id))
                 return BadRequest("A megadott aztonosító kódot már egy intézmény használja.");
 
+            institution.PhotographerId = user.Id;
             this.institutionRepository.Insert(institution);
 
             return CreatedAtAction("GetInstitution", new { id = institution.Id }, institution);

@@ -1,6 +1,5 @@
 import { Box, CircularProgress, Container, IconButton, Tooltip, Typography } from "@mui/material";
 import { Link, Navigate } from "react-router-dom";
-import React, { useState } from "react";
 import useInstitutions, { Institution } from "../../../../utils/hooks/useInstitutions";
 
 import AddIcon from "@mui/icons-material/Add";
@@ -10,6 +9,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import FreeBreakfastIcon from "@mui/icons-material/FreeBreakfast";
 import Paper from "@mui/material/Paper";
+import React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -20,18 +20,20 @@ import { useAxiosClient } from "../../../../utils/hooks/useAxiosClient";
 import { useBoundStore } from "../../../../stores/useBoundStore";
 
 export default function ListInstitutions() {
-	const [reloader, setReloader] = useState(0);
-	const [institutions, loading, error] = useInstitutions(reloader);
-	const hasRole = useBoundStore().hasRole("Admin");
+	const {
+		data: [institutions, loading, error],
+		refetch,
+	} = useInstitutions();
 
 	function handleDelete(institution: Institution) {
 		if (confirm(`Biztosan törölni akarod a(z) ${institution.name} nevű intézményt?`)) {
 			useAxiosClient()
 				.delete(process.env.REACT_APP_API_URL + "Institution/" + institution.id)
-				.then(() => setReloader((r) => r + 1));
+				.then(() => refetch());
 		}
 	}
 
+	const hasRole = useBoundStore().hasRole("Admin");
 	if (!hasRole) return <Navigate to="/admin" />;
 
 	if (error)
@@ -76,7 +78,7 @@ export default function ListInstitutions() {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{institutions.map((inst) => (
+						{institutions?.map((inst) => (
 							<TableRow
 								key={inst.id}
 								sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
