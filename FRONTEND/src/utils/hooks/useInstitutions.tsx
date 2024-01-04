@@ -1,4 +1,5 @@
-import { InstitutionDto } from "../dtos/InstitutionDto";
+//import { InstitutionDto } from "../dtos/InstitutionDto";
+
 import dayjs from "dayjs";
 import useApiResource from "./useApiResource";
 
@@ -16,24 +17,7 @@ export type Institution = {
 };
 
 const useInstitutions = () => {
-	function institutionDtoMapper(dto: InstitutionDto[]): Institution[] {
-		return dto.map((r) => {
-			return {
-				id: r.id,
-				name: r.name,
-				shortcode: r.shortcode,
-				contactInfo: r.contactInfo,
-				photographerId: r.photographerId,
-				softDeadline: dayjs(r.softDeadline),
-				hardDeadline: dayjs(r.hardDeadline),
-				expectedShippingStart: dayjs(r.expectedShippingStart),
-				expectedShippingEnd: dayjs(r.expectedShippingEnd),
-				displayMessage: r.displayMessage,
-			} as Institution;
-		});
-	}
-
-	return useApiResource({ url: "Institution", dtoMapper: institutionDtoMapper });
+	return useApiResource<Institution[]>({ url: "Institution", dtoMapper: (x) => x });
 };
 
 export default useInstitutions;

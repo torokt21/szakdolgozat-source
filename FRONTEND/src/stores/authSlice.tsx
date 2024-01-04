@@ -1,7 +1,6 @@
 import { JwtPayload, jwtDecode } from "jwt-decode";
 
 import { AppState } from "./useBoundStore";
-import { LoginResponseDto } from "../utils/dtos/LoginDto";
 import { StateCreator } from "zustand";
 import axios from "axios";
 
@@ -15,8 +14,10 @@ export interface AdminSlice {
 		roles: string[];
 	};
 
+	/** Determines whether the admin sidebar is open. */
 	sidebarOpen: boolean;
 
+	/** Toggles the admin sidebar */
 	toggleSidebar: () => void;
 
 	/** Logs in the user */
@@ -66,3 +67,14 @@ export const createAuthSlice: StateCreator<AppState, [], [], AdminSlice> = (set,
 			return { user: undefined };
 		}),
 });
+
+export interface LoginRequestDto {
+	Username: string;
+	Password: string;
+}
+
+export interface LoginResponseDto {
+	expiration: string;
+	id: string;
+	token: string;
+}

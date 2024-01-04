@@ -11,7 +11,7 @@ export type useApiResourceProps<T, D = T> = {
 };
 
 /** Fetches a resource from the server */
-function useApiResource<T, D>(props: useApiResourceProps<T, D>) {
+function useApiResource<T, D = T>(props: useApiResourceProps<T, D>) {
 	const [data, setData] = useState<T>();
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
