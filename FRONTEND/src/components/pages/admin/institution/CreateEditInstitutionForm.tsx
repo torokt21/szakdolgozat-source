@@ -2,14 +2,14 @@ import "date-fns";
 
 import { Box, Button, Grid } from "@mui/material";
 import { DatePicker, TextField, makeValidate } from "mui-rff";
-import { date, object, ref, string } from "yup";
+import { object, string } from "yup";
 
 import { Form } from "react-final-form";
 import Institution from "../../../../utils/types/Institution";
 import React from "react";
 
 // TODO make date dayjs https://github.com/jquense/yup/issues/312
-const createInstitutionDtoSchema = object<Institution>().shape({
+const createInstitutionSchema = object<Institution>().shape({
 	name: string()
 		.required("A név megadása kötelező")
 		.min(3, "Legalább 3 karakter hosszúnak kell lennie!")
@@ -18,14 +18,13 @@ const createInstitutionDtoSchema = object<Institution>().shape({
 		.required("A kód megadása kötelező")
 		.uppercase("Csak nagybetűket tartalmazhat")
 		.length(3, "A kód hossza 3 karakter kell, hogy legyen"),
-	contactInfo: string(),
-	softDeadline: date().required("A mező kitöltése kötelező"),
-	hardDeadline: date().required("A mező kitöltése kötelező"),
-	expectedShippingStart: date().required("A mező kitöltése kötelező"),
-	expectedShippingEnd: date()
-		.required("A mező kitöltése kötelező")
-		.min(ref("expectedShippingStart"), "A kiszállítási idő vége nincs az eleje után"),
-	displayMessage: string(),
+	contactInfo: string().nullable(),
+	softDeadline: object().dayJs().required("A mező kitöltése kötelező"),
+	hardDeadline: object().dayJs().required("A mező kitöltése kötelező"),
+	expectedShippingStart: object().dayJs().required("A mező kitöltése kötelező"),
+	expectedShippingEnd: object().dayJs().required("A mező kitöltése kötelező"),
+	//.min(ref("expectedShippingStart"), "A kiszállítási idő vége nincs az eleje után"),
+	displayMessage: string().nullable(),
 });
 
 type CreateEditInstitutionFormProps = {
@@ -35,9 +34,7 @@ type CreateEditInstitutionFormProps = {
 };
 
 export default function CreateEditInstitutionForm(props: CreateEditInstitutionFormProps) {
-	const validate = makeValidate(createInstitutionDtoSchema);
-
-	console.log(props.editingInstitution);
+	const validate = makeValidate(createInstitutionSchema);
 
 	return (
 		<Form
@@ -107,7 +104,7 @@ export default function CreateEditInstitutionForm(props: CreateEditInstitutionFo
 					</Grid>
 					<Box my={3} textAlign="center">
 						<Button variant="contained" color="primary" onClick={handleSubmit}>
-							Létrehozás
+							{props.editing ? "Szerkesztés" : "Létrehozás"}
 						</Button>
 					</Box>
 					<pre>{JSON.stringify(values, null, 2)}</pre>
