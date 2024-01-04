@@ -1,7 +1,6 @@
 //import { InstitutionDto } from "../dtos/InstitutionDto";
 
 import Institution from "../types/Institution";
-import dayjs from "dayjs";
 import useApiResource from "./useApiResource";
 
 const useInstitutions = () => {

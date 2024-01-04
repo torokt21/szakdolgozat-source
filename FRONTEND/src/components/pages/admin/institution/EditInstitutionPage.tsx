@@ -1,5 +1,5 @@
 import { Box, Button, Container, Paper, Typography } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import React, { useState } from "react";
 
 import { AxiosError } from "axios";
@@ -7,7 +7,8 @@ import CreateEditInstitutionForm from "./CreateEditInstitutionForm";
 import Institution from "../../../../utils/types/Institution";
 import { useAxiosClient } from "../../../../utils/hooks/useAxiosClient";
 
-export default function CreateInstitutionPage() {
+export default function EditInstitutionPage() {
+	const { id } = useParams();
 	const [error, setError] = useState<string | undefined>();
 	const navigate = useNavigate();
 
@@ -15,7 +16,7 @@ export default function CreateInstitutionPage() {
 		setError(undefined);
 		const client = useAxiosClient();
 		client
-			.post(process.env.REACT_APP_API_URL + "Institution", JSON.stringify(values))
+			.put(process.env.REACT_APP_API_URL + "Institution/" + id, JSON.stringify(values))
 			.then(() => navigate("/admin/institution"))
 			.catch((error: AxiosError) => {
 				if (error.response?.status === 400) setError(error.response.data as string);
@@ -33,7 +34,7 @@ export default function CreateInstitutionPage() {
 			<Paper>
 				<Box p={4}>
 					<Typography variant="h3" component="h1" mb={2}>
-						Új intézmény
+						Intézmény szerkesztése
 					</Typography>
 
 					{error && (
@@ -42,7 +43,7 @@ export default function CreateInstitutionPage() {
 						</Box>
 					)}
 
-					<CreateEditInstitutionForm editing={false} onSubmit={onSubmit} />
+					<CreateEditInstitutionForm editing={true} onSubmit={onSubmit} />
 				</Box>
 			</Paper>
 		</Container>

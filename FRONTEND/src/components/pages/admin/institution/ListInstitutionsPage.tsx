@@ -1,5 +1,5 @@
 import { Box, CircularProgress, Container, IconButton, Tooltip, Typography } from "@mui/material";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 import AddIcon from "@mui/icons-material/Add";
 import Button from "@mui/material/Button";
@@ -21,6 +21,7 @@ import { useBoundStore } from "../../../../stores/useBoundStore";
 import useInstitutions from "../../../../utils/hooks/useInstitutions";
 
 export default function ListInstitutions() {
+	const navigate = useNavigate();
 	const {
 		data: [institutions, loading, error],
 		refetch,
@@ -32,6 +33,10 @@ export default function ListInstitutions() {
 				.delete(process.env.REACT_APP_API_URL + "Institution/" + institution.id)
 				.then(() => refetch());
 		}
+	}
+
+	function handleEdit(institution: Institution) {
+		navigate(institution.id.toString());
 	}
 
 	const hasRole = useBoundStore().hasRole("Admin");
@@ -89,7 +94,7 @@ export default function ListInstitutions() {
 								<TableCell scope="row">{inst.name}</TableCell>
 								<TableCell align="right" width="200px">
 									<Tooltip title="Szerkesztés">
-										<IconButton>
+										<IconButton onClick={() => handleEdit(inst)}>
 											<EditIcon />
 										</IconButton>
 									</Tooltip>
