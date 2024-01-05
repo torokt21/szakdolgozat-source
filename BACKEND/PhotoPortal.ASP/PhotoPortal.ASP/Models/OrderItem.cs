@@ -21,7 +21,7 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The product describing this order item.
         /// </summary>
-        public Product Product { get; set; }
+        public virtual Product Product { get; set; }
 
         /// <summary>
         /// The id of the order this item belongs to.
@@ -31,7 +31,7 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The order this item belongs to.
         /// </summary>
-        public Order Order { get; set; }
+        public virtual Order Order { get; set; }
 
         /// <summary>
         /// The id of the picture this item is associated with.
@@ -41,7 +41,7 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The picture this item is associated with.
         /// </summary>
-        public Picture? Picture { get; set; }
+        public virtual Picture? Picture { get; set; }
 
         /// <summary>
         /// The quantity of the ordered item.
@@ -58,6 +58,6 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The package this item is in. Null, if the item is not in a package.
         /// </summary>
-        public PackageOrder? OrderedPackage { get; set; }
+        public virtual PackageOrder? OrderedPackage { get; set; }
     }
 }

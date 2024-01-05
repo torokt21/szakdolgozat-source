@@ -1,4 +1,12 @@
-import { Box, CircularProgress, Container, IconButton, Tooltip, Typography } from "@mui/material";
+import {
+	Badge,
+	Box,
+	CircularProgress,
+	Container,
+	IconButton,
+	Tooltip,
+	Typography,
+} from "@mui/material";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 
 import AddIcon from "@mui/icons-material/Add";
@@ -103,9 +111,14 @@ export default function ListInstitutions() {
 											<FreeBreakfastIcon />
 										</IconButton>
 									</Tooltip>
-									<Tooltip title="Osztályok">
-										<IconButton>
-											<ClassIcon />
+									<Tooltip title={`Osztályok (${inst.classes.length} db)`}>
+										<IconButton onClick={() => navigate(inst.id + "/classes")}>
+											<Badge
+												badgeContent="!"
+												color="error"
+												invisible={inst.classes.length !== 0}>
+												<ClassIcon />
+											</Badge>
 										</IconButton>
 									</Tooltip>
 									<Tooltip title="Törlés">

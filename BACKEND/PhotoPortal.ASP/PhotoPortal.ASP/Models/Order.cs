@@ -26,7 +26,7 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The photographer this order belongs to.
         /// </summary>
-        public Photographer? Photographer { get; set; }
+        public virtual Photographer? Photographer { get; set; }
 
         /// <summary>
         /// The id of the shipping method selected by the customer.
@@ -36,7 +36,7 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The shipping method selected by the customer.
         /// </summary>
-        public ShippingMethod? ShippingMethod { get; set; }
+        public virtual ShippingMethod? ShippingMethod { get; set; }
 
         /// <summary>
         /// The id of the payment method selected by the customer.
@@ -46,7 +46,7 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The shipping method selected by the customer.
         /// </summary>
-        public PaymentMethod? PaymentMethod { get; set; }
+        public virtual PaymentMethod? PaymentMethod { get; set; }
 
         /// <summary>
         /// The first name of the customer.

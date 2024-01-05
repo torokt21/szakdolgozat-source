@@ -29,7 +29,7 @@ namespace PhotoPortal.ASP.Models
         /// The institution the child belongs to.
         /// </summary>
         [NotMapped]
-        public Institution Institution { get; set; }
+        public virtual Institution Institution { get; set; }
 
         /// <summary>
         /// The pictures taken of the child.

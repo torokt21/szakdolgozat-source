@@ -22,7 +22,7 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The package that contains this requirement.
         /// </summary>
-        public PackageInformation PackageInformation { get; set; }
+        public virtual PackageInformation PackageInformation { get; set; }
 
         /// <summary>
         /// The id of the product described by this requirement.
@@ -32,7 +32,7 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The product described by this requirement.
         /// </summary>
-        public Product Product { get; set; }
+        public virtual Product Product { get; set; }
 
         /// <summary>
         /// The quantity of the specified product.

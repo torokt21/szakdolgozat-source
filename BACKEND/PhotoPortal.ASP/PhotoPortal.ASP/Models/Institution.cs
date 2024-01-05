@@ -87,14 +87,20 @@ namespace PhotoPortal.ASP.Models
         /// </summary>
         [ValidateNever]
         [JsonIgnore]
-        public List<Product> OrderableProducts { get; }
+        public List<Product> OrderableProducts { get; } = new();
+
+        /// <summary>
+        /// The classes of the institution.
+        /// </summary>
+        [ValidateNever]
+        public List<Class> Classes { get; } = new();
 
         /// <summary>
         /// Packages that can be ordered by this institution.
         /// </summary>
         [ValidateNever]
         [JsonIgnore]
-        public List<PackageInformation> OrderablePackages { get; }
+        public List<PackageInformation> OrderablePackages { get; } = new();
         
     }
 }

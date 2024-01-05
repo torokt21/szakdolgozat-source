@@ -22,7 +22,7 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The child on the picture.
         /// </summary>
-        public Child Child { get; set; }
+        public virtual Child Child { get; set; }
 
         /// <summary>
         /// The filename of the picture.

@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace PhotoPortal.ASP.Models
 {
@@ -14,7 +16,8 @@ namespace PhotoPortal.ASP.Models
         [ForeignKey(nameof(Models.Institution))]
         public int InstitutionId { get; set; }
 
-        [NotMapped]
-        public Institution Institution { get; set; }
+        [ValidateNever]
+        [JsonIgnore]
+        public virtual Institution Institution { get; set; }
     }
 }

@@ -49,7 +49,7 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The photographer offering this product.
         /// </summary>
-        public Photographer? Photographer { get; set; }
+        public virtual Photographer? Photographer { get; set; }
 
         /// <summary>
         /// The price of the product.

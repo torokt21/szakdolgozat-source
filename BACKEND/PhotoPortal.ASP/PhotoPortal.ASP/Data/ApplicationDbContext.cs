@@ -130,10 +130,16 @@ namespace PhotoPortal.ASP.Data
                 .WithMany(b => b.AvailableIn);
 
             // institution - package infos
-            
             builder.Entity<Institution>()
                 .HasMany(a => a.OrderablePackages)
                 .WithMany(b => b.AvaliableIn);
+
+            // institution - classes
+            builder.Entity<Class>()
+                .HasOne(a => a.Institution)
+                .WithMany(b => b.Classes)
+                .HasForeignKey(a => a.InstitutionId)
+                .OnDelete(DeleteBehavior.Cascade);
 
 
             // shipping method - order
@@ -179,6 +185,7 @@ namespace PhotoPortal.ASP.Data
                 RoleId = "2",
                 UserId = seed.Id,
             });
+
 
             base.OnModelCreating(builder);
         }

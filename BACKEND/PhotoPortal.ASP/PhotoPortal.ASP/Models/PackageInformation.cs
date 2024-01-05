@@ -32,7 +32,7 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The list of requirements for this package.
         /// </summary>
-        public List<PackageRequirement> Requirements { get;  }
+        public List<PackageRequirement> Requirements { get; } = new();
 
         /// <summary>
         /// The id of the photographer selling this package.
@@ -42,11 +42,11 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The photographer selling this package.
         /// </summary>
-        public Photographer? Photographer { get; set; }
+        public virtual Photographer? Photographer { get; set; }
 
         /// <summary>
         /// The list of institutions this package is available for.
         /// </summary>
-        public List<Institution> AvaliableIn { get; set; }
+        public List<Institution> AvaliableIn { get; set; } = new();
     }
 }

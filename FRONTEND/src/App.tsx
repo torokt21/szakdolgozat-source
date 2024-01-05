@@ -9,6 +9,7 @@ import CreateInstitutionPage from "./components/pages/admin/institution/CreateIn
 import { CssBaseline } from "@mui/material";
 import DashboardPage from "./components/pages/admin/DashboardPage";
 import DefaultLayout from "./components/layouts/DefaultLayout";
+import EditClassesPage from "./components/pages/admin/class/EditClassesPage";
 import EditInstitutionPage from "./components/pages/admin/institution/EditInstitutionPage";
 import HomePage from "./components/pages/user/home/HomePage";
 import ListInstitutions from "./components/pages/admin/institution/ListInstitutionsPage";
@@ -36,6 +37,10 @@ function App() {
 							<Route path="institution">
 								<Route index element={<ListInstitutions />} />
 								<Route path=":id" element={<EditInstitutionPage />} />
+								<Route
+									path=":institutionId/classes"
+									element={<EditClassesPage />}
+								/>
 								<Route path="new" element={<CreateInstitutionPage />} />
 							</Route>
 							<Route path="*" element={<NotFoundPage />} />

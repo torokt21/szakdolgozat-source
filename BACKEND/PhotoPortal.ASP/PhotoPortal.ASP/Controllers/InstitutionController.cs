@@ -30,6 +30,9 @@ namespace PhotoPortal.ASP.Controllers
         [Authorize(Roles = "Admin,Photographer")]
         public ActionResult<IEnumerable<Institution>> GetInstitutions()
         {
+            Photographer? user = userManager.Users.FirstOrDefault(u => u.Id == userManager.GetUserId(User));
+            // TODO this returns null
+            // return user.Institutions;
             return institutionRepository.GetAll()
                 .Where(i => i.PhotographerId == userManager.GetUserId(User))
                 .OrderBy(i => i.Name)

@@ -317,6 +317,26 @@ namespace PhotoPortal.ASP.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Class",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    InstitutionId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Class", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Class_Institutions_InstitutionId",
+                        column: x => x.InstitutionId,
+                        principalTable: "Institutions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "InstitutionPackageInformation",
                 columns: table => new
                 {
@@ -484,17 +504,17 @@ namespace PhotoPortal.ASP.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "DisplayName", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "000b8915-97b7-4461-9570-e6ca7538ada8", 0, "df5ebc3c-ad28-482c-ac0b-66eab477138b", "Photographer", "Az iskola fotósa", "torokt21@gmail.com", true, false, null, null, "TOROKT21", "AQAAAAEAACcQAAAAEHlOuik5bTBW7RrfElDotuEqWsN7XaFF/B+JGAHWHl6YvdFxKUNje8a6u9BncYbV6Q==", null, false, "4113f5fe-b8f6-4b64-b609-09fc98fe8cf2", false, "torokt21" });
+                values: new object[] { "8b3c8f46-de8d-4d9c-9f24-fb786da25e12", 0, "e9da00c0-a1b6-407a-99c8-981ba20e7194", "Photographer", "Az iskola fotósa", "torokt21@gmail.com", true, false, null, null, "TOROKT21", "AQAAAAEAACcQAAAAEJFHOOjihokF9kYvAQQm4N22R2XyPygP0lUPGDMa3my08ev+H8q1yW0PY+WnCeRf1Q==", null, false, "515bd783-cffc-4c5d-96ee-fea7be454677", false, "torokt21" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "1", "000b8915-97b7-4461-9570-e6ca7538ada8" });
+                values: new object[] { "1", "8b3c8f46-de8d-4d9c-9f24-fb786da25e12" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "2", "000b8915-97b7-4461-9570-e6ca7538ada8" });
+                values: new object[] { "2", "8b3c8f46-de8d-4d9c-9f24-fb786da25e12" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -538,6 +558,11 @@ namespace PhotoPortal.ASP.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Children_InstitutionId",
                 table: "Children",
+                column: "InstitutionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Class_InstitutionId",
+                table: "Class",
                 column: "InstitutionId");
 
             migrationBuilder.CreateIndex(
@@ -637,6 +662,9 @@ namespace PhotoPortal.ASP.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Class");
 
             migrationBuilder.DropTable(
                 name: "InstitutionPackageInformation");

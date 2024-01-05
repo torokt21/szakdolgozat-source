@@ -1,3 +1,4 @@
+import Class from "./Class";
 import dayjs from "dayjs";
 
 type Institution = {
@@ -11,6 +12,7 @@ type Institution = {
 	expectedShippingStart: dayjs.Dayjs;
 	expectedShippingEnd: dayjs.Dayjs;
 	displayMessage: string | null;
+	classes: Class[];
 };
 
 export default Institution;

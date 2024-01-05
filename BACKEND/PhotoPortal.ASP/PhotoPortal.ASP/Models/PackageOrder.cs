@@ -16,7 +16,7 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The package that contains this order.
         /// </summary>
-        public PackageInformation? PackageInformation { get; set; }
+        public virtual PackageInformation? PackageInformation { get; set; }
 
         /// <summary>
         /// The id of the package that contains this order.

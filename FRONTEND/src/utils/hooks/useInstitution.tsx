@@ -1,5 +1,6 @@
 //import { InstitutionDto } from "../dtos/InstitutionDto";
 
+import Class from "../types/Class";
 import Institution from "../types/Institution";
 import dayjs from "dayjs";
 import useApiResource from "./useApiResource";
@@ -15,6 +16,7 @@ type InstitutionDto = {
 	expectedShippingStart: Date;
 	expectedShippingEnd: Date;
 	displayMessage: string;
+	classes: Class[];
 };
 
 function institutionMapper(response: InstitutionDto): Institution {
@@ -29,6 +31,7 @@ function institutionMapper(response: InstitutionDto): Institution {
 		expectedShippingStart: dayjs(response.expectedShippingStart),
 		expectedShippingEnd: dayjs(response.expectedShippingEnd),
 		displayMessage: response.displayMessage,
+		classes: response.classes,
 	};
 }
 
