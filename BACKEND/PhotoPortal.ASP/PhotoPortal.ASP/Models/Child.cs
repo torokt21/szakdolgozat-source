@@ -35,6 +35,6 @@ namespace PhotoPortal.ASP.Models
         /// The pictures taken of the child.
         /// </summary>
         [NotMapped]
-        public List<Picture> Pictures { get; }
+        public virtual List<Picture> Pictures { get; }
     }
 }

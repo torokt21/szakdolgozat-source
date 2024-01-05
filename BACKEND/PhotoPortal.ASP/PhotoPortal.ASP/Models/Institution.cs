@@ -47,14 +47,14 @@ namespace PhotoPortal.ASP.Models
         /// </summary>
         [ValidateNever]
         [JsonIgnore]
-        public Photographer? Photographer { get; }
+        public virtual Photographer? Photographer { get; }
 
         /// <summary>
         /// The children in this institution.
         /// </summary>
         [ValidateNever]
         [JsonIgnore]
-        public List<Child> Children { get; }
+        public virtual List<Child> Children { get; }
 
         /// <summary>
         /// The soft deadline of the institution. This is displayed on the main page, 
@@ -87,20 +87,20 @@ namespace PhotoPortal.ASP.Models
         /// </summary>
         [ValidateNever]
         [JsonIgnore]
-        public List<Product> OrderableProducts { get; } = new();
+        public virtual List<Product> OrderableProducts { get; } = new();
 
         /// <summary>
         /// The classes of the institution.
         /// </summary>
         [ValidateNever]
-        public List<Class> Classes { get; } = new();
+        public virtual List<Class> Classes { get; } = new();
 
         /// <summary>
         /// Packages that can be ordered by this institution.
         /// </summary>
         [ValidateNever]
         [JsonIgnore]
-        public List<PackageInformation> OrderablePackages { get; } = new();
+        public virtual List<PackageInformation> OrderablePackages { get; } = new();
         
     }
 }

@@ -26,6 +26,6 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The items in the ordered package.
         /// </summary>
-        public List<OrderItem> Items { get; }
+        public virtual List<OrderItem> Items { get; }
     }
 }

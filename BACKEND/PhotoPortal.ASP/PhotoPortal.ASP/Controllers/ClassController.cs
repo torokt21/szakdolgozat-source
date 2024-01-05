@@ -49,8 +49,6 @@ namespace PhotoPortal.ASP.Controllers
         [Authorize]
         public ActionResult<Class> PostClass(Class newClass)
         {
-            var tst = classRepository.GetAll();
-            //var inst = tst.Institution;
             Photographer? user = userManager.Users.FirstOrDefault(u => u.Id == userManager.GetUserId(User));
 
             if (user == null)

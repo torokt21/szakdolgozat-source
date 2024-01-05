@@ -59,6 +59,6 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The list of institution this product is available for.
         /// </summary>
-        public List<Institution> AvailableIn { get; }
+        public virtual List<Institution> AvailableIn { get; }
     }
 }

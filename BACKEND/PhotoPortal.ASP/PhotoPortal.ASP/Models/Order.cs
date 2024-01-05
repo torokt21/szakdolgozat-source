@@ -16,7 +16,7 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The items in this order.
         /// </summary>
-        public List<OrderItem> Items { get; }
+        public virtual List<OrderItem> Items { get; }
 
         /// <summary>
         /// The id of the photographer this order belongs to.
