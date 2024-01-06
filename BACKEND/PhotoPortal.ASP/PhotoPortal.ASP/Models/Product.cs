@@ -63,6 +63,7 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The type of the product.
         /// </summary>
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public ProductType Type { get; set; }
 
         /// <summary>

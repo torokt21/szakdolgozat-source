@@ -31,12 +31,7 @@ namespace PhotoPortal.ASP.Controllers
         public ActionResult<IEnumerable<Institution>> GetInstitutions()
         {
             Photographer? user = userManager.Users.FirstOrDefault(u => u.Id == userManager.GetUserId(User));
-            // TODO this returns null
-            // return user.Institutions;
-            return institutionRepository.GetAll()
-                .Where(i => i.PhotographerId == userManager.GetUserId(User))
-                .OrderBy(i => i.Name)
-                .ToList();
+            return user.Institutions;
         }
 
         // GET: api/Institution/5

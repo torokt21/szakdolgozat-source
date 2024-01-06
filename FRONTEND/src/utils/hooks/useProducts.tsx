@@ -1,15 +1,13 @@
 //import { InstitutionDto } from "../dtos/InstitutionDto";
 
-import { InstitutionDto, institutionMapper } from "./useInstitution";
-
-import Institution from "../types/Institution";
+import Product from "../types/Product";
 import useApiResource from "./useApiResource";
 
-const useInstitutions = () => {
-	return useApiResource<Institution[], InstitutionDto[]>({
+const useProducts = () => {
+	return useApiResource<Product[]>({
 		url: "Product",
-		dtoMapper: (insts) => insts.map((i) => institutionMapper(i)),
+		dtoMapper: (p) => p,
 	});
 };
 
-export default useInstitutions;
+export default useProducts;
