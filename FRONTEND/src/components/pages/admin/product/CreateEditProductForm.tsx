@@ -2,8 +2,8 @@ import "date-fns";
 
 import { Box, Button, Grid, InputAdornment, MenuItem, Typography } from "@mui/material";
 import Product, { PrintProductType } from "../../../../utils/types/Product";
-import { Select, TextField, makeValidate } from "mui-rff";
-import { number, object, string } from "yup";
+import { Select, Switches, TextField, makeValidate } from "mui-rff";
+import { boolean, number, object, string } from "yup";
 
 import { Form } from "react-final-form";
 import React from "react";
@@ -16,6 +16,7 @@ const createProductSchema = object<Product>().shape({
 	Description: string().nullable().max(200, "A hossza nem haladhatja meg a 200 karaktert"),
 	Price: number().required("Az ár megadása kötelező").positive("Az ár nem lehet negatív"),
 	Type: string().required().oneOf(["Printed", "Gift"]),
+	Orderable: boolean(),
 });
 
 type CreateEditProductFormProps = {
@@ -27,14 +28,23 @@ type CreateEditProductFormProps = {
 export default function CreateEditProductForm(props: CreateEditProductFormProps) {
 	const validate = makeValidate(createProductSchema);
 
+	const initialValues = props.editing ? props.editingProduct : { Orderable: true };
+
 	return (
 		<Form
 			onSubmit={props.onSubmit}
 			validate={validate}
-			initialValues={props.editingProduct}
+			initialValues={initialValues}
 			render={({ handleSubmit }) => (
 				<form onSubmit={handleSubmit} noValidate>
 					<Grid container spacing={2}>
+						<Grid item xs={12}>
+							<Switches
+								name="Orderable"
+								required={true}
+								data={{ label: "A szolgáltatás rendelhető", value: true }}
+							/>
+						</Grid>
 						<Grid item xs={12} md={6}>
 							<TextField fullWidth label="Név" name="Name" required={true} />
 						</Grid>

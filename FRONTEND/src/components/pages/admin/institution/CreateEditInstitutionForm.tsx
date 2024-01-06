@@ -58,7 +58,7 @@ export default function CreateEditInstitutionForm(props: CreateEditInstitutionFo
 							/>
 						</Grid>
 						<Grid item xs={12} md={9}>
-							<TextField fullWidth label="Név" name="name" required={true} />
+							<TextField fullWidth label="Név" name="Name" required={true} />
 						</Grid>
 						<Grid item xs={12}>
 							<TextField
@@ -76,7 +76,7 @@ export default function CreateEditInstitutionForm(props: CreateEditInstitutionFo
 							/>
 						</Grid>
 						<Grid item xs={12} md={6}>
-							<DatePicker label="Valódi rendelési határidő" name="hardDeadline" />
+							<DatePicker label="Valódi rendelési határidő" name="HardDeadline" />
 						</Grid>
 						<Grid item xs={12} md={6}>
 							<DatePicker
