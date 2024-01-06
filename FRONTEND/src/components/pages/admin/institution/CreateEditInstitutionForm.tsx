@@ -8,7 +8,6 @@ import { Form } from "react-final-form";
 import Institution from "../../../../utils/types/Institution";
 import React from "react";
 
-// TODO make date dayjs https://github.com/jquense/yup/issues/312
 const createInstitutionSchema = object<Institution>().shape({
 	name: string()
 		.required("A név megadása kötelező")
@@ -41,7 +40,7 @@ export default function CreateEditInstitutionForm(props: CreateEditInstitutionFo
 			onSubmit={props.onSubmit}
 			validate={validate}
 			initialValues={props.editingInstitution}
-			render={({ handleSubmit, values }) => (
+			render={({ handleSubmit }) => (
 				<form onSubmit={handleSubmit} noValidate>
 					<Grid container spacing={2}>
 						<Grid item xs={12} md={3}>
@@ -107,7 +106,6 @@ export default function CreateEditInstitutionForm(props: CreateEditInstitutionFo
 							{props.editing ? "Szerkesztés" : "Létrehozás"}
 						</Button>
 					</Box>
-					<pre>{JSON.stringify(values, null, 2)}</pre>
 				</form>
 			)}
 		/>

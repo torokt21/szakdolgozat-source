@@ -28,6 +28,17 @@ namespace PhotoPortal.ASP.Controllers
             this.userManager = userManager;
         }
 
+        // GET: api/Institution
+        [HttpGet("{institutionId}")]
+        public ActionResult<IEnumerable<Class>> GetClassesByInstitution(int institutionId)
+        {
+            return classRepository
+                .GetAll()
+                .Where(c => c.InstitutionId == institutionId)
+                .OrderBy(c =>c.Name)
+                .ToList();
+        }
+
 
         // PUT: api/Class/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
