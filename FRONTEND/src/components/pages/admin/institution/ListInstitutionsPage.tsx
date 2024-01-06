@@ -3,6 +3,7 @@ import {
 	Box,
 	CircularProgress,
 	Container,
+	Grid,
 	IconButton,
 	Tooltip,
 	Typography,
@@ -66,16 +67,28 @@ export default function ListInstitutions() {
 
 	return (
 		<Container>
-			<Box textAlign="center" pb={5}>
-				<Button
-					component={Link}
-					to="new"
-					variant="contained"
-					color="primary"
-					startIcon={<AddIcon />}>
-					Új intézmény
-				</Button>
+			<Box mb={3}>
+				<Grid container>
+					<Grid item xs={12} sm={7} lg={10}>
+						<Typography component="h1" variant="h3">
+							Intézmények
+						</Typography>
+					</Grid>
+
+					<Grid item xs={12} sm={5} lg={2} textAlign="right">
+						<Button
+							fullWidth
+							component={Link}
+							to="new"
+							variant="contained"
+							color="primary"
+							startIcon={<AddIcon />}>
+							Új intézmény
+						</Button>
+					</Grid>
+				</Grid>
 			</Box>
+
 			<TableContainer component={Paper}>
 				<Table sx={{ minWidth: 650 }} aria-label="Intézmények listája">
 					<TableHead>
