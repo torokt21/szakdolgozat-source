@@ -1,11 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace PhotoPortal.ASP.Models
 {
     /// <summary>
     /// The possible types of a product.
     /// </summary>
-    public enum ProductTypes
+    public enum ProductType
     {
         /// <summary>
         /// A printed product such as a 10x15 cm printed picture.
@@ -49,6 +51,8 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The photographer offering this product.
         /// </summary>
+        [JsonIgnore]
+        [ValidateNever]
         public virtual Photographer? Photographer { get; set; }
 
         /// <summary>
@@ -57,8 +61,15 @@ namespace PhotoPortal.ASP.Models
         public int Price { get; set; }
 
         /// <summary>
+        /// The type of the product.
+        /// </summary>
+        public ProductType Type { get; set; }
+
+        /// <summary>
         /// The list of institution this product is available for.
         /// </summary>
+        [JsonIgnore]
+        [ValidateNever]
         public virtual List<Institution> AvailableIn { get; }
     }
 }

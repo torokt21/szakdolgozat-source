@@ -156,9 +156,23 @@ namespace PhotoPortal.ASP.Data
                 .HasForeignKey(a => a.PaymentMethodId)
                 .OnDelete(DeleteBehavior.SetNull);
 
+            IdentityRole adminRole = new()
+            {
+                Id = "9407ad10-0964-4010-ae9c-ee2f4b36bb35",
+                ConcurrencyStamp = "da7a4f42-ff3c-42a8-935a-62af68f978b0",
+                Name = "Admin",
+                NormalizedName = "ADMIN"
+            };
 
-            builder.Entity<IdentityRole>().HasData(new { Id = "1", Name = "Admin", NormalizedName = "ADMIN" });
-            builder.Entity<IdentityRole>().HasData(new { Id = "2", Name = "Helper", NormalizedName = "HELPER" });
+            IdentityRole HelperRole = new()
+            {
+                Id = "4cc0e13d-7c2e-4946-b2a9-f1b80af36743",
+                ConcurrencyStamp = "8b3c8f46-de8d-4d9c-9f24-fb786da25e12",
+                Name = "Helper",
+                NormalizedName = "HELPER"
+            };
+            builder.Entity<IdentityRole>().HasData(adminRole);
+            builder.Entity<IdentityRole>().HasData(HelperRole);
 
             PasswordHasher<Photographer> ph = new PasswordHasher<Photographer>();
             Photographer seed = new Photographer
@@ -175,14 +189,14 @@ namespace PhotoPortal.ASP.Data
 
             builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
             {
-                RoleId = "1",
+                RoleId = adminRole.Id,
                 UserId = seed.Id,
             });
 
 
             builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
             {
-                RoleId = "2",
+                RoleId = HelperRole.Id,
                 UserId = seed.Id,
             });
 

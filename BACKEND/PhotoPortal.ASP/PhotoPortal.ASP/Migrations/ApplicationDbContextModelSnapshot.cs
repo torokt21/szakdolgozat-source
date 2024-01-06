@@ -17,7 +17,7 @@ namespace PhotoPortal.ASP.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.23")
+                .HasAnnotation("ProductVersion", "6.0.25")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -81,13 +81,15 @@ namespace PhotoPortal.ASP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1",
+                            Id = "9407ad10-0964-4010-ae9c-ee2f4b36bb35",
+                            ConcurrencyStamp = "da7a4f42-ff3c-42a8-935a-62af68f978b0",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "2",
+                            Id = "4cc0e13d-7c2e-4946-b2a9-f1b80af36743",
+                            ConcurrencyStamp = "8b3c8f46-de8d-4d9c-9f24-fb786da25e12",
                             Name = "Helper",
                             NormalizedName = "HELPER"
                         });
@@ -255,13 +257,13 @@ namespace PhotoPortal.ASP.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "8b3c8f46-de8d-4d9c-9f24-fb786da25e12",
-                            RoleId = "1"
+                            UserId = "815268db-8493-4167-8266-0b01665e1c72",
+                            RoleId = "9407ad10-0964-4010-ae9c-ee2f4b36bb35"
                         },
                         new
                         {
-                            UserId = "8b3c8f46-de8d-4d9c-9f24-fb786da25e12",
-                            RoleId = "2"
+                            UserId = "815268db-8493-4167-8266-0b01665e1c72",
+                            RoleId = "4cc0e13d-7c2e-4946-b2a9-f1b80af36743"
                         });
                 });
 
@@ -601,6 +603,9 @@ namespace PhotoPortal.ASP.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("PhotographerId");
@@ -652,16 +657,16 @@ namespace PhotoPortal.ASP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8b3c8f46-de8d-4d9c-9f24-fb786da25e12",
+                            Id = "815268db-8493-4167-8266-0b01665e1c72",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e9da00c0-a1b6-407a-99c8-981ba20e7194",
+                            ConcurrencyStamp = "297b07de-1544-45f8-8f25-6f9356e84567",
                             Email = "torokt21@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "TOROKT21",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJFHOOjihokF9kYvAQQm4N22R2XyPygP0lUPGDMa3my08ev+H8q1yW0PY+WnCeRf1Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFMHVTZU9a+pR4KsiSBTLZv+elV0TZtts87C71xj6uWlYNlKLaJMfT2yp7iKcCmWqg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "515bd783-cffc-4c5d-96ee-fea7be454677",
+                            SecurityStamp = "4f8f61d9-6d3b-4c32-a945-f30ed8d07e0c",
                             TwoFactorEnabled = false,
                             UserName = "torokt21",
                             DisplayName = "Az iskola fotósa"

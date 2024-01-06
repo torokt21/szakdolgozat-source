@@ -248,7 +248,8 @@ namespace PhotoPortal.ASP.Migrations
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     PhotographerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Price = table.Column<int>(type: "int", nullable: false)
+                    Price = table.Column<int>(type: "int", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -494,27 +495,27 @@ namespace PhotoPortal.ASP.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "1", null, "Admin", "ADMIN" });
+                values: new object[] { "4cc0e13d-7c2e-4946-b2a9-f1b80af36743", "8b3c8f46-de8d-4d9c-9f24-fb786da25e12", "Helper", "HELPER" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "2", null, "Helper", "HELPER" });
+                values: new object[] { "9407ad10-0964-4010-ae9c-ee2f4b36bb35", "da7a4f42-ff3c-42a8-935a-62af68f978b0", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "DisplayName", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "8b3c8f46-de8d-4d9c-9f24-fb786da25e12", 0, "e9da00c0-a1b6-407a-99c8-981ba20e7194", "Photographer", "Az iskola fotósa", "torokt21@gmail.com", true, false, null, null, "TOROKT21", "AQAAAAEAACcQAAAAEJFHOOjihokF9kYvAQQm4N22R2XyPygP0lUPGDMa3my08ev+H8q1yW0PY+WnCeRf1Q==", null, false, "515bd783-cffc-4c5d-96ee-fea7be454677", false, "torokt21" });
+                values: new object[] { "815268db-8493-4167-8266-0b01665e1c72", 0, "297b07de-1544-45f8-8f25-6f9356e84567", "Photographer", "Az iskola fotósa", "torokt21@gmail.com", true, false, null, null, "TOROKT21", "AQAAAAEAACcQAAAAEFMHVTZU9a+pR4KsiSBTLZv+elV0TZtts87C71xj6uWlYNlKLaJMfT2yp7iKcCmWqg==", null, false, "4f8f61d9-6d3b-4c32-a945-f30ed8d07e0c", false, "torokt21" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "1", "8b3c8f46-de8d-4d9c-9f24-fb786da25e12" });
+                values: new object[] { "4cc0e13d-7c2e-4946-b2a9-f1b80af36743", "815268db-8493-4167-8266-0b01665e1c72" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "2", "8b3c8f46-de8d-4d9c-9f24-fb786da25e12" });
+                values: new object[] { "9407ad10-0964-4010-ae9c-ee2f4b36bb35", "815268db-8493-4167-8266-0b01665e1c72" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
