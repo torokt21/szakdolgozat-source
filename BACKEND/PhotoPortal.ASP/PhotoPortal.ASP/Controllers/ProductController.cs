@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PhotoPortal.ASP.Data;
 using PhotoPortal.ASP.Models;
+using System.Text.Json;
 
 namespace PhotoPortal.ASP.Controllers
 {
@@ -25,7 +26,7 @@ namespace PhotoPortal.ASP.Controllers
         public ActionResult<IEnumerable<Product>> GetProducts()
         {
             Photographer? user = userManager.Users.FirstOrDefault(u => u.Id == userManager.GetUserId(User));
-            return user.Products;
+            return Content(JsonSerializer.Serialize(user.Products), "application/json");
         }
 
         [HttpGet("{id}")]
@@ -37,8 +38,7 @@ namespace PhotoPortal.ASP.Controllers
             {
                 return NotFound();
             }
-
-            return product;
+            return Content(JsonSerializer.Serialize(product), "application/json");
         }
 
         [HttpPut("{id}")]
@@ -51,7 +51,7 @@ namespace PhotoPortal.ASP.Controllers
 
             this.productRepository.Update(product);
 
-            return product;
+            return Content(JsonSerializer.Serialize(product), "application/json");
         }
 
         [HttpPost]

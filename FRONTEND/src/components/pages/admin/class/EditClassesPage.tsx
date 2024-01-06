@@ -40,9 +40,9 @@ export default function EditClassesPage() {
 	} = useClasses(Number(institutionId));
 
 	function handleDelete(clas: Class) {
-		if (confirm(`Biztosan törölni akarod a(z) ${clas.name} nevű osztályt?`)) {
+		if (confirm(`Biztosan törölni akarod a(z) ${clas.Name} nevű osztályt?`)) {
 			useAxiosClient()
-				.delete(process.env.REACT_APP_API_URL + "Class/" + clas.id)
+				.delete(process.env.REACT_APP_API_URL + "Class/" + clas.Id)
 				.then(() => refetch());
 		}
 	}
@@ -51,7 +51,7 @@ export default function EditClassesPage() {
 
 	if (instError || classesError || !institution || !classes) return <>Váratlan hiba</>;
 
-	if (institution.photographerId !== userId) return <Navigate to={`/admin/institution`} />;
+	if (institution.PhotographerId !== userId) return <Navigate to={`/admin/institution`} />;
 
 	return (
 		<Container maxWidth="sm">
@@ -62,20 +62,20 @@ export default function EditClassesPage() {
 				</Button>
 			</Box>
 			<Typography variant="h3" component="h1">
-				{institution?.name}
+				{institution?.Name}
 			</Typography>
 			<Typography variant="h5" component="h2" mb={2}>
 				Osztályok szerkesztése ({classes.length})
 			</Typography>
 			<Box my={4}>
-				<AddClassForm refetch={refetch} institutionId={institution.id} classes={classes} />
+				<AddClassForm refetch={refetch} institutionId={institution.Id} classes={classes} />
 			</Box>
 			<TableContainer component={Paper}>
 				<Table>
 					<TableBody>
 						{classes.map((clas) => (
 							<TableRow>
-								<TableCell align="left">{clas.name}</TableCell>
+								<TableCell align="left">{clas.Name}</TableCell>
 								<TableCell align="right">
 									{" "}
 									<Tooltip title="Törlés">
@@ -104,7 +104,7 @@ function AddClassForm(props: AddClassFormProps) {
 
 	function handleAddClass() {
 		if (newClassName.length < 1) return alert("Az osztály neve túl rövid.");
-		if (props.classes.some((c) => c.name.toLowerCase() === newClassName.toLowerCase()))
+		if (props.classes.some((c) => c.Name.toLowerCase() === newClassName.toLowerCase()))
 			return alert("A megadott osztály már létezik.");
 		useAxiosClient()
 			.post(

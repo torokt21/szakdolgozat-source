@@ -12,13 +12,13 @@ export function PrintProductType(type: ProductType) {
 }
 
 type Product = {
-	id: number;
-	name: string;
-	description: string | null;
-	photographerId: string;
-	price: number;
-	type: ProductType;
-	orderable: boolean;
+	Id: number;
+	Name: string;
+	Description: string | null;
+	PhotographerId: string;
+	Price: number;
+	Type: ProductType;
+	Orderable: boolean;
 };
 
 export default Product;

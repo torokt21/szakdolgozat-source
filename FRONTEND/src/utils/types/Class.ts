@@ -1,7 +1,7 @@
 type Class = {
-	id: number;
-	name: string;
-	institutionId: number;
+	Id: number;
+	Name: string;
+	InstitutionId: number;
 };
 
 export default Class;

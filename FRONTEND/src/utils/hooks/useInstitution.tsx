@@ -6,32 +6,32 @@ import dayjs from "dayjs";
 import useApiResource from "./useApiResource";
 
 export type InstitutionDto = {
-	id: number;
-	name: string;
-	shortcode: string;
-	contactInfo: string;
-	photographerId: string;
-	softDeadline: Date;
-	hardDeadline: Date;
-	expectedShippingStart: Date;
-	expectedShippingEnd: Date;
-	displayMessage: string;
-	classes: Class[];
+	Id: number;
+	Name: string;
+	Shortcode: string;
+	ContactInfo: string;
+	PhotographerId: string;
+	SoftDeadline: Date;
+	HardDeadline: Date;
+	ExpectedShippingStart: Date;
+	ExpectedShippingEnd: Date;
+	DisplayMessage: string;
+	Classes: Class[];
 };
 
 export function institutionMapper(response: InstitutionDto): Institution {
 	return {
-		id: response.id,
-		name: response.name,
-		shortcode: response.shortcode,
-		contactInfo: response.contactInfo,
-		photographerId: response.photographerId,
-		softDeadline: dayjs(response.softDeadline),
-		hardDeadline: dayjs(response.hardDeadline),
-		expectedShippingStart: dayjs(response.expectedShippingStart),
-		expectedShippingEnd: dayjs(response.expectedShippingEnd),
-		displayMessage: response.displayMessage,
-		classes: response.classes,
+		Id: response.Id,
+		Name: response.Name,
+		Shortcode: response.Shortcode,
+		ContactInfo: response.ContactInfo,
+		PhotographerId: response.PhotographerId,
+		SoftDeadline: dayjs(response.SoftDeadline),
+		HardDeadline: dayjs(response.HardDeadline),
+		ExpectedShippingStart: dayjs(response.ExpectedShippingStart),
+		ExpectedShippingEnd: dayjs(response.ExpectedShippingEnd),
+		DisplayMessage: response.DisplayMessage,
+		Classes: response.Classes,
 	};
 }
 

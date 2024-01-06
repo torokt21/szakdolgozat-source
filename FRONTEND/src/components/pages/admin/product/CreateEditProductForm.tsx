@@ -9,13 +9,13 @@ import { Form } from "react-final-form";
 import React from "react";
 
 const createProductSchema = object<Product>().shape({
-	name: string()
+	Name: string()
 		.required("A név megadása kötelező")
 		.min(3, "Legalább 3 karakter hosszúnak kell lennie!")
 		.max(50, "A hossza nem haladhatja meg az 50 karaktert"),
-	description: string().nullable().max(200, "A hossza nem haladhatja meg a 200 karaktert"),
-	price: number().required("Az ár megadása kötelező").positive("Az ár nem lehet negatív"),
-	type: string().required().oneOf(["Printed", "Gift"]),
+	Description: string().nullable().max(200, "A hossza nem haladhatja meg a 200 karaktert"),
+	Price: number().required("Az ár megadása kötelező").positive("Az ár nem lehet negatív"),
+	Type: string().required().oneOf(["Printed", "Gift"]),
 });
 
 type CreateEditProductFormProps = {
@@ -36,14 +36,14 @@ export default function CreateEditProductForm(props: CreateEditProductFormProps)
 				<form onSubmit={handleSubmit} noValidate>
 					<Grid container spacing={2}>
 						<Grid item xs={12} md={6}>
-							<TextField fullWidth label="Név" name="name" required={true} />
+							<TextField fullWidth label="Név" name="Name" required={true} />
 						</Grid>
 						<Grid item xs={12} md={3}>
 							<TextField
 								fullWidth
 								type="number"
 								label="Ár"
-								name="price"
+								name="Price"
 								required={true}
 								InputProps={{
 									endAdornment: (
@@ -55,7 +55,7 @@ export default function CreateEditProductForm(props: CreateEditProductFormProps)
 							/>
 						</Grid>
 						<Grid item xs={12} md={3}>
-							<Select name="type" label="Típus">
+							<Select name="Type" label="Típus">
 								<MenuItem value="Printed">{PrintProductType("Printed")}</MenuItem>
 								<MenuItem value="Gift">{PrintProductType("Gift")}</MenuItem>
 							</Select>
@@ -66,7 +66,7 @@ export default function CreateEditProductForm(props: CreateEditProductFormProps)
 								rows={4}
 								label="Leírás"
 								multiline
-								name="description"
+								name="Description"
 							/>
 						</Grid>
 					</Grid>

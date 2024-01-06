@@ -36,15 +36,15 @@ export default function ListProductsPage() {
 	} = useProducts();
 
 	function handleDelete(product: Product) {
-		if (confirm(`Biztosan törölni akarod a(z) ${product.name} nevű terméket?`)) {
+		if (confirm(`Biztosan törölni akarod a(z) ${product.Name} nevű terméket?`)) {
 			useAxiosClient()
-				.delete(process.env.REACT_APP_API_URL + "Product/" + product.id)
+				.delete(process.env.REACT_APP_API_URL + "Product/" + product.Id)
 				.then(() => refetch());
 		}
 	}
 
 	function handleEdit(Product: Product) {
-		navigate(Product.id.toString());
+		navigate(Product.Id.toString());
 	}
 
 	const hasRole = useBoundStore().hasRole("Admin");
@@ -110,10 +110,10 @@ export default function ListProductsPage() {
 					<TableBody>
 						{products?.map((product) => (
 							<TableRow
-								key={product.id}
+								key={product.Id}
 								sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
 								<TableCell width="50px">
-									{product.orderable ? (
+									{product.Orderable ? (
 										<Tooltip title="Rendelhető">
 											<VisibilityIcon />
 										</Tooltip>
@@ -123,10 +123,10 @@ export default function ListProductsPage() {
 										</Tooltip>
 									)}
 								</TableCell>
-								<TableCell scope="row">{product.name}</TableCell>
-								<TableCell scope="row">{PrintProductType(product.type)}</TableCell>
+								<TableCell scope="row">{product.Name}</TableCell>
+								<TableCell scope="row">{PrintProductType(product.Type)}</TableCell>
 								<TableCell scope="row">
-									{product.price.toLocaleString("hu-HU")} Ft
+									{product.Price.toLocaleString("hu-HU")} Ft
 								</TableCell>
 								<TableCell align="right" width="200px">
 									<Tooltip title="Szerkesztés">

@@ -37,15 +37,15 @@ export default function ListInstitutions() {
 	} = useInstitutions();
 
 	function handleDelete(institution: Institution) {
-		if (confirm(`Biztosan törölni akarod a(z) ${institution.name} nevű intézményt?`)) {
+		if (confirm(`Biztosan törölni akarod a(z) ${institution.Name} nevű intézményt?`)) {
 			useAxiosClient()
-				.delete(process.env.REACT_APP_API_URL + "Institution/" + institution.id)
+				.delete(process.env.REACT_APP_API_URL + "Institution/" + institution.Id)
 				.then(() => refetch());
 		}
 	}
 
 	function handleEdit(institution: Institution) {
-		navigate(institution.id.toString());
+		navigate(institution.Id.toString());
 	}
 
 	const hasRole = useBoundStore().hasRole("Admin");
@@ -110,13 +110,13 @@ export default function ListInstitutions() {
 					<TableBody>
 						{institutions?.map((inst) => (
 							<TableRow
-								key={inst.id}
+								key={inst.Id}
 								sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
 								<TableCell width="50px" sx={{ fontFamily: "Monospace" }}>
-									{inst.shortcode}
+									{inst.Shortcode}
 								</TableCell>
-								<TableCell scope="row">{inst.name}</TableCell>
-								<TableCell>{inst.hardDeadline.format("YYYY-MM-DD")}</TableCell>
+								<TableCell scope="row">{inst.Name}</TableCell>
+								<TableCell>{inst.HardDeadline.format("YYYY-MM-DD")}</TableCell>
 								<TableCell align="right" width="200px">
 									<Tooltip title="Szerkesztés">
 										<IconButton onClick={() => handleEdit(inst)}>
@@ -128,12 +128,12 @@ export default function ListInstitutions() {
 											<FreeBreakfastIcon />
 										</IconButton>
 									</Tooltip>
-									<Tooltip title={`Osztályok (${inst.classes.length} db)`}>
-										<IconButton onClick={() => navigate(inst.id + "/classes")}>
+									<Tooltip title={`Osztályok (${inst.Classes.length} db)`}>
+										<IconButton onClick={() => navigate(inst.Id + "/classes")}>
 											<Badge
 												badgeContent="!"
 												color="error"
-												invisible={inst.classes.length !== 0}>
+												invisible={inst.Classes.length !== 0}>
 												<ClassIcon />
 											</Badge>
 										</IconButton>

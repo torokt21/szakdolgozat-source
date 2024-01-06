@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -32,11 +34,11 @@ namespace PhotoPortal.ASP.Controllers
         [HttpGet("{institutionId}")]
         public ActionResult<IEnumerable<Class>> GetClassesByInstitution(int institutionId)
         {
-            return classRepository
+            return Content(JsonSerializer.Serialize(classRepository
                 .GetAll()
                 .Where(c => c.InstitutionId == institutionId)
-                .OrderBy(c =>c.Name)
-                .ToList();
+                .OrderBy(c => c.Name)
+                .ToList()), "application/json");
         }
 
 
@@ -51,8 +53,7 @@ namespace PhotoPortal.ASP.Controllers
             }
 
             this.classRepository.Update(@class);
-
-            return @class;
+            return Content(JsonSerializer.Serialize(@class), "application/json");
         }
 
         // POST: api/Class
@@ -81,8 +82,7 @@ namespace PhotoPortal.ASP.Controllers
                 return BadRequest("Az osztály már létezik.");
 
             this.classRepository.Insert(newClass);
-
-            return newClass;
+            return Content(JsonSerializer.Serialize(newClass), "application/json");
         }
 
         // DELETE: api/Class/5

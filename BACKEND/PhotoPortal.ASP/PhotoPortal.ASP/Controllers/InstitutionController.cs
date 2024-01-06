@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -31,7 +32,7 @@ namespace PhotoPortal.ASP.Controllers
         public ActionResult<IEnumerable<Institution>> GetInstitutions()
         {
             Photographer? user = userManager.Users.FirstOrDefault(u => u.Id == userManager.GetUserId(User));
-            return user.Institutions;
+            return Content(JsonSerializer.Serialize(user.Institutions), "application/json");
         }
 
         // GET: api/Institution/5
@@ -45,7 +46,7 @@ namespace PhotoPortal.ASP.Controllers
                 return NotFound();
             }
 
-            return institution;
+            return Content(JsonSerializer.Serialize(institution), "application/json");
         }
 
         // PUT: api/Institution/5
