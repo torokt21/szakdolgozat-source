@@ -86,6 +86,9 @@ export default function ListInstitutions() {
 							<TableCell component="th" sx={{ fontWeight: "bold" }}>
 								Név
 							</TableCell>
+							<TableCell component="th" sx={{ fontWeight: "bold" }}>
+								Rendelési határidő
+							</TableCell>
 							<TableCell component="th" align="right" sx={{ fontWeight: "bold" }}>
 								Műveletek
 							</TableCell>
@@ -100,6 +103,7 @@ export default function ListInstitutions() {
 									{inst.shortcode}
 								</TableCell>
 								<TableCell scope="row">{inst.name}</TableCell>
+								<TableCell>{inst.hardDeadline.format("YYYY-MM-DD")}</TableCell>
 								<TableCell align="right" width="200px">
 									<Tooltip title="Szerkesztés">
 										<IconButton onClick={() => handleEdit(inst)}>

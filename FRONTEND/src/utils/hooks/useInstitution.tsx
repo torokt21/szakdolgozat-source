@@ -5,7 +5,7 @@ import Institution from "../types/Institution";
 import dayjs from "dayjs";
 import useApiResource from "./useApiResource";
 
-type InstitutionDto = {
+export type InstitutionDto = {
 	id: number;
 	name: string;
 	shortcode: string;
@@ -19,7 +19,7 @@ type InstitutionDto = {
 	classes: Class[];
 };
 
-function institutionMapper(response: InstitutionDto): Institution {
+export function institutionMapper(response: InstitutionDto): Institution {
 	return {
 		id: response.id,
 		name: response.name,
@@ -35,11 +35,11 @@ function institutionMapper(response: InstitutionDto): Institution {
 	};
 }
 
-const useInstitutions = (id: number) => {
+const useInstitution = (id: number) => {
 	return useApiResource<Institution, InstitutionDto>({
 		url: "Institution/" + id,
 		dtoMapper: institutionMapper,
 	});
 };
 
-export default useInstitutions;
+export default useInstitution;
