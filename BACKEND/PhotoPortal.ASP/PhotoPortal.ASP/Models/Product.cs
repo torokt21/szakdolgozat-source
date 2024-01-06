@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
 namespace PhotoPortal.ASP.Models
@@ -53,7 +55,8 @@ namespace PhotoPortal.ASP.Models
         /// </summary>
         [JsonIgnore]
         [ValidateNever]
-        public virtual Photographer? Photographer { get; set; }
+        [IgnoreDataMember]
+        public virtual Photographer? Photographer { get; }
 
         /// <summary>
         /// The price of the product.
@@ -65,6 +68,12 @@ namespace PhotoPortal.ASP.Models
         /// </summary>
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public ProductType Type { get; set; }
+
+        /// <summary>
+        /// Determines whether the product can be ordered.
+        /// </summary>
+        [DefaultValue(true)]
+        public bool Orderable { get; set; }
 
         /// <summary>
         /// The list of institution this product is available for.

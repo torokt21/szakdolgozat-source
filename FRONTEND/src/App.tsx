@@ -12,6 +12,7 @@ import DashboardPage from "./components/pages/admin/DashboardPage";
 import DefaultLayout from "./components/layouts/DefaultLayout";
 import EditClassesPage from "./components/pages/admin/class/EditClassesPage";
 import EditInstitutionPage from "./components/pages/admin/institution/EditInstitutionPage";
+import EditRoductPage from "./components/pages/admin/product/EditProductPage";
 import HomePage from "./components/pages/user/home/HomePage";
 import ListInstitutions from "./components/pages/admin/institution/ListInstitutionsPage";
 import ListProductsPage from "./components/pages/admin/product/ListProductsPage";
@@ -47,6 +48,7 @@ function App() {
 							</Route>
 							<Route path="product">
 								<Route index element={<ListProductsPage />} />
+								<Route path=":id" element={<EditRoductPage />} />
 								<Route path="new" element={<CreateProductPage />} />
 							</Route>
 							<Route path="*" element={<NotFoundPage />} />

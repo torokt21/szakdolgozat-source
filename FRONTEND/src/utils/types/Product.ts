@@ -18,6 +18,7 @@ type Product = {
 	photographerId: string;
 	price: number;
 	type: ProductType;
+	orderable: boolean;
 };
 
 export default Product;

@@ -47,6 +47,7 @@ namespace PhotoPortal.ASP.Models
         /// </summary>
         [ValidateNever]
         [JsonIgnore]
+        [NotMapped]
         public virtual Photographer? Photographer { get; }
 
         /// <summary>

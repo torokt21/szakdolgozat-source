@@ -22,6 +22,8 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import React from "react";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useAxiosClient } from "../../../../utils/hooks/useAxiosClient";
 import { useBoundStore } from "../../../../stores/useBoundStore";
 import useProducts from "../../../../utils/hooks/useProducts";
@@ -90,6 +92,7 @@ export default function ListProductsPage() {
 				<Table sx={{ minWidth: 650 }} aria-label="Intézmények listája">
 					<TableHead>
 						<TableRow>
+							<TableCell component="th"></TableCell>
 							<TableCell component="th" sx={{ fontWeight: "bold" }}>
 								Név
 							</TableCell>
@@ -109,6 +112,17 @@ export default function ListProductsPage() {
 							<TableRow
 								key={product.id}
 								sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+								<TableCell width="50px">
+									{product.orderable ? (
+										<Tooltip title="Rendelhető">
+											<VisibilityIcon />
+										</Tooltip>
+									) : (
+										<Tooltip title="Nem rendelhető">
+											<VisibilityOffIcon />
+										</Tooltip>
+									)}
+								</TableCell>
 								<TableCell scope="row">{product.name}</TableCell>
 								<TableCell scope="row">{PrintProductType(product.type)}</TableCell>
 								<TableCell scope="row">
