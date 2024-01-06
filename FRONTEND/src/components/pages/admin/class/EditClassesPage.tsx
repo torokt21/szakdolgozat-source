@@ -61,41 +61,34 @@ export default function EditClassesPage() {
 					Vissza
 				</Button>
 			</Box>
-			<Paper>
-				<Box p={4}>
-					<Typography variant="h3" component="h1">
-						{institution?.name}
-					</Typography>
-
-					<Typography variant="h5" component="h2" mb={2}>
-						Osztályok szerkesztése
-					</Typography>
-
-					<Box>
-						<TableContainer>
-							<Table>
-								<TableBody>
-									{classes.map((clas) => (
-										<TableRow>
-											<TableCell align="left">{clas.name}</TableCell>
-											<TableCell align="right">
-												{" "}
-												<Tooltip title="Törlés">
-													<IconButton onClick={() => handleDelete(clas)}>
-														<DeleteIcon />
-													</IconButton>
-												</Tooltip>
-											</TableCell>
-										</TableRow>
-									))}
-								</TableBody>
-							</Table>
-						</TableContainer>
-					</Box>
-
-					<AddClassForm refetch={refetch} institutionId={institution.id} />
-				</Box>
-			</Paper>
+			<Typography variant="h3" component="h1">
+				{institution?.name}
+			</Typography>
+			<Typography variant="h5" component="h2" mb={2}>
+				Osztályok szerkesztése ({classes.length})
+			</Typography>
+			<Box my={4}>
+				<AddClassForm refetch={refetch} institutionId={institution.id} classes={classes} />
+			</Box>
+			<TableContainer component={Paper}>
+				<Table>
+					<TableBody>
+						{classes.map((clas) => (
+							<TableRow>
+								<TableCell align="left">{clas.name}</TableCell>
+								<TableCell align="right">
+									{" "}
+									<Tooltip title="Törlés">
+										<IconButton onClick={() => handleDelete(clas)}>
+											<DeleteIcon />
+										</IconButton>
+									</Tooltip>
+								</TableCell>
+							</TableRow>
+						))}
+					</TableBody>
+				</Table>
+			</TableContainer>
 		</Container>
 	);
 }
@@ -103,16 +96,20 @@ export default function EditClassesPage() {
 type AddClassFormProps = {
 	refetch: () => void;
 	institutionId: number;
+	classes: Class[];
 };
 
 function AddClassForm(props: AddClassFormProps) {
 	const [newClassName, setNewClassName] = useState("");
 
 	function handleAddClass() {
+		if (newClassName.length < 1) return alert("Az osztály neve túl rövid.");
+		if (props.classes.some((c) => c.name.toLowerCase() === newClassName.toLowerCase()))
+			return alert("A megadott osztály már létezik.");
 		useAxiosClient()
 			.post(
 				process.env.REACT_APP_API_URL + "Class",
-				JSON.stringify({ name: newClassName, institutionId: props.institutionId })
+				JSON.stringify({ name: newClassName.trim(), institutionId: props.institutionId })
 			)
 			.then(() => {
 				setNewClassName("");
@@ -122,25 +119,29 @@ function AddClassForm(props: AddClassFormProps) {
 	}
 
 	return (
-		<Grid container spacing={2}>
-			<Grid item xs={12} md={8}>
-				<TextField
-					fullWidth
-					size="small"
-					label="Új osztály"
-					value={newClassName}
-					onChange={(e) => setNewClassName(e.target.value)}
-				/>
-			</Grid>
-			<Grid item xs={12} md={4}>
-				<Button
-					fullWidth
-					onClick={handleAddClass}
-					variant="contained"
-					startIcon={<AddIcon />}>
-					Hozzáadás
-				</Button>
-			</Grid>
-		</Grid>
+		<Paper>
+			<Box pb={2} px={2}>
+				<Grid container spacing={2} alignItems="center" direction="row">
+					<Grid item xs={12} md={8}>
+						<TextField
+							fullWidth
+							size="small"
+							label="Új osztály"
+							value={newClassName}
+							onChange={(e) => setNewClassName(e.target.value)}
+						/>
+					</Grid>
+					<Grid item xs={12} md={4}>
+						<Button
+							fullWidth
+							onClick={handleAddClass}
+							variant="contained"
+							startIcon={<AddIcon />}>
+							Hozzáadás
+						</Button>
+					</Grid>
+				</Grid>
+			</Box>
+		</Paper>
 	);
 }
