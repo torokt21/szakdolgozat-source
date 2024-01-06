@@ -34,9 +34,9 @@ export default function ListProductsPage() {
 	} = useProducts();
 
 	function handleDelete(product: Product) {
-		if (confirm(`Biztosan törölni akarod a(z) ${product.name} nevű intézményt?`)) {
+		if (confirm(`Biztosan törölni akarod a(z) ${product.name} nevű terméket?`)) {
 			useAxiosClient()
-				.delete(process.env.REACT_APP_API_URL + "Institution/" + product.id)
+				.delete(process.env.REACT_APP_API_URL + "Product/" + product.id)
 				.then(() => refetch());
 		}
 	}
