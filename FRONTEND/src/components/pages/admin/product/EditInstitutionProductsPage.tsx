@@ -1,14 +1,32 @@
 import { Box, Button, CircularProgress, Container, Grid, Typography } from "@mui/material";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import { Link, Navigate, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
+import { PrintProductType } from "../../../../utils/types/Product";
 import { useAxiosClient } from "../../../../utils/hooks/useAxiosClient";
 import { useBoundStore } from "../../../../stores/useBoundStore";
 import useInstitution from "../../../../utils/hooks/useInstitution";
 import useProducts from "../../../../utils/hooks/useProducts";
 
-const columns: GridColDef[] = [{ field: "Name", headerName: "Név", width: 130 }];
+const columns: GridColDef[] = [
+	{ field: "Name", headerName: "Név", width: 300, sortable: true },
+	{
+		field: "Type",
+		headerName: "Típus",
+		width: 130,
+		sortable: true,
+		valueGetter: (params: GridValueGetterParams) => PrintProductType(params.row.Type),
+	},
+	{
+		field: "Visible",
+		headerName: "Elérhetőség",
+		width: 130,
+		sortable: true,
+		valueGetter: (params: GridValueGetterParams) =>
+			params.row.Orderable ? "Rendelhető" : "Nem rendelhető",
+	},
+];
 
 export default function EditInstitutionProductsPage() {
 	const { institutionId } = useParams();

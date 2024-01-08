@@ -123,11 +123,17 @@ export default function ListInstitutions() {
 											<EditIcon />
 										</IconButton>
 									</Tooltip>
-									<Tooltip title="Szolgáltatások">
+									<Tooltip
+										title={`Rendelhető szolgáltatások (${inst.OrderableProducts.length} db)`}>
 										<IconButton>
-											<FreeBreakfastIcon
-												onClick={() => navigate(inst.Id + "/products")}
-											/>
+											<Badge
+												badgeContent="!"
+												color="error"
+												invisible={inst.OrderableProducts.length !== 0}>
+												<FreeBreakfastIcon
+													onClick={() => navigate(inst.Id + "/products")}
+												/>
+											</Badge>
 										</IconButton>
 									</Tooltip>
 									<Tooltip title={`Osztályok (${inst.Classes.length} db)`}>
