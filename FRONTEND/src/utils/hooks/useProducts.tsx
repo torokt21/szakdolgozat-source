@@ -1,5 +1,3 @@
-//import { InstitutionDto } from "../dtos/InstitutionDto";
-
 import Product from "../types/Product";
 import useApiResource from "./useApiResource";
 

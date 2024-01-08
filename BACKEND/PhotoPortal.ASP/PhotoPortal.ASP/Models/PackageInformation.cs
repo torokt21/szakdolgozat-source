@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace PhotoPortal.ASP.Models
 {
@@ -21,7 +24,7 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The description of the package.
         /// </summary>
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         /// <summary>
         /// The price of the package.
@@ -32,7 +35,14 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The list of requirements for this package.
         /// </summary>
+        [ValidateNever]
         public virtual List<PackageRequirement> Requirements { get; } = new();
+
+        /// <summary>
+        /// Determines whether the package is orderable.
+        /// </summary>
+        [DefaultValue(true)]
+        public bool Orderable { get; set; }
 
         /// <summary>
         /// The id of the photographer selling this package.
@@ -42,11 +52,13 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The photographer selling this package.
         /// </summary>
+        [JsonIgnore]
         public virtual Photographer? Photographer { get; set; }
 
         /// <summary>
         /// The list of institutions this package is available for.
-        /// </summary>
+        /// </summary>ú
+        [JsonIgnore]
         public virtual List<Institution> AvaliableIn { get; set; } = new();
     }
 }

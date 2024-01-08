@@ -69,10 +69,11 @@ namespace PhotoPortal.ASP.Controllers
             product.PhotographerId = user.Id;
             this.productRepository.Insert(product);
 
-            return CreatedAtAction("GetInstitution", new { id = product.Id }, product);
+            return CreatedAtAction("GetProduct", new { id = product.Id }, product);
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public IActionResult DeleteProduct(int id)
         {
             var product = this.productRepository.GetById(id);
@@ -80,6 +81,9 @@ namespace PhotoPortal.ASP.Controllers
             {
                 return NotFound();
             }
+
+            if (product.PhotographerId != userManager.GetUserId(User))
+                return Unauthorized();
 
             this.productRepository.Delete(product.Id);
 

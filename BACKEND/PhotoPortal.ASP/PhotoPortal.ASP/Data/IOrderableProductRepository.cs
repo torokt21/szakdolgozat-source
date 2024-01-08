@@ -1,4 +1,0 @@
-﻿namespace PhotoPortal.ASP.Data
-{
-
-}

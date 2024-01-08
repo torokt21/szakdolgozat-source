@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace PhotoPortal.ASP.Models
 {
@@ -22,6 +23,7 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The package that contains this requirement.
         /// </summary>
+        [JsonIgnore]
         public virtual PackageInformation PackageInformation { get; set; }
 
         /// <summary>

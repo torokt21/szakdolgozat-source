@@ -203,7 +203,7 @@ export default function AdminLayout() {
 
 					<ListItem disablePadding sx={{ display: "block" }}>
 						<ListItemLink
-							to="/admin/packages"
+							to="/admin/package"
 							primary="Csomagok"
 							open={open}
 							icon={<RedeemIcon />}

@@ -12,8 +12,8 @@ using PhotoPortal.ASP.Data;
 namespace PhotoPortal.ASP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240106140118_add-orderable")]
-    partial class addorderable
+    [Migration("20240108181929_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -259,12 +259,12 @@ namespace PhotoPortal.ASP.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "9b9cbc6d-d5c6-4c44-8a60-50c11ae60d12",
+                            UserId = "e1f8bee8-fe9a-4308-b9bf-1ac90150a5f7",
                             RoleId = "9407ad10-0964-4010-ae9c-ee2f4b36bb35"
                         },
                         new
                         {
-                            UserId = "9b9cbc6d-d5c6-4c44-8a60-50c11ae60d12",
+                            UserId = "e1f8bee8-fe9a-4308-b9bf-1ac90150a5f7",
                             RoleId = "4cc0e13d-7c2e-4946-b2a9-f1b80af36743"
                         });
                 });
@@ -464,12 +464,14 @@ namespace PhotoPortal.ASP.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Orderable")
+                        .HasColumnType("bit");
 
                     b.Property<string>("PhotographerId")
                         .HasColumnType("nvarchar(450)");
@@ -662,16 +664,16 @@ namespace PhotoPortal.ASP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9b9cbc6d-d5c6-4c44-8a60-50c11ae60d12",
+                            Id = "e1f8bee8-fe9a-4308-b9bf-1ac90150a5f7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "48dbc972-af2d-4780-b72a-3cd462ec2e1e",
+                            ConcurrencyStamp = "2f1217b2-6ddd-4f11-9e49-ebacfc7bb974",
                             Email = "torokt21@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "TOROKT21",
-                            PasswordHash = "AQAAAAEAACcQAAAAEF9V3jBuFc/iBqy4Ftt8xnJsIz7GvKfC3pbc9wn+afNR8UVLmV+Ft+C9EupDplWEXg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJRMXvCkCQb+FaWmdyo0lhseQUkE7o7T//boSK3fzd/9N6wkbjSGbiWxvv+wSGBiMQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "babaa20a-1f91-491a-aa70-ebee6d481ddc",
+                            SecurityStamp = "1ebb98e7-d512-40d6-a2ab-e04e7b3fa2b7",
                             TwoFactorEnabled = false,
                             UserName = "torokt21",
                             DisplayName = "Az iskola fotósa"

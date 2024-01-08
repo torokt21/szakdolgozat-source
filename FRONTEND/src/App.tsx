@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import AdminLayout from "./components/layouts/AdminLayout";
 import CreateInstitutionPage from "./components/pages/admin/institution/CreateInstitutionPage";
+import CreatePackagePage from "./components/pages/admin/package/CreatePackagePage";
 import CreateProductPage from "./components/pages/admin/product/CreateProductPage";
 import { CssBaseline } from "@mui/material";
 import DashboardPage from "./components/pages/admin/DashboardPage";
@@ -13,9 +14,11 @@ import DefaultLayout from "./components/layouts/DefaultLayout";
 import EditClassesPage from "./components/pages/admin/class/EditClassesPage";
 import EditInstitutionPage from "./components/pages/admin/institution/EditInstitutionPage";
 import EditInstitutionProductsPage from "./components/pages/admin/product/EditInstitutionProductsPage";
-import EditRoductPage from "./components/pages/admin/product/EditProductPage";
+import EditPackagePage from "./components/pages/admin/package/EditPackagePage";
+import EditProductPage from "./components/pages/admin/product/EditProductPage";
 import HomePage from "./components/pages/user/home/HomePage";
 import ListInstitutions from "./components/pages/admin/institution/ListInstitutionsPage";
+import ListPackageInformationsPage from "./components/pages/admin/package/ListPackageInformationsPage";
 import ListProductsPage from "./components/pages/admin/product/ListProductsPage";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import LoginPage from "./components/pages/admin/auth/LoginPage";
@@ -53,9 +56,16 @@ function App() {
 							</Route>
 							<Route path="product">
 								<Route index element={<ListProductsPage />} />
-								<Route path=":id" element={<EditRoductPage />} />
+								<Route path=":id" element={<EditProductPage />} />
 
 								<Route path="new" element={<CreateProductPage />} />
+							</Route>
+
+							<Route path="package">
+								<Route index element={<ListPackageInformationsPage />} />
+								<Route path=":id" element={<EditPackagePage />} />
+
+								<Route path="new" element={<CreatePackagePage />} />
 							</Route>
 							<Route path="*" element={<NotFoundPage />} />
 						</Route>

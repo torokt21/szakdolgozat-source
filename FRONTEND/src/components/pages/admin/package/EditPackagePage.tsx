@@ -3,26 +3,26 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import React, { useState } from "react";
 
 import { AxiosError } from "axios";
-import CreateEditProductForm from "./CreateEditProductForm";
-import Product from "../../../../utils/types/Product";
+import CreateEditPackageForm from "./CreateEditPackageForm";
+import PackageInformation from "../../../../utils/types/PackageInformation";
 import { useAxiosClient } from "../../../../utils/hooks/useAxiosClient";
-import useProduct from "../../../../utils/hooks/useProduct";
+import usePackage from "../../../../utils/hooks/usePackageInformation";
 
-export default function EditProductPage() {
+export default function EditPackagePage() {
 	const { id } = useParams();
 	const [updateError, setError] = useState<string | undefined>();
 	const navigate = useNavigate();
 
 	const {
-		data: [product, loading, error],
-	} = useProduct(Number(id));
+		data: [package_, loading, error],
+	} = usePackage(Number(id));
 
-	function onSubmit(values: Product) {
+	function onSubmit(values: PackageInformation) {
 		setError(undefined);
 		const client = useAxiosClient();
 		client
-			.put(process.env.REACT_APP_API_URL + "Product/" + id, JSON.stringify(values))
-			.then(() => navigate("/admin/product"))
+			.put(process.env.REACT_APP_API_URL + "Package/" + id, JSON.stringify(values))
+			.then(() => navigate("/admin/package"))
 			.catch((error: AxiosError) => {
 				if (error.response?.status === 400) setError(error.response.data as string);
 			});
@@ -35,7 +35,7 @@ export default function EditProductPage() {
 	return (
 		<Container>
 			<Box textAlign="left" my={3}>
-				<Button component={Link} to="/admin/product" variant="outlined">
+				<Button component={Link} to="/admin/package" variant="outlined">
 					Vissza
 				</Button>
 			</Box>
@@ -43,7 +43,7 @@ export default function EditProductPage() {
 			<Paper>
 				<Box p={4}>
 					<Typography variant="h3" component="h1" mb={2}>
-						Termék szerkesztése
+						Csomag szerkesztése
 					</Typography>
 
 					{updateError && (
@@ -52,9 +52,9 @@ export default function EditProductPage() {
 						</Box>
 					)}
 
-					<CreateEditProductForm
+					<CreateEditPackageForm
 						editing={true}
-						editingProduct={product}
+						editingPackage={package_}
 						onSubmit={onSubmit}
 					/>
 				</Box>

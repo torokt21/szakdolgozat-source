@@ -89,6 +89,7 @@ namespace PhotoPortal.ASP
             builder.Services.AddTransient<IInstitutionRepository, InstitutionRepository>();
             builder.Services.AddTransient<IClassRepository, ClassRepository>();
             builder.Services.AddTransient<IProductRepository, ProductRepository>();
+            builder.Services.AddTransient<IPackageRepository, PackageRepository>();
 
             builder.Services.AddCors(options =>
             {
