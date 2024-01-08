@@ -125,7 +125,9 @@ export default function ListInstitutions() {
 									</Tooltip>
 									<Tooltip title="Szolgáltatások">
 										<IconButton>
-											<FreeBreakfastIcon />
+											<FreeBreakfastIcon
+												onClick={() => navigate(inst.Id + "/products")}
+											/>
 										</IconButton>
 									</Tooltip>
 									<Tooltip title={`Osztályok (${inst.Classes.length} db)`}>

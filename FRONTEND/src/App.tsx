@@ -12,6 +12,7 @@ import DashboardPage from "./components/pages/admin/DashboardPage";
 import DefaultLayout from "./components/layouts/DefaultLayout";
 import EditClassesPage from "./components/pages/admin/class/EditClassesPage";
 import EditInstitutionPage from "./components/pages/admin/institution/EditInstitutionPage";
+import EditInstitutionProductsPage from "./components/pages/admin/product/EditInstitutionProductsPage";
 import EditRoductPage from "./components/pages/admin/product/EditProductPage";
 import HomePage from "./components/pages/user/home/HomePage";
 import ListInstitutions from "./components/pages/admin/institution/ListInstitutionsPage";
@@ -44,11 +45,16 @@ function App() {
 									path=":institutionId/classes"
 									element={<EditClassesPage />}
 								/>
+								<Route
+									path=":institutionId/products"
+									element={<EditInstitutionProductsPage />}
+								/>
 								<Route path="new" element={<CreateInstitutionPage />} />
 							</Route>
 							<Route path="product">
 								<Route index element={<ListProductsPage />} />
 								<Route path=":id" element={<EditRoductPage />} />
+
 								<Route path="new" element={<CreateProductPage />} />
 							</Route>
 							<Route path="*" element={<NotFoundPage />} />

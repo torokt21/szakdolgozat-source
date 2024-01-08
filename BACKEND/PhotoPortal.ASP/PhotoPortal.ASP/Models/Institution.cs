@@ -87,7 +87,6 @@ namespace PhotoPortal.ASP.Models
         /// Products that can be ordered by this institution.
         /// </summary>
         [ValidateNever]
-        [JsonIgnore]
         public virtual List<Product> OrderableProducts { get; } = new();
 
         /// <summary>

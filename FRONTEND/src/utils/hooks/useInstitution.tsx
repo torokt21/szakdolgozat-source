@@ -2,6 +2,7 @@
 
 import Class from "../types/Class";
 import Institution from "../types/Institution";
+import Product from "../types/Product";
 import dayjs from "dayjs";
 import useApiResource from "./useApiResource";
 
@@ -17,6 +18,7 @@ export type InstitutionDto = {
 	ExpectedShippingEnd: Date;
 	DisplayMessage: string;
 	Classes: Class[];
+	OrderableProducts: Product[];
 };
 
 export function institutionMapper(response: InstitutionDto): Institution {
@@ -32,6 +34,7 @@ export function institutionMapper(response: InstitutionDto): Institution {
 		ExpectedShippingEnd: dayjs(response.ExpectedShippingEnd),
 		DisplayMessage: response.DisplayMessage,
 		Classes: response.Classes,
+		OrderableProducts: response.OrderableProducts,
 	};
 }
 
