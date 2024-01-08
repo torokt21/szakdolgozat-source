@@ -1,8 +1,8 @@
+import { AxiosError, AxiosResponse } from "axios";
 import { Box, Button, Container, Paper, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 
-import { AxiosError } from "axios";
 import CreateEditPackageForm from "./CreateEditPackageForm";
 import PackageInformation from "../../../../utils/types/PackageInformation";
 import { useAxiosClient } from "../../../../utils/hooks/useAxiosClient";
@@ -11,11 +11,19 @@ export default function CreatePackagePage() {
 	const [error, setError] = useState<string | undefined>();
 	const navigate = useNavigate();
 
-	function onSubmit(values: PackageInformation) {
+	function onSubmit(values: PackageInformation, packageRequirement: unknown[]) {
 		setError(undefined);
 		const client = useAxiosClient();
 		client
 			.post(process.env.REACT_APP_API_URL + "Package", JSON.stringify(values))
+			.then((result: AxiosResponse) =>
+				client
+					.put(
+						process.env.REACT_APP_API_URL + `Package/${result.data.id}/Requirements`,
+						JSON.stringify({ requirements: packageRequirement })
+					)
+					.then(() => navigate("/admin/package"))
+			)
 			.then(() => navigate("/admin/package"))
 			.catch((error: AxiosError) => {
 				if (error.response?.status === 400) setError(error.response.data as string);

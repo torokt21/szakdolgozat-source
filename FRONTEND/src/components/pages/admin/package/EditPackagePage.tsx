@@ -17,12 +17,20 @@ export default function EditPackagePage() {
 		data: [package_, loading, error],
 	} = usePackage(Number(id));
 
-	function onSubmit(values: PackageInformation) {
+	// TODO make this not unknown
+	function onSubmit(values: PackageInformation, packageRequirement: unknown[]) {
 		setError(undefined);
 		const client = useAxiosClient();
 		client
 			.put(process.env.REACT_APP_API_URL + "Package/" + id, JSON.stringify(values))
-			.then(() => navigate("/admin/package"))
+			.then(() =>
+				client
+					.put(
+						process.env.REACT_APP_API_URL + `Package/${id}/Requirements`,
+						JSON.stringify({ requirements: packageRequirement })
+					)
+					.then(() => navigate("/admin/package"))
+			)
 			.catch((error: AxiosError) => {
 				if (error.response?.status === 400) setError(error.response.data as string);
 			});

@@ -1,7 +1,7 @@
 import PackageRequirement from "./PackageRequirement";
 
 type PackageInformation = {
-	Id: string;
+	Id: number;
 	Name: string;
 	Description: string;
 	Price: number;

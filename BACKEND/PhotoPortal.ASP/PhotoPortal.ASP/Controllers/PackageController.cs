@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PhotoPortal.ASP.Data;
+using PhotoPortal.ASP.Data.Dtos;
 using PhotoPortal.ASP.Models;
 using System.Text.Json;
 
@@ -52,6 +53,36 @@ namespace PhotoPortal.ASP.Controllers
             }
 
             this.packageRepository.Update(package);
+
+            return Content(JsonSerializer.Serialize(package), "application/json");
+        }
+
+        [HttpPut("{id}/Requirements")]
+        [Authorize]
+        public ActionResult<Product> PutPackageRequirements(int id, PackageRequirementDto requirementDto)
+        {
+            var package = packageRepository.GetById(id);
+
+            Photographer? user = userManager.Users.FirstOrDefault(u => u.Id == userManager.GetUserId(User));
+
+            if (user == null)
+                return Unauthorized();
+
+            var products = requirementDto.Requirements
+                .ToList()
+                .Select(r => new PackageRequirement() { 
+                    ProductId = r.ProductId,
+                    Quantity = r.Quantity,
+                })
+                .Where(p => p.Quantity > 0)
+                .ToList();
+ 
+            // TODO this is not working
+            // TODO validate
+            if (products.Any(p => p == null))
+                return BadRequest("Hibás szolgáltatás");
+
+            this.packageRepository.SetRequirements(package, products);
 
             return Content(JsonSerializer.Serialize(package), "application/json");
         }
