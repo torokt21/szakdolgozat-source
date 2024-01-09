@@ -11,7 +11,10 @@ export default function CreatePackagePage() {
 	const [error, setError] = useState<string | undefined>();
 	const navigate = useNavigate();
 
-	function onSubmit(values: PackageInformation, packageRequirement: unknown[]) {
+	function onSubmit(
+		values: PackageInformation,
+		packageRequirement: { quantity: number; productId: number }[]
+	) {
 		setError(undefined);
 		const client = useAxiosClient();
 		client

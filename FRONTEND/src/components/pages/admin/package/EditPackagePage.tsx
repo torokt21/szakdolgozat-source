@@ -17,8 +17,10 @@ export default function EditPackagePage() {
 		data: [package_, loading, error],
 	} = usePackage(Number(id));
 
-	// TODO make this not unknown
-	function onSubmit(values: PackageInformation, packageRequirement: unknown[]) {
+	function onSubmit(
+		values: PackageInformation,
+		packageRequirement: { quantity: number; productId: number }[]
+	) {
 		setError(undefined);
 		const client = useAxiosClient();
 		client

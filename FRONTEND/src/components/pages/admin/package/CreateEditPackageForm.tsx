@@ -1,6 +1,3 @@
-// TODO remove this
-/* eslint-disable no-mixed-spaces-and-tabs */
-
 import "date-fns";
 
 import { Box, Button, CircularProgress, Grid, InputAdornment, Typography } from "@mui/material";
@@ -34,11 +31,14 @@ const createPackageSchema = object<PackageInformation>().shape({
 type CreateEditPackageFormProps = {
 	editing: boolean;
 	editingPackage?: PackageInformation;
-	onSubmit: (package_: PackageInformation, packageRequirement: unknown[]) => void;
+	onSubmit: (
+		package_: PackageInformation,
+		packageRequirement: { quantity: number; productId: number }[]
+	) => void;
 };
 
 const columns: GridColDef[] = [
-	{ field: "Name", headerName: "Név", width: 300, sortable: true },
+	{ field: "Name", headerName: "Név", width: 300, sortable: true, flex: 1 },
 	{
 		field: "Visible",
 		headerName: "Elérhetőség",
@@ -53,6 +53,8 @@ const columns: GridColDef[] = [
 		width: 130,
 		sortable: false,
 		editable: true,
+		align: "right",
+		headerAlign: "right",
 		valueFormatter: (params: GridValueFormatterParams<number>) => {
 			if (params.value == null) {
 				return "";
@@ -76,6 +78,11 @@ export default function CreateEditPackageForm(props: CreateEditPackageFormProps)
 	const [rows, setRows] = useState<ProductRow[]>([]);
 
 	function handleSubmit(package_: PackageInformation) {
+		if (!rows.some((r) => r.Quantity > 0)) {
+			alert("A csomag nem lehet üres!");
+			return;
+		}
+
 		props.onSubmit(
 			package_,
 			rows.map((r) => ({
@@ -156,8 +163,15 @@ export default function CreateEditPackageForm(props: CreateEditPackageFormProps)
 						</Grid>
 					</Grid>
 
-					<Box mt={2} style={{ width: "100%", height: 400 }}>
-						<Box>A csomag tartalma:</Box>
+					<Box mt={2} style={{ width: "100%" }}>
+						<Box>
+							<Typography component="h2" variant="h5">
+								A csomag tartalma:
+							</Typography>
+							<Typography mt={2}>
+								A mennyiségek módosításához kattints rá kétszer!
+							</Typography>
+						</Box>
 						<DataGrid
 							rows={rows}
 							columns={columns}
@@ -172,9 +186,9 @@ export default function CreateEditPackageForm(props: CreateEditPackageFormProps)
 							}}
 						/>
 					</Box>
-					<Box my={3} textAlign="center">
+					<Box my={3} pt={3} textAlign="center">
 						<Button variant="contained" color="primary" onClick={handleSubmit}>
-							{props.editing ? "Szerkesztés" : "Létrehozás"}
+							{props.editing ? "Mentés" : "Létrehozás"}
 						</Button>
 					</Box>
 				</form>
