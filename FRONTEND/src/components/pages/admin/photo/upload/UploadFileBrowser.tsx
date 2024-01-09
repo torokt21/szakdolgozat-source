@@ -1,10 +1,12 @@
-import { Box, Grid, Tooltip } from "@mui/material";
+import { Box, Grid, Tooltip, Typography } from "@mui/material";
 import { TreeItem, TreeView } from "@mui/x-tree-view";
 
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { FileWithPath } from "react-dropzone";
+import FolderIcon from "@mui/icons-material/Folder";
+import FolderSharedIcon from "@mui/icons-material/FolderShared";
 import IconButton from "@mui/material/IconButton";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
@@ -62,17 +64,33 @@ export default function UploadFileBrowser(props: UploadFileBrowserProps) {
 	return (
 		<Grid container>
 			<Grid item xs={3}>
+				<Typography variant="h6" component="h3">
+					Mappák:
+				</Typography>
 				<TreeView
 					defaultCollapseIcon={<ExpandMoreIcon />}
 					defaultExpandIcon={<ChevronRightIcon />}
 					onNodeSelect={(e, nodeId) => props.onSelectionChange(nodeId)}>
 					{props.uploadInstitution.classes.map((cl) => (
-						<TreeItem key={cl.directory} nodeId={cl.directory} label={cl.directory}>
+						<TreeItem
+							key={cl.directory}
+							nodeId={cl.directory}
+							label={
+								<Box py={0.5} sx={{ display: "flex" }}>
+									<FolderIcon />
+									<Typography ml={1}>{cl.directory}</Typography>
+								</Box>
+							}>
 							{cl.children.map((ch) => (
 								<TreeItem
 									key={ch.fullPath}
 									nodeId={ch.fullPath}
-									label={ch.directory}
+									label={
+										<Box py={0.5} sx={{ display: "flex" }}>
+											<FolderSharedIcon />
+											<Typography ml={1}>{ch.directory}</Typography>
+										</Box>
+									}
 								/>
 							))}
 						</TreeItem>
