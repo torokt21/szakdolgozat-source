@@ -1,6 +1,7 @@
 import { FileWithPath, useDropzone } from "react-dropzone";
 import { useCallback, useMemo } from "react";
 
+import { Box } from "@mui/material";
 import { UploadInstitution } from "../../../../../utils/types/UploadInstitution";
 import _ from "lodash";
 
@@ -14,6 +15,7 @@ const baseStyle = {
 	display: "flex",
 	//flexDirection: "column",
 	alignItems: "center",
+	height: "200px",
 	padding: "20px",
 	borderWidth: 2,
 	borderRadius: 2,
@@ -82,7 +84,9 @@ export default function UploadDropZone(props: DropZoneProps) {
 		<div className="container">
 			<div {...getRootProps({ style })}>
 				<input {...getInputProps()} />
-				<p>Húzza ide a feltölteni kívánt mappát!</p>
+				<Box textAlign="center">
+					<p>Húzza ide a feltölteni kívánt mappát!</p>
+				</Box>
 			</div>
 		</div>
 	);
