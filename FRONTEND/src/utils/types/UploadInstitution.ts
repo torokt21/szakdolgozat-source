@@ -4,4 +4,5 @@ import { UploadClass } from "./UploadClass";
 export type UploadInstitution = {
 	institution: Institution;
 	classes: UploadClass[];
+	fullPath: string;
 };

@@ -4,20 +4,34 @@ import React, { useEffect, useState } from "react";
 import Institution from "../../../../../utils/types/Institution";
 import InstitutionSelect from "./InstitutionSelect";
 import UploadDropZone from "./UploadDropZone";
+import UploadFileBrowser from "./UploadFileBrowser";
 import { UploadInstitution } from "../../../../../utils/types/UploadInstitution";
 
 export default function PhotoUploadPage() {
 	const [uploadInstitution, setUploadInstitution] = useState<UploadInstitution>();
 
 	const [institution, setInstitution] = useState<Institution | undefined>();
+	const [selectedChildFullPath, setSelectedChildFullPath] = useState<string>();
+
+	function findChildByFullPath(path?: string) {
+		if (path)
+			return uploadInstitution?.classes
+				.flatMap((c) => c.children)
+				.find((c) => c.fullPath === path);
+	}
 
 	useEffect(() => {
 		if (!institution) return;
 		setUploadInstitution({
 			institution: institution,
 			classes: [],
+			fullPath: "",
 		});
 	}, [institution?.Id]);
+
+	function handleFilesChanged(uploadInstitution: UploadInstitution) {
+		setUploadInstitution(uploadInstitution);
+	}
 
 	return (
 		<Paper>
@@ -33,6 +47,15 @@ export default function PhotoUploadPage() {
 						)}
 					</Box>
 				</Collapse>
+
+				{uploadInstitution && (
+					<UploadFileBrowser
+						selectedChild={findChildByFullPath(selectedChildFullPath)}
+						uploadInstitution={uploadInstitution}
+						onSelectionChange={setSelectedChildFullPath}
+						onFilesChanged={handleFilesChanged}
+					/>
+				)}
 			</Box>
 		</Paper>
 	);

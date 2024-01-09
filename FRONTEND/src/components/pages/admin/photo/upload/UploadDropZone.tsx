@@ -88,26 +88,33 @@ export default function UploadDropZone(props: DropZoneProps) {
 	);
 }
 
+/** Merges all accepted files into the upload institution object. Does not overwrite already existing files */
 function mergeUploadInstitutionModel(uploadInstitution: UploadInstitution, files: FileWithPath[]) {
 	const uInst = _.cloneDeep(uploadInstitution);
 	// Builds the uploadInstitution object
 	files.forEach((file) => {
 		const split = file.path!.replace(/^\/+|\/+$/g, "").split("/");
-		//const institutionDir = split[0];
+		const institutionDir = split[0];
 		const classDir = split[1];
 		const childDir = split[2];
 
 		let foundClass = uInst.classes.find((c) => c.directory == classDir);
 		if (!foundClass) {
-			console.log("Did not find", classDir);
-
-			foundClass = { children: [], directory: classDir };
+			foundClass = {
+				children: [],
+				directory: classDir,
+				fullPath: `${institutionDir}/${classDir}`,
+			};
 			uInst.classes = [...uInst.classes, foundClass];
 		}
 
 		let foundChild = foundClass.children.find((c) => c.directory == childDir);
 		if (!foundChild) {
-			foundChild = { pictures: [], directory: childDir };
+			foundChild = {
+				pictures: [],
+				directory: childDir,
+				fullPath: `${institutionDir}/${classDir}/${childDir}`,
+			};
 			foundClass.children = [...foundClass.children, foundChild];
 		}
 
