@@ -102,7 +102,7 @@ export default function CreateEditInstitutionForm(props: CreateEditInstitutionFo
 					</Grid>
 					<Box my={3} textAlign="center">
 						<Button variant="contained" color="primary" onClick={handleSubmit}>
-							{props.editing ? "Szerkesztés" : "Létrehozás"}
+							{props.editing ? "Mentés" : "Létrehozás"}
 						</Button>
 					</Box>
 				</form>
