@@ -23,6 +23,7 @@ import ListProductsPage from "./components/pages/admin/product/ListProductsPage"
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import LoginPage from "./components/pages/admin/auth/LoginPage";
 import NotFoundPage from "./components/pages/error/NotFoundPage";
+import PhotoUploadPage from "./components/pages/admin/photo/upload/PhotoUploadPage";
 import React from "react";
 import Theme from "./Theme";
 import { ThemeProvider } from "@mui/material/styles";
@@ -67,6 +68,11 @@ function App() {
 
 								<Route path="new" element={<CreatePackagePage />} />
 							</Route>
+
+							<Route path="picture">
+								<Route index element={<PhotoUploadPage />} />
+							</Route>
+
 							<Route path="*" element={<NotFoundPage />} />
 						</Route>
 					</Route>

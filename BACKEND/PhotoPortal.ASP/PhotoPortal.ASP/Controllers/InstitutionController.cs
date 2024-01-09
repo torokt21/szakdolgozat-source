@@ -32,7 +32,7 @@ namespace PhotoPortal.ASP.Controllers
         public ActionResult<IEnumerable<Institution>> GetInstitutions()
         {
             Photographer? user = userManager.Users.FirstOrDefault(u => u.Id == userManager.GetUserId(User));
-            return Content(JsonSerializer.Serialize(user.Institutions), "application/json");
+            return Content(JsonSerializer.Serialize(user.Institutions.OrderBy(i => i.Name)), "application/json");
         }
 
         // GET: api/Institution/5

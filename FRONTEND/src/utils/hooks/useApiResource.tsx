@@ -19,7 +19,7 @@ function useApiResource<T, D = T>(props: useApiResourceProps<T, D>) {
 	function fetchData() {
 		setLoading(true);
 		setError(false);
-		useAxiosClient()
+		return useAxiosClient()
 			.get(process.env.REACT_APP_API_URL + props.url)
 			.then((result) => {
 				setData(props.dtoMapper(result.data as D));
