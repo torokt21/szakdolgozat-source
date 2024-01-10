@@ -1,5 +1,7 @@
-import { Box, Grid, Tooltip, Typography } from "@mui/material";
+import { Box, Fade, Grid, Modal, Tooltip, Typography } from "@mui/material";
+import React, { useState } from "react";
 import { TreeItem, TreeView } from "@mui/x-tree-view";
+import { createStyles, makeStyles } from "@mui/styles";
 
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -12,7 +14,6 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import ListSubheader from "@mui/material/ListSubheader";
-import React from "react";
 import { UploadChild } from "../../../../../utils/types/UploadChild";
 import { UploadInstitution } from "../../../../../utils/types/UploadInstitution";
 import _ from "lodash";
@@ -24,7 +25,24 @@ type UploadFileBrowserProps = {
 	onSelectionChange: (selectedChildFullPath: string) => void;
 };
 
+const useStyles = makeStyles(() => ({
+	modal: {
+		display: "flex",
+		alignItems: "center",
+		justifyContent: "center",
+		"&:hover": {
+			backgroundcolor: "red",
+		},
+	},
+	img: {
+		outline: "none",
+	},
+}));
+
 export default function UploadFileBrowser(props: UploadFileBrowserProps) {
+	const [zoomedInFile, setZoomedInFile] = useState<FileWithPath>();
+	const classes = useStyles();
+
 	function handlePictureDeleteClick(child: UploadChild, file: FileWithPath) {
 		const clone = _.cloneDeep(props.uploadInstitution);
 
@@ -65,6 +83,22 @@ export default function UploadFileBrowser(props: UploadFileBrowserProps) {
 
 	return (
 		<Grid container>
+			<Modal
+				open={!!zoomedInFile}
+				onClose={() => setZoomedInFile(undefined)}
+				className={classes.modal}>
+				<>
+					{!!zoomedInFile && (
+						<Fade in={!!zoomedInFile} timeout={500} className={classes.img}>
+							<img
+								src={URL.createObjectURL(zoomedInFile)}
+								alt="asd"
+								style={{ maxHeight: "90%", maxWidth: "90%" }}
+							/>
+						</Fade>
+					)}
+				</>
+			</Modal>
 			<Grid item xs={3}>
 				<Typography variant="h6" component="h3">
 					Mappák:
@@ -119,16 +153,18 @@ export default function UploadFileBrowser(props: UploadFileBrowserProps) {
 								</Box>
 							</ListSubheader>
 						</ImageListItem>
-						{props.selectedChild?.pictures.map((item) => (
-							<ImageListItem key={item.path}>
+						{props.selectedChild?.pictures.map((picture) => (
+							<ImageListItem key={picture.path}>
 								<img
-									srcSet={URL.createObjectURL(item)}
-									src={URL.createObjectURL(item)}
-									alt={item.name}
+									srcSet={URL.createObjectURL(picture)}
+									src={URL.createObjectURL(picture)}
+									alt={picture.name}
 									loading="lazy"
+									style={{ cursor: "zoom-in" }}
+									onClick={() => setZoomedInFile(picture)}
 								/>
 								<ImageListItemBar
-									title={item.name}
+									title={picture.name}
 									position="top"
 									actionIcon={
 										<IconButton
@@ -136,7 +172,7 @@ export default function UploadFileBrowser(props: UploadFileBrowserProps) {
 											onClick={() => {
 												handlePictureDeleteClick(
 													props.selectedChild!,
-													item
+													picture
 												);
 											}}>
 											<DeleteIcon />
