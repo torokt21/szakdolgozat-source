@@ -13,7 +13,7 @@ type Institution = {
 	ExpectedShippingStart: dayjs.Dayjs;
 	ExpectedShippingEnd: dayjs.Dayjs;
 	DisplayMessage: string | null;
-	Classes: Class[];
+	DisplayClasses: Class[];
 	OrderableProducts: Product[];
 };
 

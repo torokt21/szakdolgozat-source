@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace PhotoPortal.ASP.Models
 {
-    public class Class
+    public class DisplayedClass
     {
         [Key]
         public int Id { get; set; }

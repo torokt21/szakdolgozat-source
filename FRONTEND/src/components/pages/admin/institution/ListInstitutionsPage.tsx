@@ -136,12 +136,12 @@ export default function ListInstitutions() {
 											</Badge>
 										</IconButton>
 									</Tooltip>
-									<Tooltip title={`Osztályok (${inst.Classes.length} db)`}>
+									<Tooltip title={`Osztályok (${inst.DisplayClasses.length} db)`}>
 										<IconButton onClick={() => navigate(inst.Id + "/classes")}>
 											<Badge
 												badgeContent="!"
 												color="error"
-												invisible={inst.Classes.length !== 0}>
+												invisible={inst.DisplayClasses.length !== 0}>
 												<ClassIcon />
 											</Badge>
 										</IconButton>

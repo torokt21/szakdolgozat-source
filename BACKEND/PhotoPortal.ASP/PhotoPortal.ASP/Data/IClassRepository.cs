@@ -2,7 +2,7 @@
 
 namespace PhotoPortal.ASP.Data
 {
-    public interface IClassRepository : IRepository<Class>
+    public interface IClassRepository : IRepository<DisplayedClass>
     {
     }
 }

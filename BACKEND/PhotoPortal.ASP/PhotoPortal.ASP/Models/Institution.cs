@@ -93,7 +93,13 @@ namespace PhotoPortal.ASP.Models
         /// The classes of the institution.
         /// </summary>
         [ValidateNever]
-        public virtual List<Class> Classes { get; } = new();
+        public virtual List<DisplayedClass> DisplayClasses { get; } = new();
+
+        /// <summary>
+        /// The classes of the institution.
+        /// </summary>
+        [ValidateNever]
+        public virtual List<UploadClass> UploadClasses { get; } = new();
 
         /// <summary>
         /// Packages that can be ordered by this institution.

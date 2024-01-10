@@ -17,7 +17,7 @@ export type InstitutionDto = {
 	ExpectedShippingStart: Date;
 	ExpectedShippingEnd: Date;
 	DisplayMessage: string;
-	Classes: Class[];
+	DisplayClasses: Class[];
 	OrderableProducts: Product[];
 };
 
@@ -33,7 +33,7 @@ export function institutionMapper(response: InstitutionDto): Institution {
 		ExpectedShippingStart: dayjs(response.ExpectedShippingStart),
 		ExpectedShippingEnd: dayjs(response.ExpectedShippingEnd),
 		DisplayMessage: response.DisplayMessage,
-		Classes: response.Classes,
+		DisplayClasses: response.DisplayClasses,
 		OrderableProducts: response.OrderableProducts,
 	};
 }

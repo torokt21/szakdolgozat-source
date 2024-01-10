@@ -17,8 +17,8 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The id of the institution the child belongs to.
         /// </summary>
-        [ForeignKey(nameof(Models.Institution))]
-        public int InstitutionId { get; set; }
+        [ForeignKey(nameof(UploadClass))]
+        public int UploadClassId { get; set; }
 
         /// <summary>
         /// The passcode belinging to the child.
@@ -26,10 +26,10 @@ namespace PhotoPortal.ASP.Models
         public string Passcode { get; set; }
 
         /// <summary>
-        /// The institution the child belongs to.
+        /// The class folder the child belongs to.
         /// </summary>
         [NotMapped]
-        public virtual Institution Institution { get; set; }
+        public virtual UploadClass Class { get; }
 
         /// <summary>
         /// The pictures taken of the child.

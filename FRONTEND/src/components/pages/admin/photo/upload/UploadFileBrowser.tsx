@@ -1,7 +1,6 @@
-import { Box, Fade, Grid, Modal, Tooltip, Typography } from "@mui/material";
+import { Box, Button, Fade, Grid, Modal, Tooltip, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { TreeItem, TreeView } from "@mui/x-tree-view";
-import { createStyles, makeStyles } from "@mui/styles";
 
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -15,8 +14,10 @@ import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import ListSubheader from "@mui/material/ListSubheader";
 import { UploadChild } from "../../../../../utils/types/UploadChild";
+import UploadIcon from "@mui/icons-material/Upload";
 import { UploadInstitution } from "../../../../../utils/types/UploadInstitution";
 import _ from "lodash";
+import { makeStyles } from "@mui/styles";
 
 type UploadFileBrowserProps = {
 	uploadInstitution: UploadInstitution;
@@ -132,6 +133,11 @@ export default function UploadFileBrowser(props: UploadFileBrowserProps) {
 						</TreeItem>
 					))}
 				</TreeView>
+				<Box mt={2}>
+					<Button variant="contained" color="primary" startIcon={<UploadIcon />}>
+						Feltöltés
+					</Button>
+				</Box>
 			</Grid>
 			<Grid item xs={9}>
 				{props.selectedChild && (

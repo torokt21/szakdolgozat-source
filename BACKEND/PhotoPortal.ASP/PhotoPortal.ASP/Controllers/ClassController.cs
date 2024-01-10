@@ -32,7 +32,7 @@ namespace PhotoPortal.ASP.Controllers
 
         // GET: api/Institution
         [HttpGet("{institutionId}")]
-        public ActionResult<IEnumerable<Class>> GetClassesByInstitution(int institutionId)
+        public ActionResult<IEnumerable<DisplayedClass>> GetClassesByInstitution(int institutionId)
         {
             return Content(JsonSerializer.Serialize(classRepository
                 .GetAll()
@@ -45,7 +45,7 @@ namespace PhotoPortal.ASP.Controllers
         // PUT: api/Class/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public ActionResult<Class> PutClass(int id, Class @class)
+        public ActionResult<DisplayedClass> PutClass(int id, DisplayedClass @class)
         {
             if (id != @class.Id)
             {
@@ -59,7 +59,7 @@ namespace PhotoPortal.ASP.Controllers
         // POST: api/Class
         [HttpPost]
         [Authorize]
-        public ActionResult<Class> PostClass(Class newClass)
+        public ActionResult<DisplayedClass> PostClass(DisplayedClass newClass)
         {
             Photographer? user = userManager.Users.FirstOrDefault(u => u.Id == userManager.GetUserId(User));
 

@@ -24,6 +24,7 @@ namespace PhotoPortal.ASP.Data
         public DbSet<Picture> Pictures { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ShippingMethod> ShippingMethods { get; set; }
+        public DbSet<UploadClass> UploadClasses { get; set; }
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
@@ -45,14 +46,6 @@ namespace PhotoPortal.ASP.Data
                 .WithMany(b => b.Institutions)
                 .HasForeignKey(a => a.PhotographerId)
                 .OnDelete(DeleteBehavior.SetNull);
-            
-
-            // institution - child
-            builder.Entity<Child>()
-                .HasOne(a => a.Institution)
-                .WithMany(b => b.Children)
-                .HasForeignKey(a => a.InstitutionId)
-                .OnDelete(DeleteBehavior.Cascade); ;
 
             // picture - child
             builder.Entity<Picture>()
@@ -102,7 +95,6 @@ namespace PhotoPortal.ASP.Data
                 .HasForeignKey(a => a.PictureId)
                 .OnDelete(DeleteBehavior.SetNull);
 
-
             // package requirement - package information
             builder.Entity<PackageRequirement>()
                 .HasOne(a => a.PackageInformation)
@@ -134,13 +126,26 @@ namespace PhotoPortal.ASP.Data
                 .HasMany(a => a.OrderablePackages)
                 .WithMany(b => b.AvaliableIn);
 
-            // institution - classes
-            builder.Entity<Class>()
+            // institution - display classes
+            builder.Entity<DisplayedClass>()
                 .HasOne(a => a.Institution)
-                .WithMany(b => b.Classes)
+                .WithMany(b => b.DisplayClasses)
                 .HasForeignKey(a => a.InstitutionId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            // institution - upload classes
+            builder.Entity<UploadClass>()
+                .HasOne(a => a.Institution)
+                .WithMany(b => b.UploadClasses)
+                .HasForeignKey(a => a.InstitutionId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // child - upload class
+            builder.Entity<Child>()
+                .HasOne(a => a.Class)
+                .WithMany(b => b.Children)
+                .HasForeignKey(a => a.UploadClassId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             // shipping method - order
             builder.Entity<Order>()

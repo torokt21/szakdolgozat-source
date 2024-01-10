@@ -67,3 +67,5 @@ export default function PhotoUploadPage() {
 		</>
 	);
 }
+
+function UploadInstitutionFiles(institution: UploadInstitution) {}

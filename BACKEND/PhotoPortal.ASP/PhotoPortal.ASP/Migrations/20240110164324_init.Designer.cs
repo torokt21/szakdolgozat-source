@@ -12,7 +12,7 @@ using PhotoPortal.ASP.Data;
 namespace PhotoPortal.ASP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240108181929_init")]
+    [Migration("20240110164324_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -259,12 +259,12 @@ namespace PhotoPortal.ASP.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "e1f8bee8-fe9a-4308-b9bf-1ac90150a5f7",
+                            UserId = "eafc531b-60e2-4b2c-a114-971adddee5fb",
                             RoleId = "9407ad10-0964-4010-ae9c-ee2f4b36bb35"
                         },
                         new
                         {
-                            UserId = "e1f8bee8-fe9a-4308-b9bf-1ac90150a5f7",
+                            UserId = "eafc531b-60e2-4b2c-a114-971adddee5fb",
                             RoleId = "4cc0e13d-7c2e-4946-b2a9-f1b80af36743"
                         });
                 });
@@ -298,21 +298,26 @@ namespace PhotoPortal.ASP.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("InstitutionId")
+                    b.Property<int?>("InstitutionId")
                         .HasColumnType("int");
 
                     b.Property<string>("Passcode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UploadClassId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("InstitutionId");
 
+                    b.HasIndex("UploadClassId");
+
                     b.ToTable("Children");
                 });
 
-            modelBuilder.Entity("PhotoPortal.ASP.Models.Class", b =>
+            modelBuilder.Entity("PhotoPortal.ASP.Models.DisplayedClass", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -331,7 +336,7 @@ namespace PhotoPortal.ASP.Migrations
 
                     b.HasIndex("InstitutionId");
 
-                    b.ToTable("Class");
+                    b.ToTable("DisplayedClass");
                 });
 
             modelBuilder.Entity("PhotoPortal.ASP.Models.Institution", b =>
@@ -651,6 +656,24 @@ namespace PhotoPortal.ASP.Migrations
                     b.ToTable("ShippingMethods");
                 });
 
+            modelBuilder.Entity("PhotoPortal.ASP.Models.UploadClass", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("InstitutionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InstitutionId");
+
+                    b.ToTable("UploadClasses");
+                });
+
             modelBuilder.Entity("PhotoPortal.ASP.Models.Photographer", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -664,16 +687,16 @@ namespace PhotoPortal.ASP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e1f8bee8-fe9a-4308-b9bf-1ac90150a5f7",
+                            Id = "eafc531b-60e2-4b2c-a114-971adddee5fb",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2f1217b2-6ddd-4f11-9e49-ebacfc7bb974",
+                            ConcurrencyStamp = "3439e52b-d6ff-4131-9181-a6bc81135160",
                             Email = "torokt21@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "TOROKT21",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJRMXvCkCQb+FaWmdyo0lhseQUkE7o7T//boSK3fzd/9N6wkbjSGbiWxvv+wSGBiMQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMhmV3nvjptYrylr60Vl1Pm6iq7Zh4ctz/DwJxpqWiU2n3jPXA3pOCgSuDmv20uH3w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1ebb98e7-d512-40d6-a2ab-e04e7b3fa2b7",
+                            SecurityStamp = "41eace87-01a0-4ecd-b322-04014e2982e2",
                             TwoFactorEnabled = false,
                             UserName = "torokt21",
                             DisplayName = "Az iskola fotósa"
@@ -763,19 +786,23 @@ namespace PhotoPortal.ASP.Migrations
 
             modelBuilder.Entity("PhotoPortal.ASP.Models.Child", b =>
                 {
-                    b.HasOne("PhotoPortal.ASP.Models.Institution", "Institution")
+                    b.HasOne("PhotoPortal.ASP.Models.Institution", null)
                         .WithMany("Children")
-                        .HasForeignKey("InstitutionId")
+                        .HasForeignKey("InstitutionId");
+
+                    b.HasOne("PhotoPortal.ASP.Models.UploadClass", "Class")
+                        .WithMany("Children")
+                        .HasForeignKey("UploadClassId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Institution");
+                    b.Navigation("Class");
                 });
 
-            modelBuilder.Entity("PhotoPortal.ASP.Models.Class", b =>
+            modelBuilder.Entity("PhotoPortal.ASP.Models.DisplayedClass", b =>
                 {
                     b.HasOne("PhotoPortal.ASP.Models.Institution", "Institution")
-                        .WithMany("Classes")
+                        .WithMany("DisplayClasses")
                         .HasForeignKey("InstitutionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -909,6 +936,17 @@ namespace PhotoPortal.ASP.Migrations
                     b.Navigation("Photographer");
                 });
 
+            modelBuilder.Entity("PhotoPortal.ASP.Models.UploadClass", b =>
+                {
+                    b.HasOne("PhotoPortal.ASP.Models.Institution", "Institution")
+                        .WithMany("UploadClasses")
+                        .HasForeignKey("InstitutionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Institution");
+                });
+
             modelBuilder.Entity("PhotoPortal.ASP.Models.Child", b =>
                 {
                     b.Navigation("Pictures");
@@ -918,7 +956,9 @@ namespace PhotoPortal.ASP.Migrations
                 {
                     b.Navigation("Children");
 
-                    b.Navigation("Classes");
+                    b.Navigation("DisplayClasses");
+
+                    b.Navigation("UploadClasses");
                 });
 
             modelBuilder.Entity("PhotoPortal.ASP.Models.Order", b =>
@@ -934,6 +974,11 @@ namespace PhotoPortal.ASP.Migrations
             modelBuilder.Entity("PhotoPortal.ASP.Models.PackageOrder", b =>
                 {
                     b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("PhotoPortal.ASP.Models.UploadClass", b =>
+                {
+                    b.Navigation("Children");
                 });
 
             modelBuilder.Entity("PhotoPortal.ASP.Models.Photographer", b =>

@@ -71,6 +71,7 @@ export default function UploadDropZone(props: DropZoneProps) {
 /** Merges all accepted files into the upload institution object. Does not overwrite already existing files */
 function mergeUploadInstitutionModel(uploadInstitution: UploadInstitution, files: FileWithPath[]) {
 	const uInst = _.cloneDeep(uploadInstitution);
+
 	// Builds the uploadInstitution object
 	files.forEach((file) => {
 		const split = file.path!.replace(/^\/+|\/+$/g, "").split("/");
@@ -104,7 +105,6 @@ function mergeUploadInstitutionModel(uploadInstitution: UploadInstitution, files
 		);
 		if (!foundPicture) foundChild.pictures = [...foundChild.pictures, file];
 	});
-
 	return uInst;
 }
 
