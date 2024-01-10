@@ -16,14 +16,14 @@ namespace PhotoPortal.ASP.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClassController : ControllerBase
+    public class DisplayClassController : ControllerBase
     {
         private IClassRepository classRepository;
         private IInstitutionRepository institutionRepository;
         private readonly UserManager<Photographer> userManager;
 
         [ActivatorUtilitiesConstructor]
-        public ClassController(IClassRepository repo, IInstitutionRepository institutionRepository, UserManager<Photographer> userManager)
+        public DisplayClassController(IClassRepository repo, IInstitutionRepository institutionRepository, UserManager<Photographer> userManager)
         {
             this.classRepository = repo;
             this.institutionRepository = institutionRepository;

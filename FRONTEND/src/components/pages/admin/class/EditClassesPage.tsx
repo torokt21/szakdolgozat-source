@@ -23,7 +23,7 @@ import Class from "../../../../utils/types/Class";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useAxiosClient } from "../../../../utils/hooks/useAxiosClient";
 import { useBoundStore } from "../../../../stores/useBoundStore";
-import useClasses from "../../../../utils/hooks/useClasses";
+import useDisplayClasses from "../../../../utils/hooks/useClasses";
 import useInstitution from "../../../../utils/hooks/useInstitution";
 
 export default function EditClassesPage() {
@@ -37,12 +37,12 @@ export default function EditClassesPage() {
 	const {
 		data: [classes, classesLoading, classesError],
 		refetch,
-	} = useClasses(Number(institutionId));
+	} = useDisplayClasses(Number(institutionId));
 
 	function handleDelete(clas: Class) {
 		if (confirm(`Biztosan törölni akarod a(z) ${clas.Name} nevű osztályt?`)) {
 			useAxiosClient()
-				.delete(process.env.REACT_APP_API_URL + "Class/" + clas.Id)
+				.delete(process.env.REACT_APP_API_URL + "DisplayClass/" + clas.Id)
 				.then(() => refetch());
 		}
 	}
@@ -108,7 +108,7 @@ function AddClassForm(props: AddClassFormProps) {
 			return alert("A megadott osztály már létezik.");
 		useAxiosClient()
 			.post(
-				process.env.REACT_APP_API_URL + "Class",
+				process.env.REACT_APP_API_URL + "DisplayClass",
 				JSON.stringify({ name: newClassName.trim(), institutionId: props.institutionId })
 			)
 			.then(() => {
