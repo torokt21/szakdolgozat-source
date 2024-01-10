@@ -1,7 +1,7 @@
+import { Box, Typography } from "@mui/material";
 import { FileWithPath, useDropzone } from "react-dropzone";
 import { useCallback, useMemo } from "react";
 
-import { Box } from "@mui/material";
 import { UploadInstitution } from "../../../../../utils/types/UploadInstitution";
 import _ from "lodash";
 
@@ -37,8 +37,9 @@ export default function UploadDropZone(props: DropZoneProps) {
 		props.onFilesChanged(mergeUploadInstitutionModel(props.uploadInstitution, acceptedFiles));
 	}, []);
 	const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } = useDropzone({
-		noClick: true,
+		//noClick: true,
 		onDrop: onDrop,
+		useFsAccessApi: false,
 	});
 
 	const style = useMemo(
@@ -51,12 +52,16 @@ export default function UploadDropZone(props: DropZoneProps) {
 		[isFocused, isDragAccept, isDragReject]
 	);
 
+	const otherAtt = { directory: "true", webkitdirectory: "true" };
+
 	return (
 		<div className="container">
 			<div {...getRootProps({ style })}>
-				<input {...getInputProps()} />
+				<input {...getInputProps()} {...otherAtt} />
 				<Box textAlign="center">
-					<p>Húzza ide a feltölteni kívánt mappát!</p>
+					<Typography variant="h6" component="span">
+						Húzza ide a feltölteni kívánt mappát!
+					</Typography>
 				</Box>
 			</div>
 		</div>
@@ -106,28 +111,27 @@ function mergeUploadInstitutionModel(uploadInstitution: UploadInstitution, files
 const baseStyle = {
 	flex: 1,
 	display: "flex",
-	//flexDirection: "column",
 	alignItems: "center",
 	height: "200px",
 	padding: "20px",
 	borderWidth: 2,
-	borderRadius: 2,
+	borderRadius: 6,
 	borderColor: "#eeeeee",
 	borderStyle: "dashed",
-	backgroundColor: "#fafafa",
-	color: "#bdbdbd",
+	backgroundColor: "#e3f2fd",
+	color: "#37474f",
 	outline: "none",
 	transition: "border .24s ease-in-out",
 };
 
 const focusedStyle = {
-	borderColor: "#2196f3",
+	borderColor: "#1565c0",
 };
 
 const acceptStyle = {
-	borderColor: "#00e676",
+	borderColor: "#558b2f",
 };
 
 const rejectStyle = {
-	borderColor: "#ff1744",
+	borderColor: "#b71c1c",
 };

@@ -1,30 +1,33 @@
 import {
 	Box,
+	Button,
 	CircularProgress,
+	Container,
 	FormControl,
 	InputLabel,
 	MenuItem,
+	Paper,
 	Select,
-	SelectChangeEvent,
 	Typography,
 } from "@mui/material";
 
 import Institution from "../../../../../utils/types/Institution";
 import useInstitutions from "../../../../../utils/hooks/useInstitutions";
+import { useState } from "react";
 
 type InstitutionSelectProps = {
-	selected?: Institution;
-	onSelectionChange: (institution: Institution | undefined) => void;
+	onSubmit: (institution: Institution | undefined) => void;
 };
 
 export default function InstitutionSelect(props: InstitutionSelectProps) {
+	const [institution, setInstitution] = useState<Institution | undefined>();
 	const {
 		data: [institutions, loading, error],
 	} = useInstitutions();
 
-	const handleChange = (event: SelectChangeEvent) => {
-		props.onSelectionChange(institutions!.find((i) => i.Id == Number(event.target.value)));
-	};
+	function handleSubmit() {
+		if (institution) props.onSubmit(institution);
+	}
 
 	if (loading)
 		return (
@@ -41,18 +44,36 @@ export default function InstitutionSelect(props: InstitutionSelectProps) {
 		);
 
 	return (
-		<FormControl fullWidth>
-			<InputLabel id="demo-simple-select-label">Intézmény</InputLabel>
-			<Select
-				value={props.selected ? props.selected.Id.toString() : ""}
-				label="Intézmény"
-				onChange={handleChange}>
-				{institutions.map((i) => (
-					<MenuItem key={i.Id} value={i.Id}>
-						{i.Name}
-					</MenuItem>
-				))}
-			</Select>
-		</FormControl>
+		<Container maxWidth="sm">
+			<Paper>
+				<Box p={3}>
+					<Box mb={2}>
+						<FormControl fullWidth>
+							<InputLabel id="demo-simple-select-label">Intézmény</InputLabel>
+							<Select
+								value={institution?.Id.toString() ?? ""}
+								label="Intézmény"
+								onChange={(event) =>
+									setInstitution(
+										institutions!.find(
+											(i) => i.Id == Number(event.target.value)
+										)
+									)
+								}>
+								{institutions.map((i) => (
+									<MenuItem key={i.Id} value={i.Id}>
+										{i.Name}
+									</MenuItem>
+								))}
+							</Select>
+						</FormControl>
+					</Box>
+
+					<Button variant="contained" fullWidth onClick={handleSubmit}>
+						Kiválasztás
+					</Button>
+				</Box>
+			</Paper>
+		</Container>
 	);
 }

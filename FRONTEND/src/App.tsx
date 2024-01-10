@@ -69,7 +69,7 @@ function App() {
 								<Route path="new" element={<CreatePackagePage />} />
 							</Route>
 
-							<Route path="picture">
+							<Route path="upload">
 								<Route index element={<PhotoUploadPage />} />
 							</Route>
 

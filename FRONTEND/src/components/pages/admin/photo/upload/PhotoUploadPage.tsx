@@ -1,4 +1,4 @@
-import { Box, Collapse, Paper } from "@mui/material";
+import { Box, Collapse, Paper, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 import Institution from "../../../../../utils/types/Institution";
@@ -34,29 +34,36 @@ export default function PhotoUploadPage() {
 	}
 
 	return (
-		<Paper>
-			<Box p={3}>
-				<InstitutionSelect selected={institution} onSelectionChange={setInstitution} />
-				<Collapse in={!!institution}>
-					<Box py={3}>
+		<>
+			<Collapse in={!institution}>
+				<InstitutionSelect onSubmit={setInstitution} />;
+			</Collapse>
+			<Collapse in={!!institution}>
+				<Paper>
+					<Box p={3}>
+						<Typography component="h1" variant="h4">
+							Képek feltöltése - {institution?.Name}
+						</Typography>
+						<Box py={3}>
+							{uploadInstitution && (
+								<UploadDropZone
+									uploadInstitution={uploadInstitution}
+									onFilesChanged={setUploadInstitution}
+								/>
+							)}
+						</Box>
+
 						{uploadInstitution && (
-							<UploadDropZone
+							<UploadFileBrowser
+								selectedChild={findChildByFullPath(selectedChildFullPath)}
 								uploadInstitution={uploadInstitution}
-								onFilesChanged={setUploadInstitution}
+								onSelectionChange={setSelectedChildFullPath}
+								onFilesChanged={handleFilesChanged}
 							/>
 						)}
 					</Box>
-				</Collapse>
-
-				{uploadInstitution && (
-					<UploadFileBrowser
-						selectedChild={findChildByFullPath(selectedChildFullPath)}
-						uploadInstitution={uploadInstitution}
-						onSelectionChange={setSelectedChildFullPath}
-						onFilesChanged={handleFilesChanged}
-					/>
-				)}
-			</Box>
-		</Paper>
+				</Paper>
+			</Collapse>
+		</>
 	);
 }

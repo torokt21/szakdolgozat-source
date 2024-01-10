@@ -61,6 +61,8 @@ export default function UploadFileBrowser(props: UploadFileBrowserProps) {
 		props.onFilesChanged(clone);
 	}
 
+	if (!props.uploadInstitution || props.uploadInstitution.classes.length == 0) return undefined;
+
 	return (
 		<Grid container>
 			<Grid item xs={3}>
