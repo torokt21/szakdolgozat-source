@@ -44,7 +44,8 @@
 		"eslint": "^8.55.0",
 		"react-router-dom": "^6.20.1",
 		"simple-zustand-devtools": "^1.1.0",
-		"typescript": "^5.3.3"
+		"typescript": "^5.3.3",
+		"@babel/plugin-proposal-private-property-in-object": "^7.21.11"
 	},
 	"scripts": {
 		"start": "react-scripts start",

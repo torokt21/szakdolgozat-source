@@ -10,35 +10,6 @@ type DropZoneProps = {
 	onFilesChanged: (uploadInst: UploadInstitution) => void;
 };
 
-const baseStyle = {
-	flex: 1,
-	display: "flex",
-	//flexDirection: "column",
-	alignItems: "center",
-	height: "200px",
-	padding: "20px",
-	borderWidth: 2,
-	borderRadius: 2,
-	borderColor: "#eeeeee",
-	borderStyle: "dashed",
-	backgroundColor: "#fafafa",
-	color: "#bdbdbd",
-	outline: "none",
-	transition: "border .24s ease-in-out",
-};
-
-const focusedStyle = {
-	borderColor: "#2196f3",
-};
-
-const acceptStyle = {
-	borderColor: "#00e676",
-};
-
-const rejectStyle = {
-	borderColor: "#ff1744",
-};
-
 export default function UploadDropZone(props: DropZoneProps) {
 	const onDrop = useCallback((acceptedFiles: FileWithPath[]) => {
 		const [passedFiles, erroredFiles] = _.partition(acceptedFiles, (f) => {
@@ -131,3 +102,32 @@ function mergeUploadInstitutionModel(uploadInstitution: UploadInstitution, files
 
 	return uInst;
 }
+
+const baseStyle = {
+	flex: 1,
+	display: "flex",
+	//flexDirection: "column",
+	alignItems: "center",
+	height: "200px",
+	padding: "20px",
+	borderWidth: 2,
+	borderRadius: 2,
+	borderColor: "#eeeeee",
+	borderStyle: "dashed",
+	backgroundColor: "#fafafa",
+	color: "#bdbdbd",
+	outline: "none",
+	transition: "border .24s ease-in-out",
+};
+
+const focusedStyle = {
+	borderColor: "#2196f3",
+};
+
+const acceptStyle = {
+	borderColor: "#00e676",
+};
+
+const rejectStyle = {
+	borderColor: "#ff1744",
+};
