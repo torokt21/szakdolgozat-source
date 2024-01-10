@@ -3,9 +3,12 @@ import React, { useEffect, useState } from "react";
 
 import Institution from "../../../../../utils/types/Institution";
 import InstitutionSelect from "./InstitutionSelect";
+import { UploadClass } from "../../../../../utils/types/UploadClass";
 import UploadDropZone from "./UploadDropZone";
 import UploadFileBrowser from "./UploadFileBrowser";
 import { UploadInstitution } from "../../../../../utils/types/UploadInstitution";
+import _ from "lodash";
+import { useAxiosClient } from "../../../../../utils/hooks/useAxiosClient";
 
 export default function PhotoUploadPage() {
 	const [uploadInstitution, setUploadInstitution] = useState<UploadInstitution>();
@@ -16,7 +19,7 @@ export default function PhotoUploadPage() {
 	function findChildByFullPath(path?: string) {
 		if (path)
 			return uploadInstitution?.classes
-				.flatMap((c) => c.children)
+				.flatMap((c) => c.Children)
 				.find((c) => c.fullPath === path);
 	}
 
@@ -31,6 +34,13 @@ export default function PhotoUploadPage() {
 
 	function handleFilesChanged(uploadInstitution: UploadInstitution) {
 		setUploadInstitution(uploadInstitution);
+	}
+
+	function handleUpload() {
+		if (!uploadInstitution) return;
+		UploadInstitutionFiles(uploadInstitution).then(() => {
+			alert("Feltöltés kész");
+		});
 	}
 
 	return (
@@ -59,6 +69,7 @@ export default function PhotoUploadPage() {
 								uploadInstitution={uploadInstitution}
 								onSelectionChange={setSelectedChildFullPath}
 								onFilesChanged={handleFilesChanged}
+								onUploadClick={handleUpload}
 							/>
 						)}
 					</Box>
@@ -68,4 +79,35 @@ export default function PhotoUploadPage() {
 	);
 }
 
-function UploadInstitutionFiles(institution: UploadInstitution) {}
+async function UploadInstitutionFiles(institution: UploadInstitution) {
+	const clone = _.cloneDeep(institution);
+	for (const clas of institution.classes) {
+		const instResponse = await useAxiosClient().post(
+			process.env.REACT_APP_API_URL + "UploadClass",
+			JSON.stringify({
+				DirectoryName: clas.Directory,
+				InstitutionId: institution.institution.Id,
+			})
+		);
+
+		if (instResponse.status !== 200)
+			throw Error(`Hiba az osztály létrehozása közben (${clas.Directory})`);
+
+		const classResult = instResponse.data as Required<UploadClass>;
+
+		for (const child of clas.Children) {
+			const instResponse = await useAxiosClient().post(
+				process.env.REACT_APP_API_URL + "Child",
+				JSON.stringify({
+					DirectoryName: child.directory,
+					UploadClassId: classResult.Id,
+				})
+			);
+
+			if (instResponse.status !== 200)
+				throw Error(`Hiba az gyermek létrehozása közben (${child.directory})`);
+		}
+	}
+
+	return clone;
+}

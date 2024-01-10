@@ -79,24 +79,24 @@ function mergeUploadInstitutionModel(uploadInstitution: UploadInstitution, files
 		const classDir = split[1];
 		const childDir = split[2];
 
-		let foundClass = uInst.classes.find((c) => c.directory == classDir);
+		let foundClass = uInst.classes.find((c) => c.Directory == classDir);
 		if (!foundClass) {
 			foundClass = {
-				children: [],
-				directory: classDir,
-				fullPath: `${institutionDir}/${classDir}`,
+				Children: [],
+				Directory: classDir,
+				FullPath: `${institutionDir}/${classDir}`,
 			};
 			uInst.classes = [...uInst.classes, foundClass];
 		}
 
-		let foundChild = foundClass.children.find((c) => c.directory == childDir);
+		let foundChild = foundClass.Children.find((c) => c.directory == childDir);
 		if (!foundChild) {
 			foundChild = {
 				pictures: [],
 				directory: childDir,
 				fullPath: `${institutionDir}/${classDir}/${childDir}`,
 			};
-			foundClass.children = [...foundClass.children, foundChild];
+			foundClass.Children = [...foundClass.Children, foundChild];
 		}
 
 		// Checking if the picture is already stored

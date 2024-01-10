@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace PhotoPortal.ASP.Models
 {
@@ -23,18 +25,22 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The passcode belinging to the child.
         /// </summary>
+        [ValidateNever]
         public string Passcode { get; set; }
+
+        public string DirectoryName { get; set; }
 
         /// <summary>
         /// The class folder the child belongs to.
         /// </summary>
-        [NotMapped]
+        [ValidateNever]
+        [JsonIgnore]
         public virtual UploadClass Class { get; }
 
         /// <summary>
         /// The pictures taken of the child.
         /// </summary>
-        [NotMapped]
-        public virtual List<Picture> Pictures { get; }
+        [ValidateNever]
+        public virtual List<Picture> Pictures { get; } = new();
     }
 }

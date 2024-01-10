@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PhotoPortal.ASP.Data;
 
@@ -11,9 +12,10 @@ using PhotoPortal.ASP.Data;
 namespace PhotoPortal.ASP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240110172158_add-dir")]
+    partial class adddir
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -257,12 +259,12 @@ namespace PhotoPortal.ASP.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "78d60174-0fdd-4edf-9c96-ba4ea9206af9",
+                            UserId = "839991d4-04a0-4587-8b1f-94273caca81b",
                             RoleId = "9407ad10-0964-4010-ae9c-ee2f4b36bb35"
                         },
                         new
                         {
-                            UserId = "78d60174-0fdd-4edf-9c96-ba4ea9206af9",
+                            UserId = "839991d4-04a0-4587-8b1f-94273caca81b",
                             RoleId = "4cc0e13d-7c2e-4946-b2a9-f1b80af36743"
                         });
                 });
@@ -295,10 +297,6 @@ namespace PhotoPortal.ASP.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("DirectoryName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("InstitutionId")
                         .HasColumnType("int");
@@ -693,16 +691,16 @@ namespace PhotoPortal.ASP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "78d60174-0fdd-4edf-9c96-ba4ea9206af9",
+                            Id = "839991d4-04a0-4587-8b1f-94273caca81b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4ed03eac-2191-4295-8085-7a04c695e2d1",
+                            ConcurrencyStamp = "1f190155-5231-4579-b6ee-99d6e93e1118",
                             Email = "torokt21@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "TOROKT21",
-                            PasswordHash = "AQAAAAEAACcQAAAAEO3MFUIrbmQPxrFfacEPMDSNgdjiMXUVJ1Ty6IDdvgQDCyyHKBt33IYk9vEudmD7EQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKkzNcocqtL6edqblz2vdef9EIAZnqln2zISrG0VTWBxLvqwb8hr1iqEA0jsocptaQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "df65f17d-3ea8-462c-b611-fd566d2cf867",
+                            SecurityStamp = "aa6e81e5-4088-4ab7-8b1d-21d979366c79",
                             TwoFactorEnabled = false,
                             UserName = "torokt21",
                             DisplayName = "Az iskola fotósa"

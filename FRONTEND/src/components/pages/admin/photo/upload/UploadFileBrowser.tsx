@@ -21,9 +21,10 @@ import { makeStyles } from "@mui/styles";
 
 type UploadFileBrowserProps = {
 	uploadInstitution: UploadInstitution;
-	onFilesChanged: (uploadInstitution: UploadInstitution) => void;
 	selectedChild?: UploadChild;
+	onFilesChanged: (uploadInstitution: UploadInstitution) => void;
 	onSelectionChange: (selectedChildFullPath: string) => void;
+	onUploadClick: () => void;
 };
 
 const useStyles = makeStyles(() => ({
@@ -48,7 +49,7 @@ export default function UploadFileBrowser(props: UploadFileBrowserProps) {
 		const clone = _.cloneDeep(props.uploadInstitution);
 
 		const foundChild = clone.classes
-			.flatMap((f) => f.children)
+			.flatMap((f) => f.Children)
 			.find((c) => c.fullPath == child.fullPath);
 
 		if (!foundChild) throw Error("A gyermek nem található törlés közben");
@@ -57,11 +58,11 @@ export default function UploadFileBrowser(props: UploadFileBrowserProps) {
 
 		// Delete empty child folder
 		clone.classes.forEach((cl) => {
-			cl.children = cl.children.filter((c) => c.pictures.length > 0);
+			cl.Children = cl.Children.filter((c) => c.pictures.length > 0);
 		});
 
 		// Delete empty class folder
-		clone.classes = clone.classes.filter((c) => c.children.length > 0);
+		clone.classes = clone.classes.filter((c) => c.Children.length > 0);
 
 		props.onFilesChanged(clone);
 	}
@@ -74,7 +75,7 @@ export default function UploadFileBrowser(props: UploadFileBrowserProps) {
 
 		// Delete empty child folder
 		clone.classes.forEach((cl) => {
-			cl.children = cl.children.filter((c) => c.fullPath !== child.fullPath);
+			cl.Children = cl.Children.filter((c) => c.fullPath !== child.fullPath);
 		});
 
 		props.onFilesChanged(clone);
@@ -110,15 +111,15 @@ export default function UploadFileBrowser(props: UploadFileBrowserProps) {
 					onNodeSelect={(e, nodeId) => props.onSelectionChange(nodeId)}>
 					{props.uploadInstitution.classes.map((cl) => (
 						<TreeItem
-							key={cl.directory}
-							nodeId={cl.directory}
+							key={cl.Directory}
+							nodeId={cl.Directory}
 							label={
 								<Box py={0.5} sx={{ display: "flex" }}>
 									<FolderIcon />
-									<Typography ml={1}>{cl.directory}</Typography>
+									<Typography ml={1}>{cl.Directory}</Typography>
 								</Box>
 							}>
-							{cl.children.map((ch) => (
+							{cl.Children.map((ch) => (
 								<TreeItem
 									key={ch.fullPath}
 									nodeId={ch.fullPath}
@@ -134,7 +135,11 @@ export default function UploadFileBrowser(props: UploadFileBrowserProps) {
 					))}
 				</TreeView>
 				<Box mt={2}>
-					<Button variant="contained" color="primary" startIcon={<UploadIcon />}>
+					<Button
+						variant="contained"
+						color="primary"
+						startIcon={<UploadIcon />}
+						onClick={props.onUploadClick}>
 						Feltöltés
 					</Button>
 				</Box>

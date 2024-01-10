@@ -32,6 +32,10 @@ namespace PhotoPortal.ASP.Controllers
         public ActionResult<IEnumerable<Institution>> GetInstitutions()
         {
             Photographer? user = userManager.Users.FirstOrDefault(u => u.Id == userManager.GetUserId(User));
+
+            if (user == null)
+                return Unauthorized();
+
             return Content(JsonSerializer.Serialize(user.Institutions.OrderBy(i => i.Name)), "application/json");
         }
 
