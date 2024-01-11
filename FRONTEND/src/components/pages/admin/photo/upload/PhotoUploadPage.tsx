@@ -1,6 +1,7 @@
 import { Box, Collapse, Paper, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
+import Child from "../../../../../utils/types/Child";
 import Institution from "../../../../../utils/types/Institution";
 import InstitutionSelect from "./InstitutionSelect";
 import { UploadClass } from "../../../../../utils/types/UploadClass";
@@ -96,7 +97,7 @@ async function UploadInstitutionFiles(institution: UploadInstitution) {
 		const classResult = instResponse.data as Required<UploadClass>;
 
 		for (const child of clas.Children) {
-			const instResponse = await useAxiosClient().post(
+			const childResponse = await useAxiosClient().post(
 				process.env.REACT_APP_API_URL + "Child",
 				JSON.stringify({
 					DirectoryName: child.directory,
@@ -104,8 +105,21 @@ async function UploadInstitutionFiles(institution: UploadInstitution) {
 				})
 			);
 
-			if (instResponse.status !== 200)
+			if (childResponse.status !== 200)
 				throw Error(`Hiba az gyermek létrehozása közben (${child.directory})`);
+
+			const childResult = childResponse.data as Child;
+			const form = new FormData();
+			form.append("ChildId", childResult.Id.toString());
+
+			child.pictures.forEach((pic) => {
+				form.append("Pictures", pic);
+			});
+
+			useAxiosClient("multipart/form-data").postForm(
+				process.env.REACT_APP_API_URL + "Picture",
+				form
+			);
 		}
 	}
 
