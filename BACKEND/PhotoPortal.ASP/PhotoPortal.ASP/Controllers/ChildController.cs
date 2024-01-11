@@ -13,6 +13,7 @@ namespace PhotoPortal.ASP.Controllers
     {
         private IChildRepository repository;
         private IUploadClassRepository classRepository;
+        
         private readonly UserManager<Photographer> userManager;
 
         [ActivatorUtilitiesConstructor]

@@ -19,14 +19,14 @@ namespace PhotoPortal.ASP.Controllers
     {
         private readonly IPictureRepository pictureRepository;
         private readonly IChildRepository childRepository;
-        private readonly IConfiguration _config;
+        private readonly IFileStorage fileStorage;
 
         [ActivatorUtilitiesConstructor]
-        public PictureController(IPictureRepository repo, IChildRepository childRepository, IConfiguration _config, UserManager<Photographer> userManager)
+        public PictureController(IPictureRepository repo, IChildRepository childRepository, IFileStorage fileStorage, UserManager<Photographer> userManager)
         {
             this.pictureRepository = repo;
             this.childRepository = childRepository;
-            this._config = _config;
+            this.fileStorage = fileStorage;
         }
 
         [HttpPost]
@@ -34,6 +34,7 @@ namespace PhotoPortal.ASP.Controllers
         [Consumes("multipart/form-data")]
         public ActionResult PostPicture([FromForm]FileUploadDto formData)
         {
+            // TODO validate file types
             FtpWebRequest ftpRequest;
             FtpWebResponse ftpResponse;
 
@@ -41,8 +42,8 @@ namespace PhotoPortal.ASP.Controllers
 
             if (child == null)
                 return BadRequest("A gyermek nem létezik.");
-            string directoryPath = String.Join("/", new string[] { child.Class.Institution.Photographer.Id, child.Class.Institution.Shortcode.ToString(), child.Class.DirectoryName, child.Passcode });
-            MakeFTPDir("ftp://nandyred.synology.me:21/PhotoPortal", directoryPath, this._config["FTP:Username"], this._config["FTP:Password"]);
+            string directoryPath = String.Join("/", new string[] { child.Class.Institution.Photographer.Id, child.Class.Institution.Shortcode.ToString(), "highres", child.Class.DirectoryName, child.Passcode });
+            this.fileStorage.CreateDirectory(directoryPath);
 
             try
             {
@@ -55,22 +56,16 @@ namespace PhotoPortal.ASP.Controllers
                     };
                     this.pictureRepository.Insert(pic);
 
-                    string fullFileName = "ftp://nandyred.synology.me:21/PhotoPortal/" +
+                    string fullFileName =
                         directoryPath.TrimEnd('/') + "/" +
                         pic.Id + MimeTypes.MimeTypeMap.GetExtension(picture.ContentType);
-#pragma warning disable SYSLIB0014
-                    ftpRequest = (FtpWebRequest)FtpWebRequest.Create(fullFileName);
-#pragma warning restore SYSLIB0014
 
-                    ftpRequest.Method = WebRequestMethods.Ftp.UploadFile;
-                    ftpRequest.Proxy = null;
-                    ftpRequest.KeepAlive = true;
-                    ftpRequest.UseBinary = true;
-                    ftpRequest.Credentials = new NetworkCredential(this._config["FTP:Username"], this._config["FTP:Password"]);
-
+                    this.fileStorage.SaveFile(fullFileName, picture);
+;
+                    /*
                     using (var stream = picture.OpenReadStream())
                     {
-                        byte[] fileContents = new byte[picture.Length];
+                        byte[] fileContents = new byte[stream.Length];
                         stream.Read(fileContents, 0, Convert.ToInt32(picture.Length));
                         using (Stream writer = ftpRequest.GetRequestStream())
                         {
@@ -78,7 +73,7 @@ namespace PhotoPortal.ASP.Controllers
                         }
                         ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
                     }
-
+                    */
                     pic.Filename = fullFileName;
                     this.pictureRepository.Update(pic);
                 }
@@ -86,7 +81,7 @@ namespace PhotoPortal.ASP.Controllers
             catch (WebException webex)
             {
                 // TODO handle
-                //this.Message = webex.ToString();
+                return StatusCode(500);
             }
             return new EmptyResult();
         }

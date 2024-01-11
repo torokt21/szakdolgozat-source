@@ -81,6 +81,7 @@ export default function PhotoUploadPage() {
 	);
 }
 
+// TODO make hook to observe progress
 async function UploadInstitutionFiles(institution: UploadInstitution) {
 	const clone = _.cloneDeep(institution);
 	for (const clas of institution.classes) {
