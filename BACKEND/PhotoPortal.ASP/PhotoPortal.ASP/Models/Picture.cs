@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace PhotoPortal.ASP.Models
 {
@@ -22,12 +24,14 @@ namespace PhotoPortal.ASP.Models
         /// <summary>
         /// The child on the picture.
         /// </summary>
+        [JsonIgnore]
         public virtual Child Child { get; set; }
 
         /// <summary>
         /// The filename of the picture.
         /// </summary>
-        [StringLength(50)]
+        [StringLength(1024)]
+        [DefaultValue("")]
         public string Filename { get; set; }
     }
 }

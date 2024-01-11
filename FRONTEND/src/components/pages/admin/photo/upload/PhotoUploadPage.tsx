@@ -39,8 +39,9 @@ export default function PhotoUploadPage() {
 
 	function handleUpload() {
 		if (!uploadInstitution) return;
-		UploadInstitutionFiles(uploadInstitution).then(() => {
-			alert("Feltöltés kész");
+		UploadInstitutionFiles(uploadInstitution).then((failedInstitution) => {
+			setUploadInstitution(failedInstitution);
+			//alert("Feltöltés kész");
 		});
 	}
 
@@ -91,8 +92,7 @@ async function UploadInstitutionFiles(institution: UploadInstitution) {
 			})
 		);
 
-		if (instResponse.status !== 200)
-			throw Error(`Hiba az osztály létrehozása közben (${clas.Directory})`);
+		if (!instResponse || instResponse.status !== 200) continue;
 
 		const classResult = instResponse.data as Required<UploadClass>;
 
@@ -105,22 +105,27 @@ async function UploadInstitutionFiles(institution: UploadInstitution) {
 				})
 			);
 
-			if (childResponse.status !== 200)
-				throw Error(`Hiba az gyermek létrehozása közben (${child.directory})`);
+			if (!childResponse || childResponse.status !== 200) continue;
 
 			const childResult = childResponse.data as Child;
 			const form = new FormData();
 			form.append("ChildId", childResult.Id.toString());
 
 			child.pictures.forEach((pic) => {
-				form.append("Pictures", pic);
+				form.append("Pictures", pic, pic.name);
 			});
 
-			useAxiosClient("multipart/form-data").postForm(
+			const uploadResult = await useAxiosClient("multipart/form-data").postForm(
 				process.env.REACT_APP_API_URL + "Picture",
 				form
 			);
+
+			if (!uploadResult || uploadResult.status !== 200) continue;
+
+			clas.Children = clas.Children.filter((c) => c.fullPath != child.fullPath);
 		}
+		if (clas.Children.length == 0)
+			clone.classes = clone.classes.filter((c) => c.FullPath !== clas.FullPath);
 	}
 
 	return clone;
