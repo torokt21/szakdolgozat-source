@@ -39,7 +39,7 @@ namespace PhotoPortal.ASP.Controllers
                 {
                     claim.Add(new Claim("role", role));
                 }
-                var signinKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("PhotoPortalSecurityKey"));
+                var signinKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("TheMostSecretivePhotoPortalSecurityKey"));
                 var token = new JwtSecurityToken(
                  issuer: "http://www.security.org", audience: "http://www.security.org",
                  claims: claim, expires: DateTime.Now.AddDays(30),

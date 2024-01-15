@@ -9,7 +9,10 @@ namespace PhotoPortal.ASP.Data
     {
         private readonly FtpClient client;
         private readonly string basePath;
-        public FTPFileStorage(IConfiguration config)
+        private readonly ILogger _logger;
+
+        [ActivatorUtilitiesConstructor]
+        public FTPFileStorage(IConfiguration config, ILogger<FTPFileStorage> _logger)
         {
             this.basePath = config["FTP:Basepath"].Trim('/') + "/";
             this.client = new FtpClient(config["FTP:Host"], config["FTP:Username"], config["FTP:Password"], config.GetValue<int>("FTP:Port"), logger: this);

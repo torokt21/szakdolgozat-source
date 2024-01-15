@@ -12,14 +12,14 @@ using PhotoPortal.ASP.Data;
 namespace PhotoPortal.ASP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240110172238_add-child-dir")]
-    partial class addchilddir
+    [Migration("20240115134632_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.25")
+                .HasAnnotation("ProductVersion", "6.0.26")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -259,12 +259,12 @@ namespace PhotoPortal.ASP.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "78d60174-0fdd-4edf-9c96-ba4ea9206af9",
+                            UserId = "25c3cad0-2df7-4b61-a9ff-fd34ec3e88a4",
                             RoleId = "9407ad10-0964-4010-ae9c-ee2f4b36bb35"
                         },
                         new
                         {
-                            UserId = "78d60174-0fdd-4edf-9c96-ba4ea9206af9",
+                            UserId = "25c3cad0-2df7-4b61-a9ff-fd34ec3e88a4",
                             RoleId = "4cc0e13d-7c2e-4946-b2a9-f1b80af36743"
                         });
                 });
@@ -583,8 +583,8 @@ namespace PhotoPortal.ASP.Migrations
 
                     b.Property<string>("Filename")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)");
 
                     b.HasKey("Id");
 
@@ -695,16 +695,16 @@ namespace PhotoPortal.ASP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "78d60174-0fdd-4edf-9c96-ba4ea9206af9",
+                            Id = "25c3cad0-2df7-4b61-a9ff-fd34ec3e88a4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4ed03eac-2191-4295-8085-7a04c695e2d1",
+                            ConcurrencyStamp = "77fd758d-1661-4e59-889c-78a7a890cad5",
                             Email = "torokt21@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "TOROKT21",
-                            PasswordHash = "AQAAAAEAACcQAAAAEO3MFUIrbmQPxrFfacEPMDSNgdjiMXUVJ1Ty6IDdvgQDCyyHKBt33IYk9vEudmD7EQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECyH0eOpCe6S0Dw48NFqQCsYT4zQ1Y9K6UE1lo0o0SuCgZfCPBjfkzGdJe6eqC7Nzw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "df65f17d-3ea8-462c-b611-fd566d2cf867",
+                            SecurityStamp = "dc12e604-be1e-4156-905f-c9dcca316d39",
                             TwoFactorEnabled = false,
                             UserName = "torokt21",
                             DisplayName = "Az iskola fotósa"

@@ -24,6 +24,8 @@ namespace PhotoPortal.ASP
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Logging.ClearProviders();
+            builder.Logging.AddConsole();
 
             // Add swagger
             builder.Services.AddEndpointsApiExplorer();
@@ -48,7 +50,7 @@ namespace PhotoPortal.ASP
                             {
                                 Type=ReferenceType.SecurityScheme,
                                 Id="Bearer"
-                                }
+                            }
                         },
                         new string[]{}
                     }
@@ -82,7 +84,7 @@ namespace PhotoPortal.ASP
                     ValidAudience = "http://www.security.org",
                     ValidIssuer = "http://www.security.org",
                     IssuerSigningKey = new SymmetricSecurityKey
-                  (Encoding.UTF8.GetBytes("PhotoPortalSecurityKey"))
+                  (Encoding.UTF8.GetBytes("TheMostSecretivePhotoPortalSecurityKey"))
                 };
             });
 
@@ -93,7 +95,7 @@ namespace PhotoPortal.ASP
             builder.Services.AddTransient<IUploadClassRepository, UploadClassRepository>();
             builder.Services.AddTransient<IChildRepository, ChildRepository>();
             builder.Services.AddTransient<IPictureRepository, PictureRepository>();
-            builder.Services.AddTransient<IFileStorage, FTPFileStorage>();
+            builder.Services.AddTransient<IFileStorage, LocalFileStorage>();
 
             builder.Services.AddCors(options =>
             {

@@ -325,7 +325,8 @@ namespace PhotoPortal.ASP.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    InstitutionId = table.Column<int>(type: "int", nullable: false)
+                    InstitutionId = table.Column<int>(type: "int", nullable: false),
+                    DirectoryName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -440,6 +441,7 @@ namespace PhotoPortal.ASP.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UploadClassId = table.Column<int>(type: "int", nullable: false),
                     Passcode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DirectoryName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     InstitutionId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -465,7 +467,7 @@ namespace PhotoPortal.ASP.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ChildId = table.Column<int>(type: "int", nullable: false),
-                    Filename = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    Filename = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -532,17 +534,17 @@ namespace PhotoPortal.ASP.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "DisplayName", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "eafc531b-60e2-4b2c-a114-971adddee5fb", 0, "3439e52b-d6ff-4131-9181-a6bc81135160", "Photographer", "Az iskola fotósa", "torokt21@gmail.com", true, false, null, null, "TOROKT21", "AQAAAAEAACcQAAAAEMhmV3nvjptYrylr60Vl1Pm6iq7Zh4ctz/DwJxpqWiU2n3jPXA3pOCgSuDmv20uH3w==", null, false, "41eace87-01a0-4ecd-b322-04014e2982e2", false, "torokt21" });
+                values: new object[] { "25c3cad0-2df7-4b61-a9ff-fd34ec3e88a4", 0, "77fd758d-1661-4e59-889c-78a7a890cad5", "Photographer", "Az iskola fotósa", "torokt21@gmail.com", true, false, null, null, "TOROKT21", "AQAAAAEAACcQAAAAECyH0eOpCe6S0Dw48NFqQCsYT4zQ1Y9K6UE1lo0o0SuCgZfCPBjfkzGdJe6eqC7Nzw==", null, false, "dc12e604-be1e-4156-905f-c9dcca316d39", false, "torokt21" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "4cc0e13d-7c2e-4946-b2a9-f1b80af36743", "eafc531b-60e2-4b2c-a114-971adddee5fb" });
+                values: new object[] { "4cc0e13d-7c2e-4946-b2a9-f1b80af36743", "25c3cad0-2df7-4b61-a9ff-fd34ec3e88a4" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "9407ad10-0964-4010-ae9c-ee2f4b36bb35", "eafc531b-60e2-4b2c-a114-971adddee5fb" });
+                values: new object[] { "9407ad10-0964-4010-ae9c-ee2f4b36bb35", "25c3cad0-2df7-4b61-a9ff-fd34ec3e88a4" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
