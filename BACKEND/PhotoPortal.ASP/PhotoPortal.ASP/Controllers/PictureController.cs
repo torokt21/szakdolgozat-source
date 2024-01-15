@@ -8,7 +8,6 @@ using System.Web;
 using System.Net.Http;
 using PhotoPortal.ASP.Data.Dtos;
 using PhotoPortal.ASP.Data;
-using System.Net.Mime;
 
 namespace PhotoPortal.ASP.Controllers
 {
@@ -32,9 +31,12 @@ namespace PhotoPortal.ASP.Controllers
         [HttpPost]
         [Authorize]
         [Consumes("multipart/form-data")]
+        [DisableRequestSizeLimit]
+        [RequestSizeLimit(524288000)]
         public ActionResult PostPicture([FromForm]FileUploadDto formData)
         {
             // TODO validate file types
+            // TODO increase file size limit
             FtpWebRequest ftpRequest;
             FtpWebResponse ftpResponse;
 
